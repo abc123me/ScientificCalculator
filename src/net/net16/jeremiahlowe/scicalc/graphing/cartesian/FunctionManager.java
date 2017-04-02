@@ -6,9 +6,9 @@ import java.util.List;
 
 import net.net16.jeremiahlowe.scicalc.graphing.Enums.Quadrant;
 import net.net16.jeremiahlowe.scicalc.functions.FunctionDrawParameters;
+import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
+import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.graphing.Utility;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.std.BinaryFunction;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.std.UnaryFunction;
 
 //TODO: Implement multi-threading in FunctionManager
 public class FunctionManager {

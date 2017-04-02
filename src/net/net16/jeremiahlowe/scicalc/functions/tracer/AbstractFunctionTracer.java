@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.functions.tracer;
+package net.net16.jeremiahlowe.scicalc.functions.tracer;
 
 import java.awt.Color;
 import java.util.ArrayList;

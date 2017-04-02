@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.functions.std;
+package net.net16.jeremiahlowe.scicalc.functions.std;
 
 import net.net16.jeremiahlowe.scicalc.functions.FunctionDrawParameters;
 

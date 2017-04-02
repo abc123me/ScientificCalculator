@@ -1,13 +1,13 @@
 package net.net16.jeremiahlowe.scicalc.graphing.testing;
 
 import net.net16.jeremiahlowe.scicalc.functions.FunctionFactory;
+import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
+import net.net16.jeremiahlowe.scicalc.functions.tracer.FunctionTracerPanner;
+import net.net16.jeremiahlowe.scicalc.functions.tracer.UnaryFunctionTracer;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.CoordinatePlane;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.DefaultController;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.PlaneFactory;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.tracer.FunctionTracerPanner;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.tracer.UnaryFunctionTracer;
 
 public class TestCP2D {
 	public static void main(String[] args) throws Exception{
