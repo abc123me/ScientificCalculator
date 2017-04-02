@@ -9,8 +9,6 @@ import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
 
 public class DefaultController implements KeyListener, MouseWheelListener{
 	public int toogleLabelsKey = KeyEvent.VK_L;
-	public int nextQuadrantKey = KeyEvent.VK_Q;
-	public int prevQuadrantKey = KeyEvent.VK_E;
 	public int zoomIn = KeyEvent.VK_W;
 	public int zoomOut = KeyEvent.VK_S;
 	public int zoomInH = KeyEvent.VK_LEFT;
@@ -116,8 +114,6 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 		if(kc == zoomInV) zoom(0, 1);
 		if(kc == zoomOutV) zoom(0, -1);
 		if(kc == animateToggle) animateToggle();
-		//if(kc == nextQuadrantKey) cp.setViewQuadrant(cp.getViewQuadrant().next());
-		//if(kc == prevQuadrantKey) cp.setViewQuadrant(cp.getViewQuadrant().prev());
 		if(kc == panDown) cp.pan(0, -1);
 		if(kc == panUp) cp.pan(0, 1);
 		if(kc == panLeft) cp.pan(-1, 0);
