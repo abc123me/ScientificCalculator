@@ -7,7 +7,6 @@ import java.awt.event.MouseWheelListener;
 
 import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
 
-//TODO: Implement panning
 public class DefaultController implements KeyListener, MouseWheelListener{
 	public int toogleLabelsKey = KeyEvent.VK_L;
 	public int nextQuadrantKey = KeyEvent.VK_Q;
@@ -18,6 +17,11 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 	public int zoomOutH = KeyEvent.VK_RIGHT;
 	public int zoomInV = KeyEvent.VK_UP;
 	public int zoomOutV = KeyEvent.VK_DOWN;
+	public int panUp = KeyEvent.VK_I;
+	public int panDown = KeyEvent.VK_K;
+	public int panLeft = KeyEvent.VK_J;
+	public int panRight = KeyEvent.VK_L;
+	public int redraw = KeyEvent.VK_SPACE;
 	public int animateToggle = KeyEvent.VK_P;
 	
 	public Vector2 ticksOnScreen = new Vector2(10, 10);
@@ -114,6 +118,11 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 		if(kc == animateToggle) animateToggle();
 		if(kc == nextQuadrantKey) cp.setViewQuadrant(cp.getViewQuadrant().next());
 		if(kc == prevQuadrantKey) cp.setViewQuadrant(cp.getViewQuadrant().prev());
+		if(kc == panDown) cp.pan(0, -1);
+		if(kc == panUp) cp.pan(0, 1);
+		if(kc == panLeft) cp.pan(-1, 0);
+		if(kc == panRight) cp.pan(1, 0);
+		if(kc == redraw) cp.recalculate();
 	}
 	@Override public void keyReleased(KeyEvent arg0) {}
 	@Override public void keyTyped(KeyEvent arg0) {}

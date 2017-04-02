@@ -9,7 +9,6 @@ import net.net16.jeremiahlowe.scicalc.Enums.Quadrant;
 
 // II   I
 // III  IV
-//TODO: Implement panning
 public class CoordinatePlaneGraphics {
 	public Vector2Precise getPlaneDomain(Quadrant quadrant, Vector2Precise viewportSize, Vector2Precise offset) {
 		double h = viewportSize.x / 2, s = viewportSize.x;
