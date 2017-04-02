@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import net.net16.jeremiahlowe.bettercollections.Rotation;
-import net.net16.jeremiahlowe.scicalc.graphing.Enums.HorizontalAllignment;
-import net.net16.jeremiahlowe.scicalc.graphing.Enums.VerticalAllignment;
+import net.net16.jeremiahlowe.scicalc.Utility;
+import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
+import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
-import net.net16.jeremiahlowe.scicalc.graphing.Utility;
 
 public class FunctionLabel {
 	public String label = null;

@@ -1,6 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.functions;
-
-import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
+package net.net16.jeremiahlowe.scicalc.functions.std;
 
 public abstract class PolarFunction extends BinaryFunction{
 	public PolarFunction(){

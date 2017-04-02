@@ -1,7 +1,7 @@
 package net.net16.jeremiahlowe.scicalc.functions.tracer;
 
+import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.graphing.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 
 //TODO: Create a function tracer

@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.testing;
+package net.net16.jeremiahlowe.scicalc.testing;
 
 import net.net16.jeremiahlowe.scicalc.functions.FunctionFactory;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;

@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing;
+package net.net16.jeremiahlowe.scicalc;
 
 import java.awt.BasicStroke;
 import java.awt.FontMetrics;
@@ -7,8 +7,8 @@ import java.awt.Graphics2D;
 
 import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
-import net.net16.jeremiahlowe.scicalc.graphing.Enums.HorizontalAllignment;
-import net.net16.jeremiahlowe.scicalc.graphing.Enums.VerticalAllignment;
+import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
+import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 
 public class Utility {
 	public static final Vector2 getBoundingBox(Vector2... verticies){

@@ -1,6 +1,5 @@
-package net.net16.jeremiahlowe.scicalc.functions;
+package net.net16.jeremiahlowe.scicalc.functions.std;
 
-import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Point;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 

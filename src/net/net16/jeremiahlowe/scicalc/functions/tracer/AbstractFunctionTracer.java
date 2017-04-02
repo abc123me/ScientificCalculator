@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.net16.jeremiahlowe.scicalc.graphing.Enums.PointStyle;
+import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Point;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 

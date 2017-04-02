@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import net.net16.jeremiahlowe.bettercollections.Rotation;
-import net.net16.jeremiahlowe.scicalc.graphing.Enums.Quadrant;
-import net.net16.jeremiahlowe.scicalc.graphing.Utility;
+import net.net16.jeremiahlowe.scicalc.Utility;
+import net.net16.jeremiahlowe.scicalc.Enums.Quadrant;
 
 /**
  * This class handles the what don't really need to be 

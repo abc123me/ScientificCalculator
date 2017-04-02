@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing;
+package net.net16.jeremiahlowe.scicalc;
 
 public class Duplet<T, U>{
 	public T a; public U b;
