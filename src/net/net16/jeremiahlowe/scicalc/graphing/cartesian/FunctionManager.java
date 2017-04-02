@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.net16.jeremiahlowe.scicalc.Utility;
-import net.net16.jeremiahlowe.scicalc.Enums.Quadrant;
 import net.net16.jeremiahlowe.scicalc.functions.FunctionDrawParameters;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
@@ -20,15 +19,15 @@ public class FunctionManager {
 	
 	public void drawFunctions(CoordinatePlane c, Graphics g, Vector2Precise size){
 		for(UnaryFunction d : unaryFunctions){ //Boring functions
-			drawUnaryFunction(c, g, d, c.getViewQuadrant(), size, c.getUnitsPerPixel(), c.getViewportSize(), c.getSurroundingOffset());
+			drawUnaryFunction(c, g, d, size, c.getUnitsPerPixel(), c.getViewportSize(), c.getSurroundingOffset());
 			if(d.getLineWidth() > 1) Utility.resetWidth(g);
 		}
 		for(BinaryFunction d : binaryFunctions){ //Cool functions
-			drawBinaryFunction(c, g, d, c.getViewQuadrant(), size, c.getUnitsPerPixel(), c.getViewportSize(), c.getSurroundingOffset());
+			drawBinaryFunction(c, g, d, size, c.getUnitsPerPixel(), c.getViewportSize(), c.getSurroundingOffset());
 			if(d.getLineWidth() > 1) Utility.resetWidth(g);
 		}
 	}
-	public void drawBinaryFunction(CoordinatePlane c, Graphics g, BinaryFunction f, Quadrant quadrant, Vector2Precise size, Vector2Precise pixelSize, Vector2Precise viewportSize, int surroundingOffset){
+	public void drawBinaryFunction(CoordinatePlane c, Graphics g, BinaryFunction f, Vector2Precise size, Vector2Precise pixelSize, Vector2Precise viewportSize, int surroundingOffset){
 		g.setColor(f.getColor());
 		//Build the point list
 		List<Vector2Precise> pointsL = new ArrayList<Vector2Precise>();
@@ -42,7 +41,7 @@ public class FunctionManager {
 		//Finish up
 		finalDraw(g, pointsL, f, c.getWidth(), c.getHeight(), surroundingOffset);
 	}
-	public void drawUnaryFunction(CoordinatePlane c, Graphics g, UnaryFunction f, Quadrant quadrant, Vector2Precise size, Vector2Precise pixelSize, Vector2Precise viewportSize, int surroundingOffset){
+	public void drawUnaryFunction(CoordinatePlane c, Graphics g, UnaryFunction f, Vector2Precise size, Vector2Precise pixelSize, Vector2Precise viewportSize, int surroundingOffset){
 		g.setColor(f.getColor());
 		//Get equation domain
 		boolean onX = f.drawOnX;
@@ -55,6 +54,7 @@ public class FunctionManager {
 			if(d.y > md.y) d.y = md.y;
 		}
 		else d = md;
+		System.out.println(d);
 		double inc = onX ? pixelSize.y : pixelSize.x;
 		if(f.hasCustomIncrementer()) inc = f.getCustomIncrementerValid();
 		//Build and cast the point list

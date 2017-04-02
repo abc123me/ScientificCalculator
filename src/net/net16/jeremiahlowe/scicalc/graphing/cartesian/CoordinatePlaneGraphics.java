@@ -10,61 +10,21 @@ import net.net16.jeremiahlowe.scicalc.Enums.Quadrant;
 // II   I
 // III  IV
 public class CoordinatePlaneGraphics {
-	public Vector2Precise getPlaneDomain(Quadrant quadrant, Vector2Precise viewportSize, Vector2Precise offset) {
-		double h = viewportSize.x / 2, s = viewportSize.x;
-		h += offset.x;
-		s += offset.x;
-		switch(quadrant){                                       
-			//Single
-			case I: return new Vector2Precise(0, s);
-			case II: return new Vector2Precise(-s, 0);
-			case III: return new Vector2Precise(-s, 0);
-			case IV: return new Vector2Precise(0, s);
-			//Multiple
-			case I_II: return new Vector2Precise(-h, h);
-			case II_III: return new Vector2Precise(-s, 0);
-			case III_IV: return new Vector2Precise(-h, h);
-			case I_IV: return new Vector2Precise(0, s);
-			case ALL: return new Vector2Precise(-h, h);
-			default: return null;
-		}
+	public Vector2Precise getPlaneDomain(Vector2Precise viewportSize, Vector2Precise offset) {
+		double h = viewportSize.x / 2, nh = -h;
+		h -= offset.x;
+		nh -= offset.x;
+		return new Vector2Precise(nh, h);
 	}
-	public Vector2Precise getPlaneRange(Quadrant quadrant, Vector2Precise viewportSize, Vector2Precise offset) {
-		double h = viewportSize.y / 2, s = viewportSize.y;
-		h += offset.y;
-		s += offset.y;
-		switch(quadrant){
-			//Single
-			case I: return new Vector2Precise(0, s);
-			case II: return new Vector2Precise(0, s);
-			case III: return new Vector2Precise(-s, 0);
-			case IV: return new Vector2Precise(-s, 0);
-			//Multiple
-			case I_II: return new Vector2Precise(0, s);
-			case II_III: return new Vector2Precise(-h, h);
-			case III_IV: return new Vector2Precise(-s, 0);
-			case I_IV: return new Vector2Precise(-h, h);
-			case ALL: return new Vector2Precise(-h, h);
-			default: return null;
-		}
+	public Vector2Precise getPlaneRange(Vector2Precise viewportSize, Vector2Precise offset) {
+		double h = viewportSize.y / 2, nh = -h;
+		h -= offset.y;
+		nh -= offset.y;
+		return new Vector2Precise(nh, h);
 	}
-	public Vector2Precise getPixelOrigin(Quadrant q, Vector2Precise size , int surroundingOffset){
-		double sx = size.x - surroundingOffset, sy = size.y - surroundingOffset;
+	public Vector2Precise getPixelOrigin(Vector2Precise size , int surroundingOffset){
 		double hx = size.x / 2, hy = size.y / 2;
-		switch(q){
-			//Single
-			case I: return new Vector2Precise(surroundingOffset, sy);
-			case II: return new Vector2Precise(sx, sy);
-			case III: return new Vector2Precise(sx, surroundingOffset);
-			case IV: return new Vector2Precise(surroundingOffset, surroundingOffset);
-			//Multiple
-			case I_II: return new Vector2Precise(hx, sy);
-			case II_III: return new Vector2Precise(sx, hy);
-			case III_IV: return new Vector2Precise(hx, surroundingOffset);
-			case I_IV: return new Vector2Precise(surroundingOffset, hy);
-			case ALL: return new Vector2Precise(hx, hy);
-			default: return null;
-		}
+		return new Vector2Precise(hx, hy);
 	}
 	public int getLineX_BrokenMethod(Quadrant q, Vector2Precise size, int surroundingOffset){
 		if(q == Quadrant.ALL || q == Quadrant.I_II || q == Quadrant.III_IV) return size.getXI() / 2;
@@ -95,7 +55,7 @@ public class CoordinatePlaneGraphics {
 			}
 		}
 	}
-	public void drawAxes(CoordinatePlane c, Graphics g, Quadrant q, Vector2Precise size, Color axesColor, int surroundingOffset, int lineWidth){
+	public void drawAxes(CoordinatePlane c, Graphics g, Vector2Precise size, Color axesColor, int surroundingOffset, int lineWidth){
 		g.setColor(axesColor);
 		//Calculate axis positions
 		/*Old method (has no panning)

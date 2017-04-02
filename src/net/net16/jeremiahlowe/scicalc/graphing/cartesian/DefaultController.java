@@ -116,8 +116,8 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 		if(kc == zoomInV) zoom(0, 1);
 		if(kc == zoomOutV) zoom(0, -1);
 		if(kc == animateToggle) animateToggle();
-		if(kc == nextQuadrantKey) cp.setViewQuadrant(cp.getViewQuadrant().next());
-		if(kc == prevQuadrantKey) cp.setViewQuadrant(cp.getViewQuadrant().prev());
+		//if(kc == nextQuadrantKey) cp.setViewQuadrant(cp.getViewQuadrant().next());
+		//if(kc == prevQuadrantKey) cp.setViewQuadrant(cp.getViewQuadrant().prev());
 		if(kc == panDown) cp.pan(0, -1);
 		if(kc == panUp) cp.pan(0, 1);
 		if(kc == panLeft) cp.pan(-1, 0);

@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 
 import net.net16.jeremiahlowe.scicalc.Utility;
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
-import net.net16.jeremiahlowe.scicalc.Enums.Quadrant;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.PolarFunction;
@@ -23,7 +22,7 @@ import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 public class CoordinatePlane extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private CoordinatePlaneGraphics cpg;
-	private Quadrant quadrant = Quadrant.ALL;
+	//private Quadrant quadrant = Quadrant.ALL;
 	private Vector2Precise viewportSize = new Vector2Precise(3, 3); 
 	private Vector2Precise dotSize = new Vector2Precise(0, 0);
 	private Vector2Precise unitsPerPixel = new Vector2Precise(0, 0);
@@ -64,10 +63,10 @@ public class CoordinatePlane extends JPanel{
 		//Heres where the bulk of time will be spent, this is where ALL points
 		//and functions are casted and drawn to the screen
 		for(Point p : points) if(p != null) 
-			drawPoint(p, g, size, quadrant, surroundingOffset); //Draw points
+			drawPoint(p, g, size, surroundingOffset); //Draw points
 		functionManager.drawFunctions(this, g, size); //Draw functions
 		//Done! Now we can move on to the less-important stuff
-		cpg.drawAxes(this, g, quadrant, size, axesColor, surroundingOffset, lineWidth);
+		cpg.drawAxes(this, g, size, axesColor, surroundingOffset, lineWidth);
 		if(drawTicks) drawAxisTicks(g, size, surroundingOffset);
 	}
 	public void draw(Graphics g){
@@ -125,7 +124,7 @@ public class CoordinatePlane extends JPanel{
 				Vector2Precise ca = castFromOrigin(new Vector2Precise(m * x, 0), size, surroundingOffset);
 				cpg.drawTick(g, size, ca.getXI(), ca.getYI(), surroundingOffset, tickWidth, lineWidth, false);
 				int m2 = 1;
-				if(quadrant == Quadrant.I || quadrant == Quadrant.II || quadrant == Quadrant.I_II) m2 = -1;
+				//if(quadrant == Quadrant.I || quadrant == Quadrant.II || quadrant == Quadrant.I_II) m2 = -1;
 				if(labelTicks) Utility.drawCenteredString(g, Utility.numberToString(x * m, labelDigits), ca.getXI(), ca.getYI() + m2 * fh);
 			}
 			for(double y = tickCounts.y; y < viewportSize.y; y += tickCounts.y){
@@ -143,14 +142,14 @@ public class CoordinatePlane extends JPanel{
 		}
 		if(lineWidth > 1) Utility.resetWidth(g);
 	}
-	private void drawPoint(Point p, Graphics g, Vector2Precise size, Quadrant q, int surroundingOffset){
+	private void drawPoint(Point p, Graphics g, Vector2Precise size, int surroundingOffset){
 		g.setColor(p.getColor());
 		Vector2Precise v = castFromOrigin(p.position, size, surroundingOffset);
 		p.draw(g, v.getXI(), v.getYI(), p.size);
 	}
 	public Vector2Precise castFromOrigin(Vector2Precise point, Vector2Precise size, int surroundingOffset){
 		Vector2Precise out = new Vector2Precise();
-		Vector2Precise origin = cpg.getPixelOrigin(quadrant, size, surroundingOffset);
+		Vector2Precise origin = cpg.getPixelOrigin(size, surroundingOffset);
 		if(dotSize.x == 0 || dotSize.y == 0) recalculate();
 		//Account for panning (modifying it here kills 1000000 birds with one stone)
 		Vector2Precise newPoint = Vector2Precise.add(point, panningOffset);
@@ -206,13 +205,13 @@ public class CoordinatePlane extends JPanel{
 		recalculate(false);
 		return unitsPerPixel.clone();
 	}
-	public void setViewQuadrant(Quadrant quadrant){
-		this.quadrant = quadrant;
+	/*public void setViewQuadrant(Quadrant quadrant){
+		//this.quadrant = quadrant;
 		recalculate();
-	}
+	}*/
 	public void setViewportSize(Vector2Precise size){setViewportSize(size.x, size.y);}
 	public Vector2Precise getViewportSize(){return viewportSize.clone();}
-	public Quadrant getViewQuadrant() {return quadrant;}
+	//public Quadrant getViewQuadrant() {return quadrant;}
 	public int getLineWidth() {return lineWidth;}
 	public void setLineWidth(int lineWidth) {this.lineWidth = lineWidth;}
 	public int getArrowTipOffest() {return arrowTipOffest;}
@@ -255,6 +254,6 @@ public class CoordinatePlane extends JPanel{
 	public void setOriginPanningOffset(double x, double y){setOriginPanningOffset(new Vector2Precise(x, y));}
 	public void pan(Vector2Precise by){pan(by.x, by.y);}
 	public void pan(double x, double y){setOriginPanningOffset(panningOffset.x + x, panningOffset.y + y);}
-	public Vector2Precise getPlaneDomain() {return cpg.getPlaneDomain(getViewQuadrant(), getViewportSize(), getOriginPanningOffset());}
-	public Vector2Precise getPlaneRange() {return cpg.getPlaneRange(getViewQuadrant(), getViewportSize(), getOriginPanningOffset());}
+	public Vector2Precise getPlaneDomain() {return cpg.getPlaneDomain(getViewportSize(), getOriginPanningOffset());}
+	public Vector2Precise getPlaneRange() {return cpg.getPlaneRange(getViewportSize(), getOriginPanningOffset());}
 }
