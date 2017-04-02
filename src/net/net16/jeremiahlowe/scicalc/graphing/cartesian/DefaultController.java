@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d;
+package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -7,6 +7,7 @@ import java.awt.event.MouseWheelListener;
 
 import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
 
+//TODO: Implement panning
 public class DefaultController implements KeyListener, MouseWheelListener{
 	public int toogleLabelsKey = KeyEvent.VK_L;
 	public int nextQuadrantKey = KeyEvent.VK_Q;

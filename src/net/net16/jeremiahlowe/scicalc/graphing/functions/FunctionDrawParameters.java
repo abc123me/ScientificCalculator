@@ -20,7 +20,7 @@ public class FunctionDrawParameters implements Cloneable{
 	private PointStyle styleP = PointStyle.Pixel;
 	private int lineWidth = 1;
 	private int lineIteratorPixels = 10;
-	//TODO: this
+	//TODO: Add fancy lines in FunctionDrawParameters
 	//private double lineIterator = 0;
 	private FunctionLabel fLabel;
 	private Color color = Color.RED;

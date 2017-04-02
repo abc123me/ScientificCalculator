@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d;
+package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -10,6 +10,8 @@ import net.net16.jeremiahlowe.scicalc.graphing.functions.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.graphing.functions.FunctionDrawParameters;
 import net.net16.jeremiahlowe.scicalc.graphing.functions.UnaryFunction;
 
+//TODO: Implement multi-threading in FunctionManager
+//TODO: Implement temporary points/functions
 public class FunctionManager {
 	public List<UnaryFunction> unaryFunctions = new ArrayList<UnaryFunction>();
 	public List<BinaryFunction> binaryFunctions = new ArrayList<BinaryFunction>();

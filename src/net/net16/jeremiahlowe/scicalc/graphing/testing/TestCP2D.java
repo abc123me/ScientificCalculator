@@ -2,10 +2,10 @@ package net.net16.jeremiahlowe.scicalc.graphing.testing;
 
 import java.awt.Color;
 
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d.CoordinatePlane;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d.DefaultController;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d.PlaneFactory;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.graphing.cartesian.CoordinatePlane;
+import net.net16.jeremiahlowe.scicalc.graphing.cartesian.DefaultController;
+import net.net16.jeremiahlowe.scicalc.graphing.cartesian.PlaneFactory;
+import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 import net.net16.jeremiahlowe.scicalc.graphing.functions.FunctionFactory;
 import net.net16.jeremiahlowe.scicalc.graphing.functions.UnaryFunction;
 

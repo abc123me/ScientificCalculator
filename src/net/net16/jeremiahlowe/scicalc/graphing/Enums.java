@@ -3,6 +3,7 @@ package net.net16.jeremiahlowe.scicalc.graphing;
 import java.awt.Graphics;
 
 public interface Enums {
+	//TODO: Make an interpolation enum
 	public static enum VerticalAllignment{
 		Up, HalfUp, Center, HalfDown, Down, Custom;
 		private double percent = 0;

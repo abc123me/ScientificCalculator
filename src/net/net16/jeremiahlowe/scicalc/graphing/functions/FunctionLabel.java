@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.scicalc.graphing.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.graphing.Enums.VerticalAllignment;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 import net.net16.jeremiahlowe.scicalc.graphing.Utility;
 
 public class FunctionLabel {

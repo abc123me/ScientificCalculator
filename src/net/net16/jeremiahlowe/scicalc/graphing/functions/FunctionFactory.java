@@ -1,7 +1,8 @@
 package net.net16.jeremiahlowe.scicalc.graphing.functions;
 
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 
+//TODO: Add more factories
 public class FunctionFactory {
 	public static UnaryFunction sin(double amplitude, double frequency){
 		return new UnaryFunction() {

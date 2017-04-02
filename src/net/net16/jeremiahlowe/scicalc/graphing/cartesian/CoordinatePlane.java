@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d;
+package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,7 +19,9 @@ import net.net16.jeremiahlowe.scicalc.graphing.functions.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.graphing.functions.PolarFunction;
 import net.net16.jeremiahlowe.scicalc.graphing.functions.UnaryFunction;
 
+//TODO: Implement panning in CoordinatePlane
 public class CoordinatePlane extends JPanel{
+	private static final long serialVersionUID = 1L;
 	private CoordinatePlaneGraphics cpg;
 	private Quadrant quadrant = Quadrant.ALL;
 	private Vector2Precise viewportSize = new Vector2Precise(3, 3); 

@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian_2d;
+package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
 
 import java.awt.Color;
 import java.awt.Graphics;
