@@ -5,7 +5,6 @@ import java.awt.Graphics;
 
 import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.scicalc.Utility;
-import net.net16.jeremiahlowe.scicalc.Enums.Quadrant;
 
 // II   I
 // III  IV
@@ -25,16 +24,6 @@ public class CoordinatePlaneGraphics {
 	public Vector2Precise getPixelOrigin(Vector2Precise size , int surroundingOffset){
 		double hx = size.x / 2, hy = size.y / 2;
 		return new Vector2Precise(hx, hy);
-	}
-	public int getLineX_BrokenMethod(Quadrant q, Vector2Precise size, int surroundingOffset){
-		if(q == Quadrant.ALL || q == Quadrant.I_II || q == Quadrant.III_IV) return size.getXI() / 2;
-		else if(q == Quadrant.I || q == Quadrant.IV || q == Quadrant.I_IV) return surroundingOffset;
-		else return size.getXI() - surroundingOffset;
-	}
-	public int getLineY_BrokenMethod(Quadrant q, Vector2Precise size, int surroundingOffset){
-		if(q == Quadrant.ALL || q == Quadrant.II_III || q == Quadrant.I_IV) return size.getYI() / 2;
-		else if(q == Quadrant.III || q == Quadrant.IV || q == Quadrant.III_IV) return surroundingOffset;
-		else return size.getYI() - surroundingOffset;
 	}
 	public int getLineX(CoordinatePlane c, Vector2Precise size, int surroundingOffset){
 		return c.castFromOrigin(new Vector2Precise(0, 0), size, surroundingOffset).getXI();
@@ -58,13 +47,8 @@ public class CoordinatePlaneGraphics {
 	public void drawAxes(CoordinatePlane c, Graphics g, Vector2Precise size, Color axesColor, int surroundingOffset, int lineWidth){
 		g.setColor(axesColor);
 		//Calculate axis positions
-		/*Old method (has no panning)
-		int lineX = getLineX_BrokenMethod(q, size, surroundingOffset);
-		int lineY = getLineY_BrokenMethod(q, size, surroundingOffset);*/
-		//New method (Works amazingly with panning but slower)
 		int lineX = getLineX(c, size, surroundingOffset); //X-Axis position
 		int lineY = getLineY(c, size, surroundingOffset); //Y-Axis position
-		
 		//Actually draw axes
 		if(lineWidth >= 1){
 			Utility.drawLineWithWidth(g, lineX, surroundingOffset, lineX, size.getYI() - surroundingOffset, lineWidth);

@@ -205,13 +205,8 @@ public class CoordinatePlane extends JPanel{
 		recalculate(false);
 		return unitsPerPixel.clone();
 	}
-	/*public void setViewQuadrant(Quadrant quadrant){
-		//this.quadrant = quadrant;
-		recalculate();
-	}*/
 	public void setViewportSize(Vector2Precise size){setViewportSize(size.x, size.y);}
 	public Vector2Precise getViewportSize(){return viewportSize.clone();}
-	//public Quadrant getViewQuadrant() {return quadrant;}
 	public int getLineWidth() {return lineWidth;}
 	public void setLineWidth(int lineWidth) {this.lineWidth = lineWidth;}
 	public int getArrowTipOffest() {return arrowTipOffest;}

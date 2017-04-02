@@ -119,35 +119,4 @@ public interface Enums {
 			}
 		}
 	}
-	public static enum Quadrant{
-		I, II, III, IV, ALL, I_II, II_III, III_IV, I_IV;
-		public Quadrant next() {
-			switch (this) {
-				case ALL: return I;
-				case I: return II;
-				case II: return III;
-				case III: return IV;
-				case IV: return I_II;
-				case I_II: return II_III;
-				case II_III: return III_IV;
-				case III_IV: return I_IV;
-				case I_IV: return ALL;
-				default: return ALL;
-			}
-		}
-		public Quadrant prev() {
-			switch (this) {
-				case ALL: return I_IV;
-				case I: return ALL;
-				case II: return I;
-				case III: return II;
-				case IV: return III;
-				case I_II: return IV;
-				case II_III: return I_II;
-				case III_IV: return II_III;
-				case I_IV: return III_IV;
-				default: return ALL;
-			}
-		}
-	}
 }
