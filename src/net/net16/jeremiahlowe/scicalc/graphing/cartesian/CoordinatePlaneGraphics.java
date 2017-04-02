@@ -6,8 +6,6 @@ import java.awt.Graphics;
 import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.scicalc.Utility;
 
-// II   I
-// III  IV
 public class CoordinatePlaneGraphics {
 	public Vector2Precise getPlaneDomain(Vector2Precise viewportSize, Vector2Precise offset) {
 		double h = viewportSize.x / 2, nh = -h;
