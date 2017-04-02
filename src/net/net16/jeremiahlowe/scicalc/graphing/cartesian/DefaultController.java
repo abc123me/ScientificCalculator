@@ -18,7 +18,7 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 	public int zoomOutH = KeyEvent.VK_RIGHT;
 	public int zoomInV = KeyEvent.VK_UP;
 	public int zoomOutV = KeyEvent.VK_DOWN;
-	public int animateToggle = KeyEvent.VK_A;
+	public int animateToggle = KeyEvent.VK_P;
 	
 	public Vector2 ticksOnScreen = new Vector2(10, 10);
 	public boolean lockAxisSize = false;

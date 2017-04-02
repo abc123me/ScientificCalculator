@@ -14,10 +14,10 @@ import javax.swing.JPanel;
 import net.net16.jeremiahlowe.scicalc.graphing.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.graphing.Enums.Quadrant;
 import net.net16.jeremiahlowe.scicalc.graphing.Enums.VerticalAllignment;
+import net.net16.jeremiahlowe.scicalc.functions.PolarFunction;
 import net.net16.jeremiahlowe.scicalc.graphing.Utility;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.BinaryFunction;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.PolarFunction;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.UnaryFunction;
+import net.net16.jeremiahlowe.scicalc.graphing.functions.std.BinaryFunction;
+import net.net16.jeremiahlowe.scicalc.graphing.functions.std.UnaryFunction;
 
 //TODO: Implement panning in CoordinatePlane
 public class CoordinatePlane extends JPanel{

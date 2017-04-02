@@ -1,13 +1,13 @@
 package net.net16.jeremiahlowe.scicalc.graphing.testing;
 
-import java.awt.Color;
-
+import net.net16.jeremiahlowe.scicalc.functions.FunctionFactory;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.CoordinatePlane;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.DefaultController;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.PlaneFactory;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.FunctionFactory;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.UnaryFunction;
+import net.net16.jeremiahlowe.scicalc.graphing.functions.std.UnaryFunction;
+import net.net16.jeremiahlowe.scicalc.graphing.functions.tracer.FunctionTracerPanner;
+import net.net16.jeremiahlowe.scicalc.graphing.functions.tracer.UnaryFunctionTracer;
 
 public class TestCP2D {
 	public static void main(String[] args) throws Exception{
@@ -18,6 +18,16 @@ public class TestCP2D {
 		UnaryFunction q = FunctionFactory.quadratic(new Vector2Precise(0, -1), 2);
 		q.setLineWidth(2);
 		cp.addFunction(q);
+		UnaryFunctionTracer uft = new UnaryFunctionTracer(q);
+		FunctionTracerPanner ftp = new FunctionTracerPanner(uft);
+		cp.addKeyListener(ftp);
+		cp.addPoint(uft.getPoint());
+		uft.addChangeListener(new Runnable(){
+			@Override
+			public void run() {
+				cp.recalculate();
+			}
+		});
 		/*boolean cs = false;
 		for(float i = -10; i < 10; i += 0.1f){
 			final float d = i;

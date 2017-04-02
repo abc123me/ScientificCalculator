@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.functions;
+package net.net16.jeremiahlowe.scicalc.functions;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -120,7 +120,7 @@ public class FunctionDrawParameters implements Cloneable{
 	public FunctionLabel getFunctionLabel() {
 		return fLabel;
 	}
-	public void setfLabel(FunctionLabel fLabel) {
+	public void setFunctionLabel(FunctionLabel fLabel) {
 		this.fLabel = fLabel;
 	}
 	public void setCustomIncrementer(double customIncrementer) {

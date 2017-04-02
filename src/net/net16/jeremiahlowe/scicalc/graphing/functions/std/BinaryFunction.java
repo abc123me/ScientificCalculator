@@ -1,4 +1,6 @@
-package net.net16.jeremiahlowe.scicalc.graphing.functions;
+package net.net16.jeremiahlowe.scicalc.graphing.functions.std;
+
+import net.net16.jeremiahlowe.scicalc.functions.FunctionDrawParameters;
 
 public abstract class BinaryFunction extends FunctionDrawParameters{
 	public BinaryFunction(){

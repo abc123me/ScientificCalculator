@@ -62,7 +62,7 @@ public class Vector2Precise implements Cloneable{
 	public void translate(Vector2Precise by){
 		x += by.x; y += by.y;
 	}
-	public void translate(float x, float y){
+	public void translate(double x, double y){
 		this.x += x; this.y += y; 
 	}
 	@Override

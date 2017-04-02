@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.net16.jeremiahlowe.scicalc.graphing.Enums.Quadrant;
+import net.net16.jeremiahlowe.scicalc.functions.FunctionDrawParameters;
 import net.net16.jeremiahlowe.scicalc.graphing.Utility;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.BinaryFunction;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.FunctionDrawParameters;
-import net.net16.jeremiahlowe.scicalc.graphing.functions.UnaryFunction;
+import net.net16.jeremiahlowe.scicalc.graphing.functions.std.BinaryFunction;
+import net.net16.jeremiahlowe.scicalc.graphing.functions.std.UnaryFunction;
 
 //TODO: Implement multi-threading in FunctionManager
-//TODO: Implement temporary points/functions
 public class FunctionManager {
 	public List<UnaryFunction> unaryFunctions = new ArrayList<UnaryFunction>();
 	public List<BinaryFunction> binaryFunctions = new ArrayList<BinaryFunction>();
+	public List<UnaryFunction> tempUnaryFunctions = new ArrayList<UnaryFunction>();
+	public List<BinaryFunction> tempBinaryFunctions = new ArrayList<BinaryFunction>();
 	
 	public void drawFunctions(CoordinatePlane c, Graphics g, Vector2Precise size){
 		for(UnaryFunction d : unaryFunctions){ //Boring functions

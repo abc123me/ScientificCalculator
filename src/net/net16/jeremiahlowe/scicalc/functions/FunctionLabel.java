@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.functions;
+package net.net16.jeremiahlowe.scicalc.functions;
 
 import java.awt.Color;
 import java.awt.Graphics;

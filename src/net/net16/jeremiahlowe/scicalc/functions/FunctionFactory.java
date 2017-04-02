@@ -1,6 +1,8 @@
-package net.net16.jeremiahlowe.scicalc.graphing.functions;
+package net.net16.jeremiahlowe.scicalc.functions;
 
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.graphing.functions.std.BinaryFunction;
+import net.net16.jeremiahlowe.scicalc.graphing.functions.std.UnaryFunction;
 
 //TODO: Add more factories
 public class FunctionFactory {
@@ -44,6 +46,46 @@ public class FunctionFactory {
 			@Override
 			public double f(double x) {
 				return a * Math.pow(x - vertex.x, 2) + vertex.y;
+			}
+		};
+	}
+	public static BinaryFunction circle(Vector2Precise vertex, double r){
+		return new BinaryFunction() {
+			@Override
+			public double Yt(double t) {
+				return r * Math.sin(t + vertex.y);
+			}
+			@Override
+			public double Xt(double t) {
+				return r * Math.cos(t + vertex.x);
+			}
+			@Override
+			public double getThetaMax(){
+				return 2 * Math.PI;
+			}
+			@Override
+			public double getThetaMin(){
+				return 0;
+			}
+		};
+	}
+	public static BinaryFunction ellipse(Vector2Precise vertex, double w, double h){
+		return new BinaryFunction() {
+			@Override
+			public double Yt(double t) {
+				return h * Math.sin(t + vertex.y);
+			}
+			@Override
+			public double Xt(double t) {
+				return w * Math.cos(t + vertex.x);
+			}
+			@Override
+			public double getThetaMax(){
+				return 2 * Math.PI;
+			}
+			@Override
+			public double getThetaMin(){
+				return 0;
 			}
 		};
 	}
