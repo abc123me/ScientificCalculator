@@ -11,7 +11,7 @@ import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 
 public class TestCP2D {
 	public static void main(String[] args) throws Exception{
-		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D(true);
+		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D(false);
 		DefaultController dc = new DefaultController(cp);
 		dc.lockAxisSize = false;
 		dc.slowAnimation = true;
@@ -28,6 +28,8 @@ public class TestCP2D {
 				cp.recalculate();
 			}
 		});
+		cp.pan(1, 1);
+		cp.recalculate();
 		/*boolean cs = false;
 		for(float i = -10; i < 10; i += 0.1f){
 			final float d = i;

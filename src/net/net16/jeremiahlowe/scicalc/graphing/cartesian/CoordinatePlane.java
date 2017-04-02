@@ -27,6 +27,7 @@ public class CoordinatePlane extends JPanel{
 	private Vector2Precise viewportSize = new Vector2Precise(3, 3); 
 	private Vector2Precise dotSize = new Vector2Precise(0, 0);
 	private Vector2Precise unitsPerPixel = new Vector2Precise(0, 0);
+	private Vector2Precise panningOffset = new Vector2Precise(0, 0);
 	private Vector2Precise tickCounts = new Vector2Precise(1, 1);
 	private int lineWidth = 2, arrowTipOffest = 3, tickWidth = 2, surroundingOffset, labelDigits = 2;
 	private boolean drawTicks = true, drawGrid = true, labelTicks = true;
@@ -66,7 +67,7 @@ public class CoordinatePlane extends JPanel{
 			drawPoint(p, g, size, quadrant, surroundingOffset); //Draw points
 		functionManager.drawFunctions(this, g, size); //Draw functions
 		//Done! Now we can move on to the less-important stuff
-		cpg.drawAxes(g, quadrant, size, axesColor, surroundingOffset, lineWidth);
+		cpg.drawAxes(this, g, quadrant, size, axesColor, surroundingOffset, lineWidth);
 		if(drawTicks) drawAxisTicks(g, size, surroundingOffset);
 	}
 	public void draw(Graphics g){
@@ -151,6 +152,8 @@ public class CoordinatePlane extends JPanel{
 		Vector2Precise out = new Vector2Precise();
 		Vector2Precise origin = cpg.getPixelOrigin(quadrant, size, surroundingOffset);
 		if(dotSize.x == 0 || dotSize.y == 0) recalculate();
+		//Account for panning (modifying it here kills 1000000 birds with one stone)
+		point.translate(panningOffset);
 		//This is 2D, don't over-complicate it! Just simple proportions!
 		out.x = point.x * dotSize.x;
 		out.x += origin.x; //Casting and then off-setting for the origin
@@ -244,5 +247,23 @@ public class CoordinatePlane extends JPanel{
 	}
 	public CoordinatePlaneGraphics getCPG(){return cpg;}
 	public FunctionManager getFM(){return functionManager;}
-	//[end]
+	public Vector2Precise getOriginPanningOffset(){
+		return panningOffset.clone();
+	}
+	public void setOriginPanningOffset(Vector2Precise to){
+		panningOffset = to.clone();
+	}
+	public void setOriginPanningOffset(double x, double y){
+		setOriginPanningOffset(new Vector2Precise(x, y));
+	}
+	public void pan(Vector2Precise by){pan(by.x, by.y);}
+	public void pan(double x, double y){
+		setOriginPanningOffset(panningOffset.x + x, panningOffset.y + y);
+	}
+	public Vector2Precise getPlaneDomain() {
+		return cpg.getPlaneDomain(getViewQuadrant(), getViewportSize(), getOriginPanningOffset());
+	}
+	public Vector2Precise getPlaneRange() {
+		return cpg.getPlaneRange(getViewQuadrant(), getViewportSize(), getOriginPanningOffset());
+	}
 }

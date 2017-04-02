@@ -23,7 +23,7 @@ public class UnaryFunctionTracer extends AbstractFunctionTracer{
 		double np = function.f(pos);
 		currentDelta = pos; currentTheta = np;
 		pointPos = new Vector2Precise(onX ? np : pos, onX ? pos : np);
-		getPoint().position = pointPos; 
+		point.position = pointPos; 
 		delegateChangeEvent();
 	}
 	public void pan(double amount){setPosition(currentDelta + amount);}

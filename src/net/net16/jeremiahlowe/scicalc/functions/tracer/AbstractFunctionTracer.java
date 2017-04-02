@@ -9,8 +9,8 @@ import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Point;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 
 public abstract class AbstractFunctionTracer {
-	private Point point;
-	private List<Runnable> changeListeners;
+	protected Point point;
+	protected List<Runnable> changeListeners;
 	
 	public AbstractFunctionTracer(Color pointColor, PointStyle pointStyle, int pointSize){
 		point = new Point(new Vector2Precise(0, 0), pointColor, pointStyle, pointSize);

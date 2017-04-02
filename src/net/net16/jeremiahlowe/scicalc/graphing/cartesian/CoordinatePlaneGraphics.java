@@ -7,20 +7,14 @@ import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.scicalc.Utility;
 import net.net16.jeremiahlowe.scicalc.Enums.Quadrant;
 
-/**
- * This class handles the what don't really need to be 
- * handled by the CoordinatePlane class same goes for 
- * the FunctionManager, this is just a clone of it but
- * for the axes, tick marks, grid, etc.
- * @author Jeremiah Lowe
- *
- */
+// II   I
+// III  IV
+//TODO: Implement panning
 public class CoordinatePlaneGraphics {
-	// II   I
-	// III  IV
-	//[start] Positional calculations
-	public Vector2Precise getPlaneDomain(Quadrant quadrant, Vector2Precise viewportSize) {
+	public Vector2Precise getPlaneDomain(Quadrant quadrant, Vector2Precise viewportSize, Vector2Precise offset) {
 		double h = viewportSize.x / 2, s = viewportSize.x;
+		h += offset.x;
+		s += offset.x;
 		switch(quadrant){                                       
 			//Single
 			case I: return new Vector2Precise(0, s);
@@ -36,8 +30,10 @@ public class CoordinatePlaneGraphics {
 			default: return null;
 		}
 	}
-	public Vector2Precise getPlaneRange(Quadrant quadrant, Vector2Precise viewportSize) {
+	public Vector2Precise getPlaneRange(Quadrant quadrant, Vector2Precise viewportSize, Vector2Precise offset) {
 		double h = viewportSize.y / 2, s = viewportSize.y;
+		h += offset.y;
+		s += offset.y;
 		switch(quadrant){
 			//Single
 			case I: return new Vector2Precise(0, s);
@@ -71,18 +67,22 @@ public class CoordinatePlaneGraphics {
 			default: return null;
 		}
 	}
-	public int getLineX(Quadrant q, Vector2Precise size, int surroundingOffset){
+	public int getLineX_BrokenMethod(Quadrant q, Vector2Precise size, int surroundingOffset){
 		if(q == Quadrant.ALL || q == Quadrant.I_II || q == Quadrant.III_IV) return size.getXI() / 2;
 		else if(q == Quadrant.I || q == Quadrant.IV || q == Quadrant.I_IV) return surroundingOffset;
 		else return size.getXI() - surroundingOffset;
 	}
-	public int getLineY(Quadrant q, Vector2Precise size, int surroundingOffset){
+	public int getLineY_BrokenMethod(Quadrant q, Vector2Precise size, int surroundingOffset){
 		if(q == Quadrant.ALL || q == Quadrant.II_III || q == Quadrant.I_IV) return size.getYI() / 2;
 		else if(q == Quadrant.III || q == Quadrant.IV || q == Quadrant.III_IV) return surroundingOffset;
 		else return size.getYI() - surroundingOffset;
 	}
-	//[end]
-	//[start] Drawing
+	public int getLineX(CoordinatePlane c, Vector2Precise size, int surroundingOffset){
+		return c.castFromOrigin(new Vector2Precise(0, 0), size, surroundingOffset).getXI();
+	}
+	public int getLineY(CoordinatePlane c, Vector2Precise size, int surroundingOffset){
+		return c.castFromOrigin(new Vector2Precise(0, 0), size, surroundingOffset).getYI();
+	}
 	public void drawTick(Graphics g, Vector2Precise size, int x, int y, int surroundingOffset, int tickWidth, int lineWidth, boolean horizontal){
 		double xm = size.x - surroundingOffset, ym = size.y - surroundingOffset;
 		if(Utility.betweenOrEqual(xm, surroundingOffset, x) && Utility.betweenOrEqual(ym, surroundingOffset, y)){
@@ -96,11 +96,16 @@ public class CoordinatePlaneGraphics {
 			}
 		}
 	}
-	public void drawAxes(Graphics g, Quadrant q, Vector2Precise size, Color axesColor, int surroundingOffset, int lineWidth){
+	public void drawAxes(CoordinatePlane c, Graphics g, Quadrant q, Vector2Precise size, Color axesColor, int surroundingOffset, int lineWidth){
 		g.setColor(axesColor);
 		//Calculate axis positions
-		int lineX = getLineX(q, size, surroundingOffset); //X-Axis position
-		int lineY = getLineY(q, size, surroundingOffset); //Y-Axis position
+		/*Old method (has no panning)
+		int lineX = getLineX_BrokenMethod(q, size, surroundingOffset);
+		int lineY = getLineY_BrokenMethod(q, size, surroundingOffset);*/
+		//New method (Works amazingly with panning but slower)
+		int lineX = getLineX(c, size, surroundingOffset); //X-Axis position
+		int lineY = getLineY(c, size, surroundingOffset); //Y-Axis position
+		
 		//Actually draw axes
 		if(lineWidth >= 1){
 			Utility.drawLineWithWidth(g, lineX, surroundingOffset, lineX, size.getYI() - surroundingOffset, lineWidth);
@@ -119,5 +124,4 @@ public class CoordinatePlaneGraphics {
 			Utility.drawArrow(Rotation.EAST, size.getXI() - surroundingOffset, lineY, g);
 		}
 	}
-	//[end]
 }

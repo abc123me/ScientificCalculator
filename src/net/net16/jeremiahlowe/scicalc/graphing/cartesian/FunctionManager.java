@@ -46,8 +46,8 @@ public class FunctionManager {
 		//Get equation domain
 		boolean onX = f.drawOnX;
 		Vector2Precise d = new Vector2Precise(0, 0), md = new Vector2Precise(0, 0);
-		if(onX) md = c.getCPG().getPlaneRange(quadrant, viewportSize);
-		else md = c.getCPG().getPlaneDomain(quadrant, viewportSize);
+		if(onX) md = c.getPlaneRange();
+		else md = c.getPlaneDomain();
 		if(f.hasLimits){
 			d = new Vector2Precise(f.getMin(), f.getMax()); 
 			if(d.x < md.x) d.x = md.x; 
