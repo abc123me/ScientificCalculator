@@ -1,11 +1,14 @@
 package net.net16.jeremiahlowe.scicalc.functions.tracer;
 
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
+import net.net16.jeremiahlowe.scicalc.Utility;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 
 public class UnaryFunctionTracer extends AbstractFunctionTracer{
-	private UnaryFunction function;	
+	private UnaryFunction function;
+	private boolean autoLabelPoint = true;
+	private int labelDigits = 2;
 	private double currentDelta, currentTheta;
 	private Vector2Precise pointPos;
 	
@@ -23,6 +26,7 @@ public class UnaryFunctionTracer extends AbstractFunctionTracer{
 		currentDelta = pos; currentTheta = np;
 		pointPos = new Vector2Precise(onX ? np : pos, onX ? pos : np);
 		point.position = pointPos; 
+		if(autoLabelPoint) point.fLabel.label = Utility.numberToString(pointPos.x, labelDigits) + ", " + Utility.numberToString(pointPos.y, labelDigits);
 		delegateChangeEvent();
 	}
 	public void pan(double amount){setPosition(currentDelta + amount);}
@@ -30,4 +34,12 @@ public class UnaryFunctionTracer extends AbstractFunctionTracer{
 	public UnaryFunction getFunction(){return function;}
 	public double getCurrentDelta(){return currentDelta;}
 	public double getCurrentTheta(){return currentTheta;}
+	public void setAutoLabelPoint(boolean enabled){
+		autoLabelPoint = enabled;
+		if(!enabled) point.fLabel.label = null;
+		delegateChangeEvent();
+	}
+	public boolean autoLabelPoint(){return autoLabelPoint;}
+	public void setLabelDigits(int digits){if(digits >= 0) labelDigits = digits;}
+	public int getLabelDigits(){return labelDigits;}
 }

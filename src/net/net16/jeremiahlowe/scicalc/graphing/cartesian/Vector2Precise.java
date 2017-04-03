@@ -29,6 +29,15 @@ public class Vector2Precise implements Cloneable{
 	public void setY(float y){
 		this.y = y;
 	}
+	public Vector2Precise negate(){
+		this.x *= -1;
+		this.y *= -1;
+		return this;
+	}
+	public Vector2Precise inverseSlope(){
+		this.x *= -1;
+		return this;
+	}
 	public static double distance(Vector2Precise a, Vector2Precise b){
 		return Math.sqrt(distance2(a, b));
 	}

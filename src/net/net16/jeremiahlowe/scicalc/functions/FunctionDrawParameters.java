@@ -7,7 +7,7 @@ import net.net16.jeremiahlowe.scicalc.Utility;
 import net.net16.jeremiahlowe.scicalc.Enums.LineStyle;
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 
-public class FunctionDrawParameters implements Cloneable{
+public class FunctionDrawParameters{
 	//[start] Variables
 	public static final int LINE_MODEL_ALTERNATION = 5;
 	
@@ -37,17 +37,6 @@ public class FunctionDrawParameters implements Cloneable{
 	public void drawLine(Graphics g, int x1, int y1, int x2, int y2) {
 		if(lineWidth > 1) Utility.drawLineWithWidth(g, x1, y1, x2, y2, lineWidth);
 		else g.drawLine(x1, y1, x2, y2);
-	}
-	//[end]
-	//[start] Overriding
-	@Override
-	public final FunctionDrawParameters clone(){
-		FunctionDrawParameters out = new FunctionDrawParameters();
-		out.connectPoints = connectPoints;
-		out.style = LineStyle.values()[style.ordinal()];
-		out.lineWidth = lineWidth;
-		out.color = new Color(color.getRGB());
-		return out;
 	}
 	//[end]
 	//[start] Getters and setters

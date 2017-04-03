@@ -4,8 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class FunctionTracerPanner implements KeyListener{
-	public int keyIncrement = KeyEvent.VK_A;
-	public int keyDecrement = KeyEvent.VK_D;
+	public int keyIncrement = KeyEvent.VK_D;
+	public int keyDecrement = KeyEvent.VK_A;
+	private double panAmount = 1;
 	private UnaryFunctionTracer uft;
 	
 	public FunctionTracerPanner(UnaryFunctionTracer uft){
@@ -15,11 +16,14 @@ public class FunctionTracerPanner implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int kc = e.getKeyCode();
-		if(kc == keyIncrement) uft.pan(1);
-		if(kc == keyDecrement) uft.pan(-1);
+		if(kc == keyIncrement) uft.pan(panAmount);
+		if(kc == keyDecrement) uft.pan(-panAmount);
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {}
 	@Override
 	public void keyTyped(KeyEvent e) {}
+	
+	public void setPanAmount(double amount){panAmount = amount;}
+	public double getPanAmount(){return panAmount;}
 }

@@ -14,8 +14,6 @@ import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 public class FunctionManager {
 	public List<UnaryFunction> unaryFunctions = new ArrayList<UnaryFunction>();
 	public List<BinaryFunction> binaryFunctions = new ArrayList<BinaryFunction>();
-	public List<UnaryFunction> tempUnaryFunctions = new ArrayList<UnaryFunction>();
-	public List<BinaryFunction> tempBinaryFunctions = new ArrayList<BinaryFunction>();
 	
 	public void drawFunctions(CoordinatePlane c, Graphics g, Vector2Precise size){
 		for(UnaryFunction d : unaryFunctions){ //Boring functions
@@ -54,7 +52,7 @@ public class FunctionManager {
 			if(d.y > md.y) d.y = md.y;
 		}
 		else d = md;
-		System.out.println(d);
+		//System.out.println(d);
 		double inc = onX ? pixelSize.y : pixelSize.x;
 		if(f.hasCustomIncrementer()) inc = f.getCustomIncrementerValid();
 		//Build and cast the point list

@@ -7,19 +7,20 @@ import net.net16.jeremiahlowe.scicalc.functions.tracer.UnaryFunctionTracer;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.CoordinatePlane;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.DefaultController;
 import net.net16.jeremiahlowe.scicalc.graphing.cartesian.PlaneFactory;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
 
 public class TestCP2D {
 	public static void main(String[] args) throws Exception{
-		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D(false);
+		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D(true);
 		DefaultController dc = new DefaultController(cp);
 		dc.lockAxisSize = false;
 		dc.slowAnimation = true;
-		UnaryFunction q = FunctionFactory.quadratic(new Vector2Precise(0, -1), 2);
+		UnaryFunction q = FunctionFactory.sin(1, 1);
 		q.setLineWidth(2);
+		//q.setInequality(Inequality.LessThan);
 		cp.addFunction(q);
 		UnaryFunctionTracer uft = new UnaryFunctionTracer(q);
 		FunctionTracerPanner ftp = new FunctionTracerPanner(uft);
+		ftp.setPanAmount(0.25d);
 		cp.addKeyListener(ftp);
 		cp.addPoint(uft.getPoint());
 		uft.addChangeListener(new Runnable(){
@@ -28,8 +29,7 @@ public class TestCP2D {
 				cp.recalculate();
 			}
 		});
-		cp.pan(1, 1);
-		cp.recalculate();
+		cp.setViewportSize(30, 30);
 		/*boolean cs = false;
 		for(float i = -10; i < 10; i += 0.1f){
 			final float d = i;
@@ -43,10 +43,9 @@ public class TestCP2D {
 			f2.setCustomIncrementer(false, 0.01f);
 			f2.setColor(cs ? Color.RED : Color.BLUE);
 			f2.setIgnoreBorders(true);
-			cp.setViewQuadrant(Quadrant.ALL);
 			cp.addFunction(f2);
-			cp.setViewportSize(30, 30);
 			cs = !cs;
-		}*/
+		}
+		cp.recalculate();*/
 	}
 }

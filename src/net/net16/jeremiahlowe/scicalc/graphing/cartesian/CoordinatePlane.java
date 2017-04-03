@@ -34,6 +34,8 @@ public class CoordinatePlane extends JPanel{
 	private Color gridColor = new Color(0, 0, 0, 55);
 	private List<Point> points = new ArrayList<Point>();
 	private FunctionManager functionManager;
+	private boolean ignoreFunctions = false;
+	private boolean ignoreFunctionsFlag = false;
 	
 	public CoordinatePlane() {
 		setBackground(Color.WHITE);
@@ -64,7 +66,8 @@ public class CoordinatePlane extends JPanel{
 		//and functions are casted and drawn to the screen
 		for(Point p : points) if(p != null) 
 			drawPoint(p, g, size, surroundingOffset); //Draw points
-		functionManager.drawFunctions(this, g, size); //Draw functions
+		if(!(ignoreFunctions || ignoreFunctionsFlag)) functionManager.drawFunctions(this, g, size); //Draw functions
+		else ignoreFunctionsFlag = false;
 		//Done! Now we can move on to the less-important stuff
 		cpg.drawAxes(this, g, size, axesColor, surroundingOffset, lineWidth);
 		if(drawTicks) drawAxisTicks(g, size, surroundingOffset);
@@ -90,7 +93,10 @@ public class CoordinatePlane extends JPanel{
 		for(int i = 0; i < 2; i++){
 			//Get a multiplier for later
 			int m = i == 0 ? -1 : 1;
-			for(double x = tickCounts.x; x < viewportSize.x; x += tickCounts.x){
+			Vector2Precise start = tickCounts.clone(), stop = viewportSize.clone(), inc = tickCounts.clone();
+			if(m > 0) stop.translate(panningOffset.clone().negate());
+			else stop.translate(panningOffset);
+			for(double x = start.x; x < stop.x; x += inc.x){
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
 				Vector2Precise ca = castFromOrigin(new Vector2Precise(m * x, 0), size, surroundingOffset);
@@ -99,7 +105,7 @@ public class CoordinatePlane extends JPanel{
 				if(lineWidth > 1) Utility.drawLineWithWidth(g, x0, surroundingOffset, x0, size.getYI() - surroundingOffset, lineWidth);
 				else g.drawLine(x0, surroundingOffset, x0, size.getYI() - surroundingOffset);
 			}
-			for(double y = tickCounts.y; y < viewportSize.y; y += tickCounts.y){
+			for(double y = start.y; y < stop.y; y += inc.y){
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
 				Vector2Precise ca = castFromOrigin(new Vector2Precise(0, m * y), size, surroundingOffset);
@@ -118,7 +124,10 @@ public class CoordinatePlane extends JPanel{
 		for(int i = 0; i < 2; i++){
 			//Get a multiplier for later
 			int m = i == 0 ? -1 : 1;
-			for(double x = tickCounts.x; x < viewportSize.x; x += tickCounts.x){
+			Vector2Precise start = tickCounts.clone(), stop = viewportSize.clone(), inc = tickCounts.clone();
+			if(m > 0) stop.translate(panningOffset.clone().negate());
+			else stop.translate(panningOffset);
+			for(double x = start.x; x < stop.x; x += inc.x){
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
 				Vector2Precise ca = castFromOrigin(new Vector2Precise(m * x, 0), size, surroundingOffset);
@@ -127,7 +136,7 @@ public class CoordinatePlane extends JPanel{
 				//if(quadrant == Quadrant.I || quadrant == Quadrant.II || quadrant == Quadrant.I_II) m2 = -1;
 				if(labelTicks) Utility.drawCenteredString(g, Utility.numberToString(x * m, labelDigits), ca.getXI(), ca.getYI() + m2 * fh);
 			}
-			for(double y = tickCounts.y; y < viewportSize.y; y += tickCounts.y){
+			for(double y = start.y; y < stop.y; y += inc.y){
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
 				Vector2Precise ca = castFromOrigin(new Vector2Precise(0, m * y), size, surroundingOffset);
@@ -205,6 +214,12 @@ public class CoordinatePlane extends JPanel{
 		recalculate(false);
 		return unitsPerPixel.clone();
 	}
+	public void recalculateIgnoreFunctions(){
+		ignoreFunctionsFlag = true;
+		recalculate();
+	}
+	public void setIgnoreFunctions(boolean enabled){ignoreFunctions = enabled;}
+	public boolean ignoreFunctions(){return ignoreFunctions;}
 	public void setViewportSize(Vector2Precise size){setViewportSize(size.x, size.y);}
 	public Vector2Precise getViewportSize(){return viewportSize.clone();}
 	public int getLineWidth() {return lineWidth;}
