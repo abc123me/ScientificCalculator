@@ -18,7 +18,7 @@ public class TestCP2D {
 		dc.lockAxisSize = false;
 		dc.slowAnimation = true;
 		UnaryFunction q = FunctionFactory.quadratic(1, 0, 0);
-		q.setLineStyle(LineStyle.Dashed);
+		q.setLineStyle(LineStyle.DashedDotted);
 		q.setLineWidth(2);
 		//q.setInequality(Inequality.LessThan);
 		cp.addFunction(q);

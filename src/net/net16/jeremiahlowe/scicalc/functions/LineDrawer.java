@@ -20,6 +20,7 @@ public class LineDrawer {
 	private int[] waveBank;
 	private int waveAmplitude = 5;
 	private int waveFrequency = 20;
+	private boolean dotCycle = false;
 	
 	public LineDrawer(){this(defaultLineStyle, defaultIteratorPixels);}
 	public LineDrawer(int lip){this(defaultLineStyle, lip);}
@@ -63,7 +64,7 @@ public class LineDrawer {
 			else if(style == LineStyle.Dotted) drawDot(g, x, y);
 			else if(style == LineStyle.DashedDotted){
 				drawDashed(g, lastX, lastY, x, y);
-				drawDot(g, x, y);
+				if(!dotCycle && drawDot(g, x, y)) dotCycle = true;
 			}
 			else if(style == LineStyle.Wavy){
 				//Grab the needed value from the trigonometry bank
@@ -73,7 +74,10 @@ public class LineDrawer {
 			else drawLineGeneral(g, lastX, lastY, x, y, lineWidth);
 			double pm = m < 0 ? -m : m;
 			lineIterator += pm; //This code is FUNKY!!!
-			if(lineIterator >= lineIteratorPixels) lineIterator = 0;
+			if(lineIterator >= lineIteratorPixels){
+				dotCycle = false;
+				lineIterator = 0;
+			}
 			lastX = x;
 			lastY = y;
 		} 
@@ -83,10 +87,14 @@ public class LineDrawer {
 		else g.drawLine(x1, y1, x2, y2);
 	}
 	private void drawDashed(Graphics g, int x1, int y1, int x2, int y2){
-		if(lineIterator > lineIteratorPixels / 2) drawLineGeneral(g, x1, y1, x2, y2, lineWidth);
+		if(lineIterator < lineIteratorPixels / 2d) drawLineGeneral(g, x1, y1, x2, y2, lineWidth);
 	}
-	private void drawDot(Graphics g, int x, int y){
-		if(lineIterator == lineIteratorPixels / 4) g.fillOval(x - dotWidth / 2, y - dotHeight / 2, dotWidth, dotHeight);
+	private boolean drawDot(Graphics g, int x, int y){
+		if(lineIterator > lineIteratorPixels / 2d + lineIteratorPixels / 4d){
+			g.fillOval(x - dotWidth / 2, y - dotHeight / 2, dotWidth, dotHeight);
+			return true;
+		}
+		return false;
 	}
 	//We use this to hold all the points in a sine wave so we don't have to re-compute them later
 	private void initializeTrigonometryBank(int to, int amp, int freq){
