@@ -15,9 +15,9 @@ public class LineDrawer {
 	private int lineIteratorPixels = 10;
 	private double lineIterator = 0;
 	private int dotWidth = 0, dotHeight = 0;
-	private int[] waveBank;
+	/*private int[] waveBank;      
 	private int waveAmplitude = 5;
-	private int waveFrequency = 20;
+	private int waveFrequency = 20;*/
 	private boolean dotCycle = false;
 	
 	public LineDrawer(){this(defaultLineStyle, defaultIteratorPixels);}
@@ -93,10 +93,10 @@ public class LineDrawer {
 	private void initializeTrigonometryBank(int to, int amp, int freq){
 		waveBank = new int[to];
 		for(int i = 0; i < to; i++) waveBank[i] = (int) (amp * Math.sin(gradientToRadiant(0, to, i)));
-	}*/
+	}
 	private double gradientToRadiant(double min, double max, double val){
 		return ((val - min) / (max - min)) * 2 * Math.PI;
-	}
+	}*/
 	
 	public LineStyle getStyle() {return style;}
 	public void setStyle(LineStyle style) {this.style = style;}
