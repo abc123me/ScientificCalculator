@@ -3,7 +3,6 @@ package net.net16.jeremiahlowe.scicalc.utility;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import net.net16.jeremiahlowe.scicalc.Enums;
 import net.net16.jeremiahlowe.scicalc.Enums.LineStyle;
 
 public class LineDrawer {
@@ -27,7 +26,7 @@ public class LineDrawer {
 	public LineDrawer(LineStyle ls){this(ls, defaultIteratorPixels);}
 	public LineDrawer(LineStyle s, int lip){this(s, Color.black, lip);}
 	public LineDrawer(LineStyle style, Color lineColor, int lineIteratorPixels){
-		initializeTrigonometryBank(lineIteratorPixels, waveAmplitude, waveFrequency);
+		//initializeTrigonometryBank(lineIteratorPixels, waveAmplitude, waveFrequency);
 		this.lineIteratorPixels = lineIteratorPixels;
 		this.lineColor = lineColor;
 		dotWidth = lineIteratorPixels / 4;
@@ -45,7 +44,7 @@ public class LineDrawer {
 		}
 		//Initialization
 		g.setColor(lineColor);
-		if(waveBank.length != lineIteratorPixels) initializeTrigonometryBank(lineIteratorPixels, waveAmplitude, waveFrequency);
+		//if(waveBank.length != lineIteratorPixels) initializeTrigonometryBank(lineIteratorPixels, waveAmplitude, waveFrequency);
 		//Get stuff we might need
 		int a = x2 - x1, b = y2 - y1; 
 		//Calculate slope
@@ -64,11 +63,6 @@ public class LineDrawer {
 			else if(style == LineStyle.DashedDotted){
 				drawDashed(g, lastX, lastY, x, y);
 				if(!dotCycle && drawDot(g, x, y)) dotCycle = true;
-			}
-			else if(style == LineStyle.Wavy){
-				//Grab the needed value from the trigonometry bank
-				int offY = waveBank[(int) lineIterator];
-				drawLineGeneral(g, lastX, lastY + offY, x, y + offY, lineWidth);
 			}
 			else drawLineGeneral(g, lastX, lastY, x, y, lineWidth);
 			double pm = m < 0 ? -m : m;
@@ -95,11 +89,11 @@ public class LineDrawer {
 		}
 		return false;
 	}
-	//We use this to hold all the points in a sine wave so we don't have to re-compute them later
+	/*//We use this to hold all the points in a sine wave so we don't have to re-compute them later
 	private void initializeTrigonometryBank(int to, int amp, int freq){
 		waveBank = new int[to];
 		for(int i = 0; i < to; i++) waveBank[i] = (int) (amp * Math.sin(gradientToRadiant(0, to, i)));
-	}
+	}*/
 	private double gradientToRadiant(double min, double max, double val){
 		return ((val - min) / (max - min)) * 2 * Math.PI;
 	}

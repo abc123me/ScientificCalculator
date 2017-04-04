@@ -13,12 +13,11 @@ import net.net16.jeremiahlowe.scicalc.functions.tracer.UnaryFunctionTracer;
 
 public class TestCP2D {
 	public static void main(String[] args) throws Exception{
-		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D(true);
+		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D();
 		DefaultController dc = new DefaultController(cp);
 		dc.lockAxisSize = false;
 		dc.slowAnimation = true;
-		UnaryFunction q = FunctionFactory.quadratic(1, 0, 0);
-		q.setLineStyle(LineStyle.DashedDotted);
+		UnaryFunction q = FunctionFactory.quadratic(0.5, 0, 0);
 		q.setLineWidth(2);
 		//q.setInequality(Inequality.LessThan);
 		cp.addFunction(q);

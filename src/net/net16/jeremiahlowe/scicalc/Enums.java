@@ -119,13 +119,9 @@ public interface Enums {
 		}
 	}
 	public static enum LineStyle{
-		Normal, Dotted, Dashed, DashedDotted, Wavy;
+		Normal, Dotted, Dashed, DashedDotted;
 		public boolean isFancy(){
 			if(this != Normal) return true;
-			else return false;
-		}
-		public boolean smoothenWithTrig(){
-			if(this == Wavy) return true;
 			else return false;
 		}
 	}
