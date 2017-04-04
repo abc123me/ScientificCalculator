@@ -2,6 +2,8 @@ package net.net16.jeremiahlowe.scicalc;
 
 import java.awt.Graphics;
 
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
+
 public interface Enums {
 	public static enum Inequality{
 		LessThan, LessThanOrEqualTo, EqualTo, GreatorThanOrEqualTo, GreatorThan;

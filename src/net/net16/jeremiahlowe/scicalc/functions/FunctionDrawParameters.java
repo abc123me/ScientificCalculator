@@ -3,9 +3,10 @@ package net.net16.jeremiahlowe.scicalc.functions;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import net.net16.jeremiahlowe.scicalc.Utility;
 import net.net16.jeremiahlowe.scicalc.Enums.LineStyle;
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
+import net.net16.jeremiahlowe.scicalc.utility.LineDrawer;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
 
 public class FunctionDrawParameters{
 	private boolean connectPoints = true;

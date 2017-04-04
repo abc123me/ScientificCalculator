@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
+package net.net16.jeremiahlowe.scicalc.cartesian_plane;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

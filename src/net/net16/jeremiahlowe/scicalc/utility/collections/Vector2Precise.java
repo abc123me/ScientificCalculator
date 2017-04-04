@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
+package net.net16.jeremiahlowe.scicalc.utility.collections;
 
 public class Vector2Precise implements Cloneable{
 	public double x, y;

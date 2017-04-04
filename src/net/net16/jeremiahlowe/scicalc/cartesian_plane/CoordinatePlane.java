@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
+package net.net16.jeremiahlowe.scicalc.cartesian_plane;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,12 +11,13 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import net.net16.jeremiahlowe.scicalc.Utility;
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.PolarFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 //TODO: Fix panning and overshooting bugs
 public class CoordinatePlane extends JPanel{

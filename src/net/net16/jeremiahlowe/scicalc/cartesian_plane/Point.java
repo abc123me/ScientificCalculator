@@ -1,10 +1,11 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
+package net.net16.jeremiahlowe.scicalc.cartesian_plane;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.functions.FunctionLabel;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class Point implements Cloneable{
 	public FunctionLabel fLabel;

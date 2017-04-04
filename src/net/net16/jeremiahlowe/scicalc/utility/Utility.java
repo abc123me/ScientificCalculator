@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc;
+package net.net16.jeremiahlowe.scicalc.utility;
 
 import java.awt.BasicStroke;
 import java.awt.FontMetrics;
@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
+import net.net16.jeremiahlowe.scicalc.Enums;
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 

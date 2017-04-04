@@ -1,9 +1,9 @@
 package net.net16.jeremiahlowe.scicalc.functions.tracer;
 
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
-import net.net16.jeremiahlowe.scicalc.Utility;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class UnaryFunctionTracer extends AbstractFunctionTracer{
 	private UnaryFunction function;

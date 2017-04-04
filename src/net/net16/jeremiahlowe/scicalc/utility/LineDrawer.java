@@ -1,10 +1,9 @@
-package net.net16.jeremiahlowe.scicalc.functions;
-
-import net.net16.jeremiahlowe.scicalc.Utility;
+package net.net16.jeremiahlowe.scicalc.utility;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
+import net.net16.jeremiahlowe.scicalc.Enums;
 import net.net16.jeremiahlowe.scicalc.Enums.LineStyle;
 
 public class LineDrawer {

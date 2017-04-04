@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
+package net.net16.jeremiahlowe.scicalc.cartesian_plane;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -6,6 +6,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class DefaultController implements KeyListener, MouseWheelListener{
 	public int toogleLabelsKey = KeyEvent.VK_L;

@@ -1,4 +1,4 @@
-package net.net16.jeremiahlowe.scicalc;
+package net.net16.jeremiahlowe.scicalc.utility.collections;
 
 public class Duplet<T, U>{
 	public T a; public U b;

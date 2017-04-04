@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Point;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.cartesian_plane.Point;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public abstract class AbstractFunctionTracer {
 	protected Point point;

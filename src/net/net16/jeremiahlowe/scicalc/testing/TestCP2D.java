@@ -3,13 +3,13 @@ package net.net16.jeremiahlowe.scicalc.testing;
 import java.awt.Color;
 
 import net.net16.jeremiahlowe.scicalc.Enums.LineStyle;
+import net.net16.jeremiahlowe.scicalc.cartesian_plane.CoordinatePlane;
+import net.net16.jeremiahlowe.scicalc.cartesian_plane.DefaultController;
+import net.net16.jeremiahlowe.scicalc.cartesian_plane.PlaneFactory;
 import net.net16.jeremiahlowe.scicalc.functions.FunctionFactory;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.tracer.FunctionTracerPanner;
 import net.net16.jeremiahlowe.scicalc.functions.tracer.UnaryFunctionTracer;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.CoordinatePlane;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.DefaultController;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.PlaneFactory;
 
 public class TestCP2D {
 	public static void main(String[] args) throws Exception{

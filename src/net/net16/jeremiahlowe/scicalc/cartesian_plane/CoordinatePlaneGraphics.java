@@ -1,10 +1,11 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
+package net.net16.jeremiahlowe.scicalc.cartesian_plane;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import net.net16.jeremiahlowe.bettercollections.Rotation;
-import net.net16.jeremiahlowe.scicalc.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class CoordinatePlaneGraphics {
 	public Vector2Precise getPlaneDomain(Vector2Precise viewportSize, Vector2Precise offset) {

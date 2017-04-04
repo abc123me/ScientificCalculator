@@ -1,13 +1,14 @@
-package net.net16.jeremiahlowe.scicalc.graphing.cartesian;
+package net.net16.jeremiahlowe.scicalc.cartesian_plane;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.net16.jeremiahlowe.scicalc.Utility;
 import net.net16.jeremiahlowe.scicalc.functions.FunctionDrawParameters;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 //TODO: Implement multi-threading in FunctionManager
 //TODO: Fix panning and overshooting bugs

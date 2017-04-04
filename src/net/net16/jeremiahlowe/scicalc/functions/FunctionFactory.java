@@ -2,7 +2,7 @@ package net.net16.jeremiahlowe.scicalc.functions;
 
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 //TODO: Add more factories
 public class FunctionFactory {

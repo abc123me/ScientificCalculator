@@ -1,7 +1,7 @@
 package net.net16.jeremiahlowe.scicalc.functions.std;
 
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Point;
-import net.net16.jeremiahlowe.scicalc.graphing.cartesian.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.cartesian_plane.Point;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class PointSlopeLine extends UnaryFunction{
 	public final double slope, intercept, min, max;	
