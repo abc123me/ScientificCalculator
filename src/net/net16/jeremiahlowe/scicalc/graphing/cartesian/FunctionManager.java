@@ -68,6 +68,7 @@ public class FunctionManager {
 		return pointsL;
 	}
 	public void finalDraw(Graphics g, List<Vector2Precise> pointsL, FunctionDrawParameters f, int width, int height, int surroundingOffset){
+		f.getLineDrawer().resetIterator();
 		//Convert the points list to an array
 		Vector2Precise[] points = new Vector2Precise[0];
 		points = pointsL.toArray(points);

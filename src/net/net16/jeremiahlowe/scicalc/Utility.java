@@ -164,4 +164,11 @@ public class Utility {
 		}
 		return parts[0] + '.' + parts[1];
 	}
+	@SuppressWarnings("unchecked")
+	public static <T> boolean anyOf(T any, T... of){
+		for(T t : of){
+			if(any == t) return true;
+		}
+		return false;
+	}
 }

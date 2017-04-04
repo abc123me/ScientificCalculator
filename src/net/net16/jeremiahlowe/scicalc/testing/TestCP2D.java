@@ -1,5 +1,8 @@
 package net.net16.jeremiahlowe.scicalc.testing;
 
+import java.awt.Color;
+
+import net.net16.jeremiahlowe.scicalc.Enums.LineStyle;
 import net.net16.jeremiahlowe.scicalc.functions.FunctionFactory;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.tracer.FunctionTracerPanner;
@@ -14,7 +17,8 @@ public class TestCP2D {
 		DefaultController dc = new DefaultController(cp);
 		dc.lockAxisSize = false;
 		dc.slowAnimation = true;
-		UnaryFunction q = FunctionFactory.sin(1, 1);
+		UnaryFunction q = FunctionFactory.quadratic(1, 0, 0);
+		q.setLineStyle(LineStyle.Dashed);
 		q.setLineWidth(2);
 		//q.setInequality(Inequality.LessThan);
 		cp.addFunction(q);
@@ -28,10 +32,10 @@ public class TestCP2D {
 			public void run() {
 				cp.recalculate();
 			}
-		});
+		});/*
 		cp.setViewportSize(30, 30);
-		/*boolean cs = false;
-		for(float i = -10; i < 10; i += 0.1f){
+		boolean cs = false;
+		for(float i = -10; i <= 10; i += 0.25f){
 			final float d = i;
 			UnaryFunction f2 = new UnaryFunction(){
 				@Override
@@ -46,6 +50,6 @@ public class TestCP2D {
 			cp.addFunction(f2);
 			cs = !cs;
 		}
-		cp.recalculate();*/
+		cp.recalculate();/**/
 	}
 }

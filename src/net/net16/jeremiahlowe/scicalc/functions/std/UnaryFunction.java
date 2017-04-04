@@ -39,10 +39,9 @@ public abstract class UnaryFunction extends FunctionDrawParameters{
 		out.setCustomIncrementer(f.hasCustomIncrementer(), f.getCustomIncrementer());
 		out.setIgnoreBorders(f.ignoreBorders());
 		out.setLineIteratorPixels(f.getLineIteratorPixels());
-		out.setSmoothen(f.isSmoothen());
 		out.setLineWidth(f.getLineWidth());
-		out.setStyle(f.getStyle());
-		out.setStyleP(f.getStyleP());
+		out.setLineStyle(f.getLineStyle());
+		out.setPointStyle(f.getPointStyle());
 		return out;
 	}
 }
