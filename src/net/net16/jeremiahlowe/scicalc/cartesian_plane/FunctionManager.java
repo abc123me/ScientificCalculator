@@ -7,7 +7,7 @@ import java.util.List;
 import net.net16.jeremiahlowe.scicalc.functions.FunctionDrawParameters;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
 import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 //TODO: Implement multi-threading in FunctionManager
@@ -19,11 +19,11 @@ public class FunctionManager {
 	public void drawFunctions(CoordinatePlane c, Graphics g, Vector2Precise size){
 		for(UnaryFunction d : unaryFunctions){ //Boring functions
 			drawUnaryFunction(c, g, d, size, c.getUnitsPerPixel(), c.getViewportSize(), c.getSurroundingOffset());
-			if(d.getLineWidth() > 1) Utility.resetWidth(g);
+			if(d.getLineWidth() > 1) GraphicsUtility.resetWidth(g);
 		}
 		for(BinaryFunction d : binaryFunctions){ //Cool functions
 			drawBinaryFunction(c, g, d, size, c.getUnitsPerPixel(), c.getViewportSize(), c.getSurroundingOffset());
-			if(d.getLineWidth() > 1) Utility.resetWidth(g);
+			if(d.getLineWidth() > 1) GraphicsUtility.resetWidth(g);
 		}
 	}
 	public void drawBinaryFunction(CoordinatePlane c, Graphics g, BinaryFunction f, Vector2Precise size, Vector2Precise pixelSize, Vector2Precise viewportSize, int surroundingOffset){

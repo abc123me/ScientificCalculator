@@ -16,7 +16,8 @@ import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.PolarFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
+import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
 import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 //TODO: Fix panning and overshooting bugs
@@ -103,7 +104,7 @@ public class CoordinatePlane extends JPanel{
 				Vector2Precise ca = castFromOrigin(new Vector2Precise(m * x, 0), size, surroundingOffset);
 				int x0 = ca.getXI(); // Rounded x position
 				//Draw the tick
-				if(lineWidth > 1) Utility.drawLineWithWidth(g, x0, surroundingOffset, x0, size.getYI() - surroundingOffset, lineWidth);
+				if(lineWidth > 1) GraphicsUtility.drawLineWithWidth(g, x0, surroundingOffset, x0, size.getYI() - surroundingOffset, lineWidth);
 				else g.drawLine(x0, surroundingOffset, x0, size.getYI() - surroundingOffset);
 			}
 			for(double y = start.y; y < stop.y; y += inc.y){
@@ -112,11 +113,11 @@ public class CoordinatePlane extends JPanel{
 				Vector2Precise ca = castFromOrigin(new Vector2Precise(0, m * y), size, surroundingOffset);
 				int y0 = ca.getYI(); // Rounded y position
 				//Draw the tick
-				if(lineWidth > 1) Utility.drawLineWithWidth(g, surroundingOffset, y0, size.getXI() - surroundingOffset, y0, lineWidth);
+				if(lineWidth > 1) GraphicsUtility.drawLineWithWidth(g, surroundingOffset, y0, size.getXI() - surroundingOffset, y0, lineWidth);
 				else g.drawLine(surroundingOffset, y0, size.getXI() - surroundingOffset, y0);
 			}
 		}
-		if(lineWidth > 1) Utility.resetWidth(g);
+		if(lineWidth > 1) GraphicsUtility.resetWidth(g);
 	}
 	private void drawAxisTicks(Graphics g, Vector2Precise size, int surroundingOffset){
 		g.setColor(axesColor);
@@ -135,7 +136,7 @@ public class CoordinatePlane extends JPanel{
 				cpg.drawTick(g, size, ca.getXI(), ca.getYI(), surroundingOffset, tickWidth, lineWidth, false);
 				int m2 = 1;
 				//if(quadrant == Quadrant.I || quadrant == Quadrant.II || quadrant == Quadrant.I_II) m2 = -1;
-				if(labelTicks) Utility.drawCenteredString(g, Utility.numberToString(x * m, labelDigits), ca.getXI(), ca.getYI() + m2 * fh);
+				if(labelTicks) GraphicsUtility.drawCenteredString(g, MathUtility.numberToString(x * m, labelDigits), ca.getXI(), ca.getYI() + m2 * fh);
 			}
 			for(double y = start.y; y < stop.y; y += inc.y){
 				//Cast pos. from origin on negator * axis position thus
@@ -143,14 +144,14 @@ public class CoordinatePlane extends JPanel{
 				Vector2Precise ca = castFromOrigin(new Vector2Precise(0, m * y), size, surroundingOffset);
 				cpg.drawTick(g, size, ca.getXI(), ca.getYI(), surroundingOffset, tickWidth, lineWidth, true);
 				if(labelTicks){
-					String num = Utility.numberToString(y * m, labelDigits);
+					String num = MathUtility.numberToString(y * m, labelDigits);
 					HorizontalAllignment h = HorizontalAllignment.Left;
 					VerticalAllignment v = VerticalAllignment.HalfDown;
-					Utility.drawAllignedString(g, num, ca.getXI() + surroundingOffset, ca.getYI(), h, v);
+					GraphicsUtility.drawAllignedString(g, num, ca.getXI() + surroundingOffset, ca.getYI(), h, v);
 				}
 			}
 		}
-		if(lineWidth > 1) Utility.resetWidth(g);
+		if(lineWidth > 1) GraphicsUtility.resetWidth(g);
 	}
 	private void drawPoint(Point p, Graphics g, Vector2Precise size, int surroundingOffset){
 		g.setColor(p.getColor());

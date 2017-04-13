@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import net.net16.jeremiahlowe.scicalc.Enums.LineStyle;
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.utility.LineDrawer;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
 
 public class FunctionDrawParameters{
 	private boolean connectPoints = true;
@@ -42,7 +42,7 @@ public class FunctionDrawParameters{
 		hasCustomIncrementer = enabled;
 		customIncrementer = val;
 	}
-	public final double getCustomIncrementerValid(){return Utility.clamp(0.01d, Double.MAX_VALUE, getCustomIncrementer());}
+	public final double getCustomIncrementerValid(){return MathUtility.clamp(0.01d, Double.MAX_VALUE, getCustomIncrementer());}
 	public double getCustomIncrementer(){return customIncrementer;}
 	public boolean connectPoints() {return connectPoints;}
 	public void setConnectPoints(boolean connectPoints) {this.connectPoints = connectPoints;}

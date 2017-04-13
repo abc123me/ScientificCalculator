@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import net.net16.jeremiahlowe.bettercollections.Rotation;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
+import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
 import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class CoordinatePlaneGraphics {
@@ -32,13 +33,13 @@ public class CoordinatePlaneGraphics {
 	}
 	public void drawTick(Graphics g, Vector2Precise size, int x, int y, int surroundingOffset, int tickWidth, int lineWidth, boolean horizontal){
 		double xm = size.x - surroundingOffset, ym = size.y - surroundingOffset;
-		if(Utility.betweenOrEqual(xm, surroundingOffset, x) && Utility.betweenOrEqual(ym, surroundingOffset, y)){
+		if(MathUtility.betweenOrEqual(xm, surroundingOffset, x) && MathUtility.betweenOrEqual(ym, surroundingOffset, y)){
 			if(horizontal){
-				if(lineWidth > 1) Utility.drawLineWithWidth(g, x - tickWidth, y, x + tickWidth, y, lineWidth);
+				if(lineWidth > 1) GraphicsUtility.drawLineWithWidth(g, x - tickWidth, y, x + tickWidth, y, lineWidth);
 				else g.drawLine(x - tickWidth, y, x + tickWidth, y);
 			}
 			else{
-				if(lineWidth > 1) Utility.drawLineWithWidth(g, x, y - tickWidth, x, y + tickWidth, lineWidth);
+				if(lineWidth > 1) GraphicsUtility.drawLineWithWidth(g, x, y - tickWidth, x, y + tickWidth, lineWidth);
 				else g.drawLine(x, y - tickWidth, x, y + tickWidth);
 			}
 		}
@@ -50,20 +51,20 @@ public class CoordinatePlaneGraphics {
 		int lineY = getLineY(c, size, surroundingOffset); //Y-Axis position
 		//Actually draw axes
 		if(lineWidth >= 1){
-			Utility.drawLineWithWidth(g, lineX, surroundingOffset, lineX, size.getYI() - surroundingOffset, lineWidth);
-			Utility.drawLineWithWidth(g, surroundingOffset, lineY, size.getXI() - surroundingOffset, lineY, lineWidth);
-			Utility.drawArrowWithWidth(Rotation.NORTH, lineX, surroundingOffset, g, lineWidth);
-			Utility.drawArrowWithWidth(Rotation.SOUTH, lineX, size.getYI() - surroundingOffset, g, lineWidth);
-			Utility.drawArrowWithWidth(Rotation.EAST, size.getXI() - surroundingOffset, lineY, g, lineWidth);
-			Utility.drawArrowWithWidth(Rotation.WEST, surroundingOffset, lineY, g, lineWidth);
-			Utility.resetWidth(g);
+			GraphicsUtility.drawLineWithWidth(g, lineX, surroundingOffset, lineX, size.getYI() - surroundingOffset, lineWidth);
+			GraphicsUtility.drawLineWithWidth(g, surroundingOffset, lineY, size.getXI() - surroundingOffset, lineY, lineWidth);
+			GraphicsUtility.drawArrowWithWidth(Rotation.NORTH, lineX, surroundingOffset, g, lineWidth);
+			GraphicsUtility.drawArrowWithWidth(Rotation.SOUTH, lineX, size.getYI() - surroundingOffset, g, lineWidth);
+			GraphicsUtility.drawArrowWithWidth(Rotation.EAST, size.getXI() - surroundingOffset, lineY, g, lineWidth);
+			GraphicsUtility.drawArrowWithWidth(Rotation.WEST, surroundingOffset, lineY, g, lineWidth);
+			GraphicsUtility.resetWidth(g);
 		}
 		else{
 			g.drawLine(lineX, surroundingOffset, lineX, size.getYI() - surroundingOffset);
 			g.drawLine(surroundingOffset, lineY, size.getXI() - surroundingOffset, lineY);
-			Utility.drawArrow(Rotation.NORTH, lineX, surroundingOffset, g);
-			Utility.drawArrow(Rotation.SOUTH, lineX, size.getYI() - surroundingOffset, g);
-			Utility.drawArrow(Rotation.EAST, size.getXI() - surroundingOffset, lineY, g);
+			GraphicsUtility.drawArrow(Rotation.NORTH, lineX, surroundingOffset, g);
+			GraphicsUtility.drawArrow(Rotation.SOUTH, lineX, size.getYI() - surroundingOffset, g);
+			GraphicsUtility.drawArrow(Rotation.EAST, size.getXI() - surroundingOffset, lineY, g);
 		}
 	}
 }

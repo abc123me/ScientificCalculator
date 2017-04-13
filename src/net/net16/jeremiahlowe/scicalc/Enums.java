@@ -2,9 +2,24 @@ package net.net16.jeremiahlowe.scicalc;
 
 import java.awt.Graphics;
 
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
+import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
 
 public interface Enums {
+	public enum CPEReason{
+		NoVariables, InvalidSymbol, Syntax, NotAFunction, InvalidName, InvalidVariableName, Unknown;
+		public String toString(){
+			switch(this){
+				case NoVariables: return "No variables";
+				case InvalidSymbol: return "Invalid symbol";
+				case Syntax: return "Syntax error";
+				case InvalidName: return "Invalid function name";
+				case NotAFunction: return "Not a function";
+				case InvalidVariableName: return "Invalid variable name";
+				default: return "Unknown reason";
+			}
+		}
+	}
 	public static enum Inequality{
 		LessThan, LessThanOrEqualTo, EqualTo, GreatorThanOrEqualTo, GreatorThan;
 	}
@@ -32,7 +47,7 @@ public interface Enums {
 			setValue(val);
 		}
 		public void setValue(double val){
-			this.val = Utility.clamp(min, max, val);
+			this.val = MathUtility.clamp(min, max, val);
 		}
 		public void setValue(double val, double min, double max){
 			double oldMin = this.min, oldMax = this.max;
@@ -137,10 +152,10 @@ public interface Enums {
 					g.drawLine(x, y - size / 2, x, y + size / 2);
 					return;
 				case ThickCross:
-					int lw = Utility.clamp(2, 4, size / 4);
-					Utility.drawLineWithWidth(g, x - size / 2, y, x + size / 2, y, lw);
-					Utility.drawLineWithWidth(g, x, y - size / 2, x, y + size / 2, lw);
-					Utility.resetWidth(g);
+					int lw = MathUtility.clamp(2, 4, size / 4);
+					GraphicsUtility.drawLineWithWidth(g, x - size / 2, y, x + size / 2, y, lw);
+					GraphicsUtility.drawLineWithWidth(g, x, y - size / 2, x, y + size / 2, lw);
+					GraphicsUtility.resetWidth(g);
 					return;
 				case Pixel:
 					g.drawLine(x, y, x, y);

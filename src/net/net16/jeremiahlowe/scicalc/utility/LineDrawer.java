@@ -76,7 +76,7 @@ public class LineDrawer {
 		} 
 	}
 	private static void drawLineGeneral(Graphics g, int x1, int y1, int x2, int y2, int lw){
-		if(lw > 1) Utility.drawLineWithWidth(g, x1, y1, x2, y2, lw);
+		if(lw > 1) GraphicsUtility.drawLineWithWidth(g, x1, y1, x2, y2, lw);
 		else g.drawLine(x1, y1, x2, y2);
 	}
 	private void drawDashed(Graphics g, int x1, int y1, int x2, int y2){

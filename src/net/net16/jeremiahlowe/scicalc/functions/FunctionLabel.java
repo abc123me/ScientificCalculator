@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
 import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class FunctionLabel {
@@ -27,8 +27,8 @@ public class FunctionLabel {
 		if(label != null){
 			int x = (int) Math.round(hAllign.negate().interpolate(minPos.x, maxPos.x) + offset.x);
 			int y = (int) Math.round(vAllign.negate().interpolate(minPos.y, maxPos.y) + offset.y);
-			if(labelRotation.getAngleDegrees() == 0) Utility.drawCenteredString(g, label, x, y);
-			else Utility.drawRotatedString(g, labelRotation, label, x, y);
+			if(labelRotation.getAngleDegrees() == 0) GraphicsUtility.drawCenteredString(g, label, x, y);
+			else GraphicsUtility.drawRotatedString(g, labelRotation, label, x, y);
 		}
 	}
 }
