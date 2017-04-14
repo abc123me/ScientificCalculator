@@ -7,9 +7,10 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class PlaneFactory {
+	public static int exitOperation = JFrame.EXIT_ON_CLOSE;
 	private static JFrame makeBaseFrame(String title, int w, int h, boolean full){
 		JFrame j = new JFrame(title);
-		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		j.setDefaultCloseOperation(exitOperation);
 		if(full){
 			j.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			j.setFocusableWindowState(true);

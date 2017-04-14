@@ -1,6 +1,15 @@
 package net.net16.jeremiahlowe.scicalc.utility;
 
 public class Utility {
+	public static final String removeWhitespace(String in){
+		String out = "";
+		for(int i = 0; i < in.length(); i++){
+			char c = in.charAt(i);
+			if(c == ' ' || c == '\n' || c == '\r' || c == '\t') continue;
+			else out += c;
+		}
+		return out;
+	}
 	public static final boolean isAlphanumeric(char c){
 		return (isAlphabetical(c) || isNumeric(c));
 	}
@@ -19,14 +28,16 @@ public class Utility {
 		for(char c : sc) if(!isAlphabetical(c)) return false;
 		return true;
 	}
-	public static final boolean isNumeric(char c){
-		return (c >= '0' && c <= '9');
+	public static final boolean isNumeric(char c, boolean includeDecimal){
+		return (c >= '0' && c <= '9' || (includeDecimal && c == '.'));
 	}
-	public static final boolean isNumeric(String s){
+	public static final boolean isNumeric(String s, boolean includeDecimal){
 		char[] sc = s.toCharArray();
-		for(char c : sc) if(!isNumeric(c)) return false;
+		for(char c : sc) if(!isNumeric(c, includeDecimal)) return false;
 		return true;
 	}
+	public static final boolean isNumeric(char c){return isNumeric(c, false);}
+	public static final boolean isNumeric(String s){return isNumeric(s, false);}
 	public static final int count(String text, char regex){
 		char[] chars = text.toCharArray();
 		int ocurrences = 0;

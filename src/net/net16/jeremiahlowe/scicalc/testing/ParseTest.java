@@ -8,16 +8,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import net.net16.jeremiahlowe.scicalc.cartesian_plane.CoordinatePlane;
+import net.net16.jeremiahlowe.scicalc.cartesian_plane.PlaneFactory;
 import net.net16.jeremiahlowe.scicalc.functions.parser.CannotParseException;
 import net.net16.jeremiahlowe.scicalc.functions.parser.FunctionParser;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import java.awt.Font;
 
 public class ParseTest extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextArea textArea;
+	private JTextArea txtrFxx;
 	private JButton btnParse;
 	public static void main(String[] args) {
 		ParseTest frame = new ParseTest();
@@ -25,14 +28,20 @@ public class ParseTest extends JFrame {
 	}
 	public ParseTest() {
 		initialize();
-		FunctionParser parser = new FunctionParser();
+		
 		btnParse.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String equation = textArea.getText().trim();
-				System.out.println("Parsing: " + equation);
+				String equation = txtrFxx.getText().trim();
 				try{
-					parser.parseUnaryFunction(equation);
+					FunctionParser parser = new FunctionParser();
+					PlaneFactory.exitOperation = JFrame.DISPOSE_ON_CLOSE;
+					CoordinatePlane cp = PlaneFactory.makePlaneWindow2D();
+					String[] pieces = equation.split("\n");
+					for(String piece : pieces){
+						System.out.println("test");
+						cp.addFunction(parser.parseUnaryFunction(piece));
+					}
 				}catch(CannotParseException cpe){
 					System.out.println(cpe.toString());
 				}
@@ -46,8 +55,10 @@ public class ParseTest extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		textArea = new JTextArea();
-		contentPane.add(textArea, BorderLayout.CENTER);
+		txtrFxx = new JTextArea();
+		txtrFxx.setText("f(x)=2x");
+		txtrFxx.setFont(new Font("Arial", Font.BOLD, 24));
+		contentPane.add(txtrFxx, BorderLayout.CENTER);
 		btnParse = new JButton("Parse!!!");
 		contentPane.add(btnParse, BorderLayout.SOUTH);
 	}

@@ -1,10 +1,19 @@
 package net.net16.jeremiahlowe.scicalc.functions.parser;
 
+import org.nfunk.jep.JEP;
+
 import net.net16.jeremiahlowe.scicalc.Enums.CPEReason;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.utility.Utility;
 
 public class FunctionParser {
+	public JEP jep;
+	public FunctionParser(){
+		jep = new JEP();
+		jep.addStandardConstants();
+		jep.addStandardFunctions();
+		jep.setImplicitMul(true);
+	}
 	public UnaryFunction parseUnaryFunction(String text) throws CannotParseException{
 		//Start splitting
 		String[] sides = text.split("=");
@@ -23,9 +32,18 @@ public class FunctionParser {
 			if(!Utility.isAlphabetical(front)) throw new CannotParseException("Variable name must start with a letter (a-z or A-Z)", CPEReason.InvalidVariableName);
 		}
 		if(vars.length != 1) throw new CannotParseException("Can only have one variable", CPEReason.Syntax);
-		//-----------------------------------------------------------
-		//Parse right side
+		String var = vars[0];
+		jep.addVariable(var, 0);
+		//Do right side
 		String rightSide = sides[1];
-		return null;
+		UnaryFunction f = new UnaryFunction(){
+			@Override
+			public double f(double x) {
+				jep.setVarValue(var, x);
+				jep.parseExpression(rightSide);
+				return jep.getValue();
+			}
+		};
+		return f;
 	}
 }
