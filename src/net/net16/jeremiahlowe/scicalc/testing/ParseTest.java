@@ -28,7 +28,6 @@ public class ParseTest extends JFrame {
 	}
 	public ParseTest() {
 		initialize();
-		
 		btnParse.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -38,12 +37,9 @@ public class ParseTest extends JFrame {
 					PlaneFactory.exitOperation = JFrame.DISPOSE_ON_CLOSE;
 					CoordinatePlane cp = PlaneFactory.makePlaneWindow2D();
 					String[] pieces = equation.split("\n");
-					for(String piece : pieces){
-						System.out.println("test");
-						cp.addFunction(parser.parseUnaryFunction(piece));
-					}
+					for(String piece : pieces) cp.addFunction(parser.parseUnaryFunction(piece));
 				}catch(CannotParseException cpe){
-					System.out.println(cpe.toString());
+					System.err.println(cpe.toString());
 				}
 			}
 		});
