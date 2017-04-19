@@ -1,6 +1,7 @@
 package net.net16.jeremiahlowe.scicalc.functions;
 
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
+import net.net16.jeremiahlowe.scicalc.functions.std.PointSlopeLine;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
@@ -88,5 +89,11 @@ public class FunctionFactory {
 				return 0;
 			}
 		};
+	}
+	public static PointSlopeLine line(Vector2Precise start, Vector2Precise end){
+		return line(start, end, false);
+	}
+	public static PointSlopeLine line(Vector2Precise start, Vector2Precise end, boolean limited){
+		return new PointSlopeLine(start, end, limited);
 	}
 }
