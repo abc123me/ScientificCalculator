@@ -1,6 +1,11 @@
 package net.net16.jeremiahlowe.scicalc.utility;
 
 public class Utility {
+	public static final String clampLength(String in, int len){return clampLength(in, len, false);}
+	public static final String clampLength(String in, int len, boolean dots){
+		if(in.length() > len) return in.substring(0, len) + (dots ? "..." : "");
+		else return in;
+	}
 	public static final String removeWhitespace(String in){
 		String out = "";
 		for(int i = 0; i < in.length(); i++){

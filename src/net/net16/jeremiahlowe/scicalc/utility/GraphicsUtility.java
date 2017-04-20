@@ -11,27 +11,23 @@ import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 
 public class GraphicsUtility {
-
 	public static final void drawLineWithWidth(Graphics g, int x1, int y1, int x2, int y2, int lw){
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(lw));
 		g2.drawLine(x1, y1, x2, y2);
 	}
-
 	public static final void drawArrowWithWidth(Rotation r, int x, int y, Graphics g, int lw){
 		Vector2[] v = MathUtility.rotateVerticiesAround(r, new Vector2(x, y), GraphicsUtility.getArrowLines(x, y));
 		drawLineWithWidth(g, v[0].getXI(), v[0].getYI(), v[1].getXI(), v[1].getYI(), lw); //Shaft [0, 1]
 		drawLineWithWidth(g, v[2].getXI() - lw / 2, v[2].getYI(), v[3].getXI() - lw / 2, v[3].getYI(), lw); //Left [2, 3]
 		drawLineWithWidth(g, v[4].getXI(), v[4].getYI(), v[5].getXI(), v[5].getYI(), lw); //Right [4, 5]
 	}
-
 	public static final void drawArrow(Rotation r, int x, int y, Graphics g){
 		Vector2[] v = MathUtility.rotateVerticiesAround(r, new Vector2(x, y), GraphicsUtility.getArrowLines(x, y));
 		g.drawLine(v[0].getXI(), v[0].getYI(), v[1].getXI(), v[1].getYI()); //Shaft [0, 1]
 		g.drawLine(v[2].getXI(), v[2].getYI(), v[3].getXI(), v[3].getYI()); //Left [2, 3]
 		g.drawLine(v[4].getXI(), v[4].getYI(), v[5].getXI(), v[5].getYI()); //Right [4, 5]
 	}
-
 	public static final Vector2[] getArrowLines(int x, int y){
 		Vector2[] verticies = new Vector2[6];
 		//Shaft
@@ -45,19 +41,16 @@ public class GraphicsUtility {
 		verticies[5] = new Vector2(x + 3, y);
 		return verticies;
 	}
-
 	public static void drawCenteredString(Graphics g, String str, int x, int y) {
 		FontMetrics fm = g.getFontMetrics();
 		int strW = fm.stringWidth(str), strH = fm.getHeight();
 		x -= strW / 2; y += strH / 5;
 		g.drawString(str, x, y);
 	}
-
 	public static void resetWidth(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(1));
 	}
-
 	public static void drawAllignedString(Graphics g, String str, int x, int y, HorizontalAllignment h, VerticalAllignment v){
 		FontMetrics fm = g.getFontMetrics();
 		int strW = fm.stringWidth(str), strH = fm.getHeight();
@@ -65,7 +58,6 @@ public class GraphicsUtility {
 		double ay = v.interpolate(0, strH);
 		g.drawString(str, (int) (x + ax), (int) (y + ay));
 	}
-
 	public static void drawRotatedString(Graphics g, Rotation r, String str, int x, int y) {
 		Graphics2D g2 = (Graphics2D) g;
 		double angleRadians = r.getAngleRadians();
@@ -75,5 +67,4 @@ public class GraphicsUtility {
 		g2.rotate(-angleRadians);
 		g2.translate(-x, -y);
 	}
-
 }
