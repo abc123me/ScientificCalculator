@@ -9,7 +9,7 @@ import java.awt.image.ColorModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
+import javax.swing.JComponent;
 
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
@@ -21,7 +21,7 @@ import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
 import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 //TODO: Fix panning and overshooting bugs
-public class CoordinatePlane extends JPanel{
+public class CoordinatePlane extends JComponent{
 	private static final long serialVersionUID = 1L;
 	private CoordinatePlaneGraphics cpg;
 	//private Quadrant quadrant = Quadrant.ALL;
