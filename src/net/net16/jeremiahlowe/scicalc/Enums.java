@@ -23,44 +23,6 @@ public interface Enums {
 	public static enum Inequality{
 		LessThan, LessThanOrEqualTo, EqualTo, GreatorThanOrEqualTo, GreatorThan;
 	}
-	//TODO: Finish interpolator
-	public static class Interpolator{
-		private double val = 0, min = 0, max = 1;
-		public double evaluate(double min, double max){
-			double nmax = max - min;
-			double ntmax = this.max - this.min;
-			double ntval = val - min;
-			return min + (ntval * nmax) * ntmax;
-		}
-		public void scale(double newMin, double newMax){
-			double perc = getPercent();
-			setMax(newMax);
-			setMin(newMin);
-			setPercent(perc);
-		}
-		public void setMax(double max){
-			if(max > min) this.max = max;
-			setValue(val);
-		}
-		public void setMin(double min){
-			if(min < max) this.min = min;
-			setValue(val);
-		}
-		public void setValue(double val){
-			this.val = MathUtility.clamp(min, max, val);
-		}
-		public void setValue(double val, double min, double max){
-			double oldMin = this.min, oldMax = this.max;
-			scale(min, max);
-			this.val = val;
-			scale(oldMin, oldMax);
-		}
-		public double getPercent(){return (val - min) / (max - min);}
-		public double getValue(){return val;}
-		public double getMin(){return min;}
-		public double getMax(){return max;}
-		public void setPercent(double percent){val = percent * (max - min) + min;}
-	}
 	public static enum VerticalAllignment{
 		Up, HalfUp, Center, HalfDown, Down, Custom;
 		private double percent = 0;
