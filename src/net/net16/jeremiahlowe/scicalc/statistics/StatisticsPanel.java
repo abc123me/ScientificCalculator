@@ -7,24 +7,26 @@ import java.awt.image.ColorModel;
 
 import javax.swing.JComponent;
 
-import net.net16.jeremiahlowe.scicalc.utility.IToString;
-
 public class StatisticsPanel extends JComponent {
 	private static final long serialVersionUID = 1L;
-	DrawableList<String> dl = new DrawableList<String>();
-	public StatisticsPanel() {
-		dl.base.add("hello");
-		dl.base.add("world");
-		dl.base.add("foo");
-		dl.base.add("bar");
-		dl.strGetter = new IToString<String>() {
-			@Override
-			public String getString(String from) {
-				System.out.println("getString()");
-				return from.toString();
-			}
-		};
-		//dl.setMaxBoxWidth(30);
+	
+	private int boxWidth = 50, boxHeight = 20;
+	private DrawableList<Double>[] lists;
+	private Color textColor = Color.BLACK;
+	private Color selectedColor = new Color(125, 125, 200);
+	private int textSpacing = 3;
+	
+	@SuppressWarnings("unchecked")
+	public StatisticsPanel(int listAmount) {
+		setForeground(Color.BLACK);
+		lists = new DrawableList[listAmount];
+		for(int i = 0; i < lists.length; i++){
+			lists[i] = new DrawableList<Double>();
+			lists[i].base.add(new Double(i));
+			lists[i].base.add(new Double(i));
+			lists[i].base.add(new Double(i));
+			lists[i].base.add(new Double(i));
+		}
 	}
 	@Override
 	public void paintComponent(Graphics g){
@@ -35,7 +37,24 @@ public class StatisticsPanel extends JComponent {
 	public void drawUnbuffered(Graphics g){
 		g.setColor(getBackground());
 		g.fillRect(0, 0, getWidth(), getHeight());
-		g.setColor(Color.BLACK);
-		dl.draw(g, 10, 10);
+		for(int i = 0; i < lists.length; i++){
+			int x = i * boxWidth;
+			
+			g.setColor(getForeground());
+			g.drawRect(x, 0, boxWidth, boxHeight);		
+			g.setColor(Color.RED);
+			g.drawString("List: " + (i + 1), x + textSpacing, boxHeight - textSpacing);
+
+			drawList(g, lists[i], x, boxHeight);
+		}
+	}
+	private void drawList(Graphics g, DrawableList<Double> list, int x, int y){
+		list.setBoxSize(boxWidth, boxHeight);
+		list.setTextColor(textColor);
+		list.setForegroundColor(getForeground());
+		list.setNormalBackgroundColor(getBackground());
+		list.setSelectedBackgroundColor(selectedColor);
+		list.setTextSpacing(textSpacing);
+		list.draw(g, x, y);
 	}
 }
