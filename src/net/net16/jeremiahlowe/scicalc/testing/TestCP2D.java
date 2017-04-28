@@ -1,11 +1,9 @@
 package net.net16.jeremiahlowe.scicalc.testing;
 
-import java.awt.Color;
-
 import net.net16.jeremiahlowe.scicalc.cartesian_plane.CoordinatePlane;
 import net.net16.jeremiahlowe.scicalc.cartesian_plane.DefaultController;
 import net.net16.jeremiahlowe.scicalc.cartesian_plane.PlaneFactory;
-import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
+import net.net16.jeremiahlowe.scicalc.functions.std.PolarFunction;
 
 public class TestCP2D {
 	public static void main(String[] args) throws Exception{
@@ -29,14 +27,14 @@ public class TestCP2D {
 			}
 		});*/
 		cp.setViewportSize(30, 30);
-		boolean cs = false;
+		/*boolean cs = false;
 		for(float i = -10; i <= 10; i += 0.25f){
 			final float d = i;
 			UnaryFunction f2 = new UnaryFunction(){
 				@Override
 				public double f(double x) {
-					return (Math.cos(20 * x) + x / d) * Math.sin(x);
-					//return x / d;
+					//return (Math.cos(20 * x) + x / d) * Math.sin(x);
+					return x / d;
 				}	
 			};
 			f2.setCustomIncrementer(false, 0.01f);
@@ -46,5 +44,13 @@ public class TestCP2D {
 			cs = !cs;
 		}
 		cp.recalculate();/**/
+		PolarFunction pf = new PolarFunction() {
+			@Override
+			public double r(double t) {
+				return 5;
+			}
+		};
+		pf.setLineWidth(30);
+		cp.addFunction(pf);
 	}
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import net.net16.jeremiahlowe.scicalc.Enums.DrawTime;
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
@@ -24,7 +25,7 @@ import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 public class CoordinatePlane extends JComponent{
 	private static final long serialVersionUID = 1L;
 	private CoordinatePlaneGraphics cpg;
-	//private Quadrant quadrant = Quadrant.ALL;
+	private List<PlanePaintHandler> paintHandlers;
 	private Vector2Precise viewportSize = new Vector2Precise(3, 3); 
 	private Vector2Precise dotSize = new Vector2Precise(0, 0);
 	private Vector2Precise unitsPerPixel = new Vector2Precise(0, 0);
@@ -42,7 +43,9 @@ public class CoordinatePlane extends JComponent{
 	public CoordinatePlane() {
 		setBackground(Color.WHITE);
 		cpg = new CoordinatePlaneGraphics();
+		paintHandlers = new ArrayList<PlanePaintHandler>();
 		functionManager = new FunctionManager();
+		surroundingOffset = calcSurroundingOffset();
 		addComponentListener(new ComponentAdapter(){
 			@Override
 			public void componentResized(ComponentEvent e) {
@@ -63,6 +66,8 @@ public class CoordinatePlane extends JComponent{
 	}
 	private void drawUnbuffered(Graphics g, Vector2Precise size){
 		//Start drawing to graphics
+		for(PlanePaintHandler pph : paintHandlers)
+			if(pph.drawOn == DrawTime.PrePaint) pph.paint(g); //Draw paint handlers
 		if(drawGrid) drawAxisGrid(g, size, surroundingOffset, lineWidth / 2);
 		//Heres where the bulk of time will be spent, this is where ALL points
 		//and functions are casted and drawn to the screen
@@ -70,9 +75,13 @@ public class CoordinatePlane extends JComponent{
 			drawPoint(p, g, size, surroundingOffset); //Draw points
 		if(!(ignoreFunctions || ignoreFunctionsFlag)) functionManager.drawFunctions(this, g, size); //Draw functions
 		else ignoreFunctionsFlag = false;
+		for(PlanePaintHandler pph : paintHandlers)
+			if(pph.drawOn == DrawTime.Paint) pph.paint(g); //Draw paint handlers
 		//Done! Now we can move on to the less-important stuff
 		cpg.drawAxes(this, g, size, axesColor, surroundingOffset, lineWidth);
 		if(drawTicks) drawAxisTicks(g, size, surroundingOffset);
+		for(PlanePaintHandler pph : paintHandlers)
+			if(pph.drawOn == DrawTime.PostPaint) pph.paint(g); //Draw paint handlers
 	}
 	public void draw(Graphics g){
 		Vector2Precise size = new Vector2Precise(getWidth(), getHeight());
@@ -240,7 +249,7 @@ public class CoordinatePlane extends JComponent{
 	public void setTickColor(Color tickColor) {this.tickColor = tickColor;}
 	public Color getGridColor() {return gridColor;}
 	public void setGridColor(Color gridColor) {this.gridColor = gridColor;}
-	public int getSurroundingOffset() {return arrowTipOffest + ((lineWidth > 1) ? 6 : 0);}
+	public int calcSurroundingOffset() {return arrowTipOffest + ((lineWidth > 1) ? 6 : 0);}
 	public Vector2Precise getTickCounts(){return tickCounts.clone();}
 	public void setTickCounts(Vector2Precise to){
 		tickCounts = to.clone();
@@ -268,4 +277,9 @@ public class CoordinatePlane extends JComponent{
 	public void pan(double x, double y){setOriginPanningOffset(panningOffset.x + x, panningOffset.y + y);}
 	public Vector2Precise getPlaneDomain() {return cpg.getPlaneDomain(getViewportSize(), getOriginPanningOffset());}
 	public Vector2Precise getPlaneRange() {return cpg.getPlaneRange(getViewportSize(), getOriginPanningOffset());}
+	public void addPaintHandler(PlanePaintHandler pph){paintHandlers.add(pph);}
+	public void removePaintHandler(PlanePaintHandler pph){paintHandlers.remove(pph);}
+	public List<PlanePaintHandler> getPaintHandlerList(){return paintHandlers;}
+	public void setSurroundingOffset(int surroundingOffset) {this.surroundingOffset = surroundingOffset;}
+	public int getSurroundingOffset() {return surroundingOffset;}
 }

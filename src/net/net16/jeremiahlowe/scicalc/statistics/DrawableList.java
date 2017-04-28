@@ -6,9 +6,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
-import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
-import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
 import net.net16.jeremiahlowe.scicalc.utility.IToString;
 import net.net16.jeremiahlowe.scicalc.utility.Utility;
 

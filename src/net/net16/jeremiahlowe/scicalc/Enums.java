@@ -6,6 +6,9 @@ import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
 import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
 
 public interface Enums {
+	public enum DrawTime{
+		PrePaint, Paint, PostPaint, Disabled
+	}
 	public enum CPEReason{
 		NoVariables, InvalidSymbol, Syntax, NotAFunction, InvalidName, InvalidVariableName, Unknown;
 		public String toString(){
