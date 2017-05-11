@@ -6,9 +6,16 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.IIOByteBuffer;
+import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JComponent;
 
 import net.net16.jeremiahlowe.scicalc.Enums.DrawTime;
@@ -96,6 +103,18 @@ public class CoordinatePlane extends JComponent{
 		drawUnbuffered(g, size);
 		//Draw buffer to unbuffered (std) graphics
 		ug.drawImage(b, 0, 0, size.getXI(), size.getYI(), null);
+	}
+	public void takeScreenshot(String fileName, String format) throws Exception{
+		Vector2Precise size = new Vector2Precise(getWidth(), getHeight());
+		File imageFile = new File(fileName);
+		imageFile.createNewFile();
+		BufferedImage b = new BufferedImage(size.getXI(), size.getYI(), ColorModel.TRANSLUCENT); //Create buffer
+		Graphics g = b.getGraphics(); //Get buffer graphics
+		g.setColor(getBackground()); //Build background
+		g.fillRect(0, 0, size.getXI(), size.getYI());
+		//Start drawing
+		drawUnbuffered(g, size);
+		ImageIO.write(b, format, imageFile);
 	}
 	//[end]
 	private void drawAxisGrid(Graphics g, Vector2Precise size, int surroundingOffset, int lineWidth){
