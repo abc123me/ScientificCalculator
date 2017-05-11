@@ -17,23 +17,23 @@ public class PointsAndFunctions {
 		p.style = PointStyle.Square;
 		p.fLabel.label = "Our point!";
 		cp.addPoint(p); //Add the point 
-		cp.takeScreenshot("demos/images/basic-usage-result-1.png", "png");
+		cp.takeScreenshot("demos/images/functions-and-points-1.png", "png");
 		p.position.y -= 0.5d; //Reposition it
 		cp.recalculate(); //Redraw the plane
-		cp.takeScreenshot("demos/images/basic-usage-result-2.png", "png");
+		cp.takeScreenshot("demos/images/functions-and-points-2.png", "png");
 		Parabola para = new Parabola();
 		cp.addFunction(para);
 		cp.recalculate();
-		cp.takeScreenshot("demos/images/basic-usage-result-3.png", "png");
+		cp.takeScreenshot("demos/images/functions-and-points-3.png", "png");
 		para.h = p.position.x;
 		para.k = p.position.y;
 		p.fLabel.label = "A parabola!";
 		cp.recalculate();
-		cp.takeScreenshot("demos/images/basic-usage-result-4.png", "png");
+		cp.takeScreenshot("demos/images/functions-and-points-4.png", "png");
 		BinaryFunction pf = FunctionFactory.circle(p.position, 2);
 		cp.addFunction(pf);
 		cp.recalculate();
-		cp.takeScreenshot("demos/images/basic-usage-result-5.png", "png");
+		cp.takeScreenshot("demos/images/functions-and-points-5.png", "png");
 	}
 }
 class Parabola extends UnaryFunction{
