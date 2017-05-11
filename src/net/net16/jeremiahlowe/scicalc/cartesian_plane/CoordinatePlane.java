@@ -7,18 +7,12 @@ import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.IIOByteBuffer;
-import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JComponent;
 
-import net.net16.jeremiahlowe.scicalc.Enums.DrawTime;
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
@@ -73,8 +67,7 @@ public class CoordinatePlane extends JComponent{
 	}
 	private void drawUnbuffered(Graphics g, Vector2Precise size){
 		//Start drawing to graphics
-		for(PlanePaintHandler pph : paintHandlers)
-			if(pph.drawOn == DrawTime.PrePaint) pph.paint(g); //Draw paint handlers
+		for(PlanePaintHandler pph : paintHandlers) pph.prePaint(g); //Draw paint handlers
 		if(drawGrid) drawAxisGrid(g, size, surroundingOffset, lineWidth / 2);
 		//Heres where the bulk of time will be spent, this is where ALL points
 		//and functions are casted and drawn to the screen
@@ -82,39 +75,36 @@ public class CoordinatePlane extends JComponent{
 			drawPoint(p, g, size, surroundingOffset); //Draw points
 		if(!(ignoreFunctions || ignoreFunctionsFlag)) functionManager.drawFunctions(this, g, size); //Draw functions
 		else ignoreFunctionsFlag = false;
-		for(PlanePaintHandler pph : paintHandlers)
-			if(pph.drawOn == DrawTime.Paint) pph.paint(g); //Draw paint handlers
+		for(PlanePaintHandler pph : paintHandlers) pph.paint(g); //Draw paint handlers
 		//Done! Now we can move on to the less-important stuff
 		cpg.drawAxes(this, g, size, axesColor, surroundingOffset, lineWidth);
 		if(drawTicks) drawAxisTicks(g, size, surroundingOffset);
-		for(PlanePaintHandler pph : paintHandlers)
-			if(pph.drawOn == DrawTime.PostPaint) pph.paint(g); //Draw paint handlers
+		for(PlanePaintHandler pph : paintHandlers) pph.postPaint(g); //Draw paint handlers
 	}
 	public void draw(Graphics g){
 		Vector2Precise size = new Vector2Precise(getWidth(), getHeight());
 		drawBuffered(g, size);
 	}
 	private void drawBuffered(Graphics ug, Vector2Precise size){
-		BufferedImage b = new BufferedImage(size.getXI(), size.getYI(), ColorModel.TRANSLUCENT); //Create buffer
-		Graphics g = b.getGraphics(); //Get buffer graphics
+		BufferedImage buffer = new BufferedImage(size.getXI(), size.getYI(), ColorModel.TRANSLUCENT); //Create buffer
+		Graphics g = buffer.getGraphics(); //Get buffer graphics
 		g.setColor(getBackground()); //Build background
 		g.fillRect(0, 0, size.getXI(), size.getYI());
 		//Start drawing
 		drawUnbuffered(g, size);
 		//Draw buffer to unbuffered (std) graphics
-		ug.drawImage(b, 0, 0, size.getXI(), size.getYI(), null);
+		ug.drawImage(buffer, 0, 0, size.getXI(), size.getYI(), null);
 	}
 	public void takeScreenshot(String fileName, String format) throws Exception{
 		Vector2Precise size = new Vector2Precise(getWidth(), getHeight());
 		File imageFile = new File(fileName);
 		imageFile.createNewFile();
-		BufferedImage b = new BufferedImage(size.getXI(), size.getYI(), ColorModel.TRANSLUCENT); //Create buffer
-		Graphics g = b.getGraphics(); //Get buffer graphics
+		BufferedImage buffer = new BufferedImage(size.getXI(), size.getYI(), ColorModel.TRANSLUCENT);
+		Graphics g = buffer.getGraphics(); //Get buffer graphics
 		g.setColor(getBackground()); //Build background
 		g.fillRect(0, 0, size.getXI(), size.getYI());
-		//Start drawing
 		drawUnbuffered(g, size);
-		ImageIO.write(b, format, imageFile);
+		ImageIO.write(buffer, format, imageFile);
 	}
 	//[end]
 	private void drawAxisGrid(Graphics g, Vector2Precise size, int surroundingOffset, int lineWidth){
