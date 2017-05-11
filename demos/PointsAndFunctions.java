@@ -28,10 +28,12 @@ public class PointsAndFunctions {
 		para.h = p.position.x;
 		para.k = p.position.y;
 		p.fLabel.label = "A parabola!";
+		cp.recalculate();
+		cp.takeScreenshot("demos/images/basic-usage-result-4.png", "png");
 		BinaryFunction pf = FunctionFactory.circle(p.position, 2);
 		cp.addFunction(pf);
 		cp.recalculate();
-		cp.takeScreenshot("demos/images/basic-usage-result-4.png", "png");
+		cp.takeScreenshot("demos/images/basic-usage-result-5.png", "png");
 	}
 }
 class Parabola extends UnaryFunction{
