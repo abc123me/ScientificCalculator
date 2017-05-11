@@ -54,11 +54,11 @@ public class FunctionFactory {
 		return new BinaryFunction() {
 			@Override
 			public double Yt(double t) {
-				return r * Math.sin(t + vertex.y);
+				return r * Math.sin(t) + vertex.y;
 			}
 			@Override
 			public double Xt(double t) {
-				return r * Math.cos(t + vertex.x);
+				return r * Math.cos(t) + vertex.x;
 			}
 			@Override
 			public double getThetaMax(){

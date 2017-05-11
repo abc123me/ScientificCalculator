@@ -35,7 +35,7 @@ public class FunctionManager {
 		double incrementer = f.getIncrementer();
 		//Build and cast the point list
 		for(double i = range.x; i < range.y; i += incrementer){
-			pointsL.add(c.castFromOrigin(new Vector2Precise(f.Yt(i), f.Xt(i)), size, surroundingOffset));
+			pointsL.add(c.castFromOrigin(new Vector2Precise(f.Xt(i), f.Yt(i)), size, surroundingOffset));
 		}
 		//Finish up
 		finalDraw(g, pointsL, f, c.getWidth(), c.getHeight(), surroundingOffset);
