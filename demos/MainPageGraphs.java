@@ -19,12 +19,9 @@ public class MainPageGraphs {
 		cp.addFunction(uf);
 		uf.setLineWidth(2);
 		uf.getFunctionLabel().label = "sin x";
-		VerticalAllignment allign2 = VerticalAllignment.Custom;
-		allign2.setCustomPercent(0.63d);
-		uf.getFunctionLabel().vAllign = allign2;
-		HorizontalAllignment allign = HorizontalAllignment.Custom;
-		allign.setCustomPercent(0.35d);
-		uf.getFunctionLabel().hAllign = allign;
+		uf.getFunctionLabel().vAllign = VerticalAllignment.Up;
+		uf.getFunctionLabel().hAllign = HorizontalAllignment.HalfLeft;
+		uf.getFunctionLabel().labelRotation.setAngleDegrees(40);
 		
 		UnaryFunction uf2 = new UnaryFunction() {
 			@Override
@@ -36,15 +33,12 @@ public class MainPageGraphs {
 		uf2.setLineWidth(2);
 		uf2.getFunctionLabel().label = "cos x";
 		uf2.setColor(Color.BLUE);
-		VerticalAllignment allign4 = VerticalAllignment.Custom;
-		allign4.setCustomPercent(0.63d);
-		uf2.getFunctionLabel().vAllign = allign4;
-		HorizontalAllignment allign3 = HorizontalAllignment.Custom;
-		allign.setCustomPercent(0.35d);
-		uf2.getFunctionLabel().hAllign = allign3;
+		uf2.getFunctionLabel().vAllign = VerticalAllignment.HalfDown;
+		uf2.getFunctionLabel().hAllign = HorizontalAllignment.HalfLeft;
+		uf2.getFunctionLabel().labelRotation.setAngleDegrees(40);
 		
 		cp.recalculate();
 		cp.takeScreenshot("demos/images/sine-main-page.png", "png");
-		//System.exit(0);
+		System.exit(0);
 	}
 }
