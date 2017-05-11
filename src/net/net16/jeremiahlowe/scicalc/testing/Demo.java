@@ -20,10 +20,11 @@ public class Demo {
 		
 		cp.addPoint(p);
 		
+		cp.takeScreenshot("demos/basic-usage-result-1.png", "png");
 		p.position.y -= 0.5d;
 		
 		cp.recalculate();
-		cp.takeScreenshot("plane.png", "png");
+		cp.takeScreenshot("demos/basic-usage-result-2.png", "png");
 	}
 
 }
