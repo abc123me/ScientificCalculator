@@ -122,4 +122,30 @@ public class MathUtility {
 		else return true;
 	}
 
+	public static final double slopeXY(Vector2Precise a, Vector2Precise b, boolean highNumOverInf){
+		double x = b.x - a.x, y = a.y - b.y;
+		if(y == 0){
+			if(highNumOverInf) return 1e10;
+			else return Double.POSITIVE_INFINITY;
+		}
+		return x / y;
+	}
+	public static final double slopeYX(Vector2Precise a, Vector2Precise b, boolean highNumOverInf){
+		double x = b.x - a.x, y = a.y - b.y;
+		if(x == 0){
+			if(highNumOverInf) return 1e10;
+			else return Double.POSITIVE_INFINITY;
+		}
+		return y / x;
+	}
+	public static final double slope(Vector2Precise a, Vector2Precise b, boolean highNumOverInf){
+		return slopeYX(a, b, highNumOverInf);
+	}
+	public static final double slope(Vector2Precise a, Vector2Precise b){
+		return slopeYX(a, b, false);
+	}
+	public static final double yIntercept(Vector2Precise a, Vector2Precise b){
+		double m = slopeYX(a, b, false);
+		return a.y - (m * b.x);
+	}
 }

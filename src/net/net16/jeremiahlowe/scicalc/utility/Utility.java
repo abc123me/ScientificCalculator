@@ -1,5 +1,7 @@
 package net.net16.jeremiahlowe.scicalc.utility;
 
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+
 public class Utility {
 	public static final String clampLength(String in, int len){return clampLength(in, len, false);}
 	public static final String clampLength(String in, int len, boolean dots){
@@ -55,5 +57,14 @@ public class Utility {
 			if(any == t) return true;
 		}
 		return false;
+	}
+	public static Vector2Precise[] combineXYArrays(double[] x, double[] y){
+		if(x.length != y.length)
+			throw new RuntimeException("X and Y Arrays must be same in size");
+		int len = x.length;
+		Vector2Precise[] out = new Vector2Precise[len];
+		for(int i = 0; i < len; i++)
+			out[i] = new Vector2Precise(x[i], y[i]);
+		return out;
 	}
 }

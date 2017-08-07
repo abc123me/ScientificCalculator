@@ -27,75 +27,43 @@ public interface Enums {
 		LessThan, LessThanOrEqualTo, EqualTo, GreatorThanOrEqualTo, GreatorThan;
 	}
 	public static enum VerticalAllignment{
-		Up, HalfUp, Center, HalfDown, Down, Custom;
+		Up(1d), HalfUp(0.75d), Center(0.5d), HalfDown(0.25d), Down(0d);
 		private double percent = 0;
-		public VerticalAllignment negate(){
-			if(this == Up) return Down;
-			else if(this == Down) return Up;
-			else if(this == HalfUp) return HalfDown;
-			else if(this == HalfDown) return HalfUp;
-			else if(this == Custom){
-				VerticalAllignment special = VerticalAllignment.Custom;
-				special.setCustomPercent(1 - percent);
-				return special;
-			}
-			else return Center;
+		private VerticalAllignment(double percent){
+			this.percent = percent;
 		}
-		public void setCustomPercent(double percent){
-			if(percent >= 0 && percent <= 1){
-				this.percent = percent;
-				return;
-			}
-			throw new RuntimeException("Percentages must be >= 0 and <= 1!");
+		public void setPercent(double percent){
+			if(percent >= 0 && percent <= 1) this.percent = percent;
+			else throw new RuntimeException("Percentages must be >= 0 and <= 1!");
 		}
-		public double getCustomMultiplier(){return percent;}
+		public double getPercent(){return percent;}
 		public double interpolate(double min, double max){
-			double mid = (max + min) / 2;
-			switch(this){
-				case Center: return mid;
-				case Down: return min;
-				case HalfDown: return (mid + min) / 2;
-				case HalfUp: return (mid + max) / 2;
-				case Up: return max;
-				case Custom: return (min + max) * percent;
-				default: return mid;
-			}
+			return (min + max) * percent;
+		}
+		public VerticalAllignment negate(){
+			VerticalAllignment out = VerticalAllignment.Center;
+			out.setPercent(1d - getPercent());
+			return out;
 		}
 	}
 	public static enum HorizontalAllignment{
-		Left, HalfLeft, Center, HalfRight, Right, Custom;
+		Left(0d), HalfLeft(0.25d), ForthLeft(0.375d), Center(0.5d), ForthRight(0.625d), HalfRight(0.75d), Right(1d);
 		private double percent = 0;
-		public HorizontalAllignment negate(){
-			if(this == Left) return Right;
-			else if(this == Right) return Left;
-			else if(this == HalfLeft) return HalfRight;
-			else if(this == HalfRight) return HalfLeft;
-			else if(this == Custom){
-				HorizontalAllignment special = HorizontalAllignment.Custom;
-				special.setCustomPercent(1 - percent);
-				return special;
-			}
-			else return Center;
+		private HorizontalAllignment(double percent){
+			this.percent = percent;
 		}
-		public void setCustomPercent(double percent){
-			if(percent >= 0 && percent <= 1){
-				this.percent = percent;
-				return;
-			}
-			throw new RuntimeException("Percentages must be >= 0 and <= 1!");
+		public void setPercent(double percent){
+			if(percent >= 0 && percent <= 1) this.percent = percent;
+			else throw new RuntimeException("Percentages must be >= 0 and <= 1!");
 		}
-		public double getCustomMultiplier(){return percent;}
+		public double getPercent(){return percent;}
 		public double interpolate(double min, double max){
-			double mid = (max + min) / 2;
-			switch(this){
-				case Center: return mid;
-				case Left: return min;
-				case HalfLeft: return (mid + min) / 2;
-				case HalfRight: return (mid + max) / 2;
-				case Right: return max;
-				case Custom: return (min + max) * percent;
-				default: return mid;
-			}
+			return (min + max) * percent;
+		}
+		public HorizontalAllignment negate(){
+			HorizontalAllignment out = HorizontalAllignment.Center;
+			out.setPercent(1d - getPercent());
+			return out;
 		}
 	}
 	public static enum LineStyle{

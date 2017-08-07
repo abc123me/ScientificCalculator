@@ -37,8 +37,22 @@ public class MainPageGraphs {
 		uf2.getFunctionLabel().hAllign = HorizontalAllignment.HalfLeft;
 		uf2.getFunctionLabel().labelRotation.setAngleDegrees(40);
 		
+		UnaryFunction uf3 = new UnaryFunction() {
+			@Override
+			public double f(double x) {
+				return Math.tan(x);
+			}
+		};
+		cp.addFunction(uf3);
+		uf3.setLineWidth(2);
+		uf3.getFunctionLabel().label = "tan x";
+		uf3.setColor(Color.GREEN);
+		uf3.getFunctionLabel().vAllign = VerticalAllignment.Center;
+		uf3.getFunctionLabel().hAllign = HorizontalAllignment.Center;
+		uf3.getFunctionLabel().labelRotation.setAngleDegrees(90);
+		
 		cp.recalculate();
 		cp.takeScreenshot("demos/images/sine-main-page.png", "png");
-		System.exit(0);
+		//System.exit(0);
 	}
 }
