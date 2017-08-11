@@ -1,4 +1,5 @@
 /bin/
-/net/net16/jeremiahlowe/scicalc/testing/
+/src/net/net16/jeremiahlowe/scicalc/testing/
+/src/net/net16/jeremiahlowe/scicalc/testing
 *.log
 *.class
