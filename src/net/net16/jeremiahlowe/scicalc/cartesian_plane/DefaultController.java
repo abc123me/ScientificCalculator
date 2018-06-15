@@ -9,7 +9,7 @@ import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
 import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class DefaultController implements KeyListener, MouseWheelListener{
-	public int toogleLabelsKey = KeyEvent.VK_L;
+	public int toogleLabelsKey = KeyEvent.VK_E;
 	public int zoomIn = KeyEvent.VK_W;
 	public int zoomOut = KeyEvent.VK_S;
 	public int zoomInH = KeyEvent.VK_LEFT;
@@ -33,9 +33,9 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 	private CoordinatePlane cp;
 	
 	public DefaultController(CoordinatePlane cp) {this(cp, true);}
-	public DefaultController(CoordinatePlane cp, boolean al) {
+	public DefaultController(CoordinatePlane cp, boolean addListeners) {
 		this.cp = cp;
-		if(al) addListeners();
+		if(addListeners) addListeners();
 	}
 	
 	@Override
