@@ -13,6 +13,7 @@ public class FunctionDrawParameters{
 	private boolean hasCustomIncrementer = false;
 	private double customIncrementer = 0.01d;
 	private boolean ignoreBorders = false;
+	private boolean nanMeansUndefined = true;
 	private PointStyle styleP = PointStyle.Pixel;
 	private FunctionLabel fLabel;
 	private Color color = Color.RED;
@@ -64,5 +65,7 @@ public class FunctionDrawParameters{
 	public void setCustomIncrementer(double customIncrementer) {this.customIncrementer = customIncrementer;}
 	public void setPointSize(int pointSize){this.pointSize = pointSize;}
 	public int getPointSize(){return pointSize;}
+	public boolean doesNaNMeanUndefined() {return nanMeansUndefined;}
+	public void setNanMeansUndefined(boolean nanMeansUndefined) { this.nanMeansUndefined = nanMeansUndefined; }
 	//[end]
 }

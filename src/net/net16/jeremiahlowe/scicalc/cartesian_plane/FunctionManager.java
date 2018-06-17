@@ -64,6 +64,8 @@ public class FunctionManager {
 		List<Vector2Precise> pointsL = new ArrayList<Vector2Precise>();
 		for(double i = d.x; i < d.y; i += inc){
 			double x = onX ? f.f(i) : i, y = !onX ? f.f(i) : i; //Get x and y values
+			if(x == Double.NaN || y == Double.NaN)
+				continue;
 			pointsL.add(c.castFromOrigin(new Vector2Precise(x, y), size, surroundingOffset));
 		}
 		return pointsL;

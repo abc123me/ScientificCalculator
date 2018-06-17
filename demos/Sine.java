@@ -16,7 +16,7 @@ public class Sine{
 	public static void regen(int amount) {
 		toPlot = new UnaryFunction[amount];
 		for(int i = 0; i < amount; i++) {
-			int j = i * 2 + 1;
+			float j = i * 2f + 1;
 			toPlot[i] = FunctionFactory.sin(amplitude / j, j);
 			toPlot[i].setColor(Color.BLUE);
 		}
