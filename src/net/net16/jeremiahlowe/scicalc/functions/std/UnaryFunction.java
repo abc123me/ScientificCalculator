@@ -17,6 +17,10 @@ public abstract class UnaryFunction extends FunctionDrawParameters{
 	public UnaryFunction(boolean drawOnX){this(drawOnX, false);}
 	public UnaryFunction(){this(false, false);}
 	
+	public boolean isFunctionDefined(double x) {
+		return true;
+	}
+	
 	public abstract double f(double x);
 	
 	public final BinaryFunction toBinaryFunction(){return toBinaryFunction(this);}

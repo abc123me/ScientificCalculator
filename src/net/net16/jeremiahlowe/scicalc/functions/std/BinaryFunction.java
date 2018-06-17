@@ -15,6 +15,9 @@ public abstract class BinaryFunction extends FunctionDrawParameters{
 	public double getIncrementer() {
 		return (getThetaMax() - getThetaMin()) / 100d;
 	}
+	public boolean isFunctionDefined(double t) {
+		return true;
+	}
 	
 	public abstract double Xt(double t);
 	public abstract double Yt(double t);
