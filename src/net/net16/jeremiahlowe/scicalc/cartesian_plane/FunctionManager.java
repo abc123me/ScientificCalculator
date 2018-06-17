@@ -65,10 +65,11 @@ public class FunctionManager {
 	public List<Vector2Precise> makePointList(CoordinatePlane c, UnaryFunction f, boolean onX, Vector2Precise d, Vector2Precise size, int surroundingOffset, double inc){
 		List<Vector2Precise> pointsL = new ArrayList<Vector2Precise>();
 		for(double i = d.x; i < d.y; i += inc){
-			double x = onX ? f.f(i) : i, y = !onX ? f.f(i) : i; //Don't ask me how that works, The caffeine gods put it there
+			double ffi = f.f(i);
+			double x = onX ? ffi : i, y = !onX ? ffi  : i; 
 			if(!f.isFunctionDefined(x))
 				continue;
-			if(x == Double.NaN || y == Double.NaN)
+			if(Double.isNaN(ffi))
 				continue;
 			pointsL.add(c.castFromOrigin(new Vector2Precise(x, y), size, surroundingOffset));
 		}
