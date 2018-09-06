@@ -44,8 +44,9 @@ public class FunctionDrawParameters{
 		hasCustomIncrementer = enabled;
 		customIncrementer = val;
 	}
-	public final double getCustomIncrementerValid(){return MathUtility.clamp(0.01d, Double.MAX_VALUE, getCustomIncrementer());}
-	public double getCustomIncrementer(){return customIncrementer;}
+	public final double getCustomIncrementerValid(){return MathUtility.clamp(0.01d, Double.MAX_VALUE, getCustomPixelIncrementer());}
+	@Deprecated
+	public double getCustomPixelIncrementer(){return customIncrementer;}
 	public boolean connectPoints() {return connectPoints;}
 	public void setConnectPoints(boolean connectPoints) {this.connectPoints = connectPoints;}
 	public void setHasCustomIncrementer(boolean hasCustomIncrementer) {this.hasCustomIncrementer = hasCustomIncrementer;}

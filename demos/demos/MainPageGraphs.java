@@ -1,3 +1,4 @@
+package demos;
 import java.awt.Color;
 
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;

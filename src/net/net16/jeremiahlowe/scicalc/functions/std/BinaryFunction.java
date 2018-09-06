@@ -13,7 +13,10 @@ public abstract class BinaryFunction extends FunctionDrawParameters{
 		return 2 * Math.PI;
 	}
 	public double getIncrementer() {
-		return (getThetaMax() - getThetaMin()) / 100d;
+		return (getThetaMax() - getThetaMin()) / getPointAmount();
+	}
+	public double getPointAmount() {
+		return 1000d;
 	}
 	
 	public abstract double Xt(double t);
