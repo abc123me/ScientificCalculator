@@ -31,7 +31,7 @@ public class CoordinatePlane extends JComponent{
 	private DoubleVector dotSize = new DoubleVector(0, 0);
 	private DoubleVector unitsPerPixel = new DoubleVector(0, 0);
 	private DoubleVector panningOffset = new DoubleVector(0, 0);
-	private DoubleVector tickCounts = new DoubleVector(1, 1);
+	private DoubleVector tickCount = new DoubleVector(10, 10);
 	private int lineWidth = 2, arrowTipOffest = 3, tickWidth = 2, surroundingOffset, labelDigits = 2;
 	private boolean drawTicks = true, drawGrid = true, labelTicks = true;
 	private Color axesColor = Color.BLACK, tickColor = Color.BLACK;
@@ -65,20 +65,21 @@ public class CoordinatePlane extends JComponent{
 		DoubleVector size = new DoubleVector(getWidth(), getHeight());
 		drawUnbuffered(g, size);
 	}
-	private void drawUnbuffered(Graphics g, DoubleVector size){
+	private void drawUnbuffered(Graphics g, DoubleVector pixelSize){
 		//Start drawing to graphics
+		DoubleVector inc = DoubleVector.div(viewportSize, tickCount);
 		for(PlanePaintHandler pph : paintHandlers) pph.prePaint(g); //Draw paint handlers
-		if(drawGrid) drawAxisGrid(g, size, surroundingOffset, lineWidth / 2);
+		if(drawGrid) drawAxisGrid(g, inc, pixelSize, surroundingOffset, lineWidth / 2);
 		//Heres where the bulk of time will be spent, this is where ALL points
 		//and functions are casted and drawn to the screen
 		for(Point p : points) if(p != null) 
-			drawPoint(p, g, size, surroundingOffset); //Draw points
-		if(!(ignoreFunctions || ignoreFunctionsFlag)) functionManager.drawFunctions(this, g, size); //Draw functions
+			drawPoint(p, g, pixelSize, surroundingOffset); //Draw points
+		if(!(ignoreFunctions || ignoreFunctionsFlag)) functionManager.drawFunctions(this, g, pixelSize); //Draw functions
 		else ignoreFunctionsFlag = false;
 		for(PlanePaintHandler pph : paintHandlers) pph.paint(g); //Draw paint handlers
 		//Done! Now we can move on to the less-important stuff
-		cpg.drawAxes(this, g, size, axesColor, surroundingOffset, lineWidth);
-		if(drawTicks) drawAxisTicks(g, size, surroundingOffset);
+		cpg.drawAxes(this, g, pixelSize, axesColor, surroundingOffset, lineWidth);
+		if(drawTicks) drawAxisTicks(g, inc, pixelSize, surroundingOffset);
 		for(PlanePaintHandler pph : paintHandlers) pph.postPaint(g); //Draw paint handlers
 	}
 	public void draw(Graphics g){
@@ -107,16 +108,15 @@ public class CoordinatePlane extends JComponent{
 		ImageIO.write(buffer, format, imageFile);
 	}
 	//[end]
-	private void drawAxisGrid(Graphics g, DoubleVector size, int surroundingOffset, int lineWidth){
+	private void drawAxisGrid(Graphics g, DoubleVector inc, DoubleVector size, int surroundingOffset, int lineWidth){
 		g.setColor(gridColor);
 		//Iterate through negative and positive axises
-		for(int i = 0; i < 2; i++){
-			//Get a multiplier for later
-			int m = i == 0 ? -1 : 1;
-			DoubleVector start = tickCounts.clone(), stop = viewportSize.clone(), inc = tickCounts.clone();
+		for(int m = -1; m < 2; m += 2){
+			DoubleVector start = new DoubleVector(0), stop = viewportSize.clone();
 			if(m > 0) stop.translate(panningOffset.clone().negate());
 			else stop.translate(panningOffset);
 			for(double x = start.x; x < stop.x; x += inc.x){
+				if(x == 0) continue;
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
 				DoubleVector ca = castFromOrigin(new DoubleVector(m * x, 0), size, surroundingOffset);
@@ -126,6 +126,7 @@ public class CoordinatePlane extends JComponent{
 				else g.drawLine(x0, surroundingOffset, x0, size.getYI() - surroundingOffset);
 			}
 			for(double y = start.y; y < stop.y; y += inc.y){
+				if(y == 0) continue;
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
 				DoubleVector ca = castFromOrigin(new DoubleVector(0, m * y), size, surroundingOffset);
@@ -137,17 +138,16 @@ public class CoordinatePlane extends JComponent{
 		}
 		if(lineWidth > 1) GraphicsUtility.resetWidth(g);
 	}
-	private void drawAxisTicks(Graphics g, DoubleVector size, int surroundingOffset){
+	private void drawAxisTicks(Graphics g, DoubleVector inc, DoubleVector size, int surroundingOffset){
 		g.setColor(axesColor);
 		//Iterate through negative and positive axes
 		int fh = g.getFontMetrics().getHeight();
-		for(int i = 0; i < 2; i++){
-			//Get a multiplier for later
-			int m = i == 0 ? -1 : 1;
-			DoubleVector start = tickCounts.clone(), stop = viewportSize.clone(), inc = tickCounts.clone();
+		for(int m = -1; m < 2; m += 2){
+			DoubleVector start = new DoubleVector(0), stop = viewportSize.clone();
 			if(m > 0) stop.translate(panningOffset.clone().negate());
 			else stop.translate(panningOffset);
 			for(double x = start.x; x < stop.x; x += inc.x){
+				if(x == 0) continue;
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
 				DoubleVector ca = castFromOrigin(new DoubleVector(m * x, 0), size, surroundingOffset);
@@ -157,6 +157,7 @@ public class CoordinatePlane extends JComponent{
 				if(labelTicks) GraphicsUtility.drawCenteredString(g, Utility.numberToString(x * m, labelDigits), ca.getXI(), ca.getYI() + m2 * fh);
 			}
 			for(double y = start.y; y < stop.y; y += inc.y){
+				if(y == 0) continue;
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
 				DoubleVector ca = castFromOrigin(new DoubleVector(0, m * y), size, surroundingOffset);
@@ -258,9 +259,11 @@ public class CoordinatePlane extends JComponent{
 	public Color getGridColor() {return gridColor;}
 	public void setGridColor(Color gridColor) {this.gridColor = gridColor;}
 	public int calcSurroundingOffset() {return arrowTipOffest + ((lineWidth > 1) ? 6 : 0);}
-	public DoubleVector getTickCounts(){return tickCounts.clone();}
-	public void setTickCounts(DoubleVector to){
-		tickCounts = to.clone();
+	public DoubleVector getTickCount(){return tickCount.clone();}
+	public void setTickCount(DoubleVector to){
+		if(to.x <= 0 || to.y <= 0)
+			throw new RuntimeException("Invalid tick count: " + to);
+		tickCount = to.clone();
 		recalculate();
 	}
 	public int getAxesLabelDigits(){return labelDigits;}
