@@ -13,7 +13,7 @@ public class Test extends BinaryFunction{
 	double amp = 0;
 	public static void main(String[] args) {
 		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D(true);
-		DefaultController dc = new DefaultController(cp);
+		new DefaultController(cp);
 		Test t = new Test();
 		t.a = 0.05;
 		t.b = 30;
