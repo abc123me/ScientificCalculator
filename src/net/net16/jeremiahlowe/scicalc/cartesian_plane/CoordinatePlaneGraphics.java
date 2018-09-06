@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
-import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
 import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 public class CoordinatePlaneGraphics {
@@ -33,7 +33,7 @@ public class CoordinatePlaneGraphics {
 	}
 	public void drawTick(Graphics g, DoubleVector size, int x, int y, int surroundingOffset, int tickWidth, int lineWidth, boolean horizontal){
 		double xm = size.x - surroundingOffset, ym = size.y - surroundingOffset;
-		if(MathUtility.betweenOrEqual(xm, surroundingOffset, x) && MathUtility.betweenOrEqual(ym, surroundingOffset, y)){
+		if(Utility.betweenOrEqual(xm, surroundingOffset, x) && Utility.betweenOrEqual(ym, surroundingOffset, y)){
 			if(horizontal){
 				if(lineWidth > 1) GraphicsUtility.drawLineWithWidth(g, x - tickWidth, y, x + tickWidth, y, lineWidth);
 				else g.drawLine(x - tickWidth, y, x + tickWidth, y);

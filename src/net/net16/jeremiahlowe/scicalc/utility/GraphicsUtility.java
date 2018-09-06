@@ -16,13 +16,13 @@ public class GraphicsUtility {
 		g2.drawLine(x1, y1, x2, y2);
 	}
 	public static final void drawArrowWithWidth(Rotation r, int x, int y, Graphics g, int lw){
-		DoubleVector[] v = MathUtility.rotateVerticiesAround(r, new DoubleVector(x, y), GraphicsUtility.getArrowLines(x, y));
+		DoubleVector[] v = Utility.rotateVerticiesAround(r, new DoubleVector(x, y), GraphicsUtility.getArrowLines(x, y));
 		drawLineWithWidth(g, v[0].getXI(), v[0].getYI(), v[1].getXI(), v[1].getYI(), lw); //Shaft [0, 1]
 		drawLineWithWidth(g, v[2].getXI() - lw / 2, v[2].getYI(), v[3].getXI() - lw / 2, v[3].getYI(), lw); //Left [2, 3]
 		drawLineWithWidth(g, v[4].getXI(), v[4].getYI(), v[5].getXI(), v[5].getYI(), lw); //Right [4, 5]
 	}
 	public static final void drawArrow(Rotation r, int x, int y, Graphics g){
-		DoubleVector[] v = MathUtility.rotateVerticiesAround(r, new DoubleVector(x, y), GraphicsUtility.getArrowLines(x, y));
+		DoubleVector[] v = Utility.rotateVerticiesAround(r, new DoubleVector(x, y), GraphicsUtility.getArrowLines(x, y));
 		g.drawLine(v[0].getXI(), v[0].getYI(), v[1].getXI(), v[1].getYI()); //Shaft [0, 1]
 		g.drawLine(v[2].getXI(), v[2].getYI(), v[3].getXI(), v[3].getYI()); //Left [2, 3]
 		g.drawLine(v[4].getXI(), v[4].getYI(), v[5].getXI(), v[5].getYI()); //Right [4, 5]

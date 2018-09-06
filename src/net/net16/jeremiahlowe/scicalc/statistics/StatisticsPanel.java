@@ -10,9 +10,8 @@ import javax.swing.JComponent;
 
 import net.net16.jeremiahlowe.scicalc.functions.FunctionFactory;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 import net.net16.jeremiahlowe.scicalc.utility.Utility;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class StatisticsPanel extends JComponent {
 	private static final long serialVersionUID = 1L;
@@ -65,20 +64,20 @@ public class StatisticsPanel extends JComponent {
 		list.draw(g, x, y);
 	}
 	public UnaryFunction asYEqualsAXPlusB(int xList, int yList){
-		Vector2Precise[] points = getListsAsPointsArray(xList, yList);
+		DoubleVector[] points = getListsAsPointsArray(xList, yList);
 		float avgSlope = 0, avgIntercept = 0;
-		Vector2Precise lastPoint = null, currentPoint = null;
+		DoubleVector lastPoint = null, currentPoint = null;
 		for(int i = 1; i < points.length; i++){
 			lastPoint = points[i - 1];
 			currentPoint = points[i];
-			avgSlope += MathUtility.slope(lastPoint, currentPoint);
-			avgIntercept += MathUtility.yIntercept(lastPoint, currentPoint);
+			avgSlope += Utility.slope(lastPoint, currentPoint);
+			avgIntercept += Utility.yIntercept(lastPoint, currentPoint);
 		}
 		avgSlope /= points.length;
 		avgIntercept /= points.length;
 		return FunctionFactory.line(avgSlope, avgIntercept);
 	}
-	public Vector2Precise[] getListsAsPointsArray(int xList, int yList){
+	public DoubleVector[] getListsAsPointsArray(int xList, int yList){
 		double[] xValues = new double[lists[xList].base.size()];
 		double[] yValues = new double[lists[yList].base.size()];
 		int xLen = xValues.length, yLen = yValues.length;

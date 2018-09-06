@@ -2,7 +2,7 @@ package net.net16.jeremiahlowe.scicalc.functions.tracer;
 
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
 import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 public class UnaryFunctionTracer extends AbstractFunctionTracer{
@@ -26,7 +26,7 @@ public class UnaryFunctionTracer extends AbstractFunctionTracer{
 		currentDelta = pos; currentTheta = np;
 		pointPos = new DoubleVector(onX ? np : pos, onX ? pos : np);
 		point.position = pointPos; 
-		if(autoLabelPoint) point.fLabel.label = MathUtility.numberToString(pointPos.x, labelDigits) + ", " + MathUtility.numberToString(pointPos.y, labelDigits);
+		if(autoLabelPoint) point.fLabel.label = Utility.numberToString(pointPos.x, labelDigits) + ", " + Utility.numberToString(pointPos.y, labelDigits);
 		delegateChangeEvent();
 	}
 	public void pan(double amount){setPosition(currentDelta + amount);}

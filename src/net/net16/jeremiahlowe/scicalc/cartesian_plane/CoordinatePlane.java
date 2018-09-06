@@ -19,7 +19,7 @@ import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.PolarFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
-import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
 import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 //TODO: Fix panning and overshooting bugs
@@ -154,7 +154,7 @@ public class CoordinatePlane extends JComponent{
 				cpg.drawTick(g, size, ca.getXI(), ca.getYI(), surroundingOffset, tickWidth, lineWidth, false);
 				int m2 = 1;
 				//if(quadrant == Quadrant.I || quadrant == Quadrant.II || quadrant == Quadrant.I_II) m2 = -1;
-				if(labelTicks) GraphicsUtility.drawCenteredString(g, MathUtility.numberToString(x * m, labelDigits), ca.getXI(), ca.getYI() + m2 * fh);
+				if(labelTicks) GraphicsUtility.drawCenteredString(g, Utility.numberToString(x * m, labelDigits), ca.getXI(), ca.getYI() + m2 * fh);
 			}
 			for(double y = start.y; y < stop.y; y += inc.y){
 				//Cast pos. from origin on negator * axis position thus
@@ -162,7 +162,7 @@ public class CoordinatePlane extends JComponent{
 				DoubleVector ca = castFromOrigin(new DoubleVector(0, m * y), size, surroundingOffset);
 				cpg.drawTick(g, size, ca.getXI(), ca.getYI(), surroundingOffset, tickWidth, lineWidth, true);
 				if(labelTicks){
-					String num = MathUtility.numberToString(y * m, labelDigits);
+					String num = Utility.numberToString(y * m, labelDigits);
 					HorizontalAllignment h = HorizontalAllignment.Left;
 					VerticalAllignment v = VerticalAllignment.HalfDown;
 					GraphicsUtility.drawAllignedString(g, num, ca.getXI() + surroundingOffset, ca.getYI(), h, v);

@@ -1,6 +1,6 @@
 package net.net16.jeremiahlowe.scicalc;
 
-import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
 
 //TODO: Finish interpolator
 public enum Interpolator{
@@ -32,7 +32,7 @@ public enum Interpolator{
 		setValue(val);
 	}
 	public void setValue(double val){
-		this.val = MathUtility.clamp(min, max, val);
+		this.val = Utility.clamp(min, max, val);
 	}
 	public void setValue(double val, double min, double max){
 		double oldMin = this.min, oldMax = this.max;
