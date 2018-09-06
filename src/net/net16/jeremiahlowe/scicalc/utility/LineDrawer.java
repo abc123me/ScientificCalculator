@@ -15,9 +15,6 @@ public class LineDrawer {
 	private int lineIteratorPixels = 10;
 	private double lineIterator = 0;
 	private int dotWidth = 0, dotHeight = 0;
-	/*private int[] waveBank;      
-	private int waveAmplitude = 5;
-	private int waveFrequency = 20;*/
 	private boolean dotCycle = false;
 	
 	public LineDrawer(){this(defaultLineStyle, defaultIteratorPixels);}
@@ -26,7 +23,6 @@ public class LineDrawer {
 	public LineDrawer(LineStyle ls){this(ls, defaultIteratorPixels);}
 	public LineDrawer(LineStyle s, int lip){this(s, Color.black, lip);}
 	public LineDrawer(LineStyle style, Color lineColor, int lineIteratorPixels){
-		//initializeTrigonometryBank(lineIteratorPixels, waveAmplitude, waveFrequency);
 		this.lineIteratorPixels = lineIteratorPixels;
 		this.lineColor = lineColor;
 		dotWidth = lineIteratorPixels / 4;
@@ -44,8 +40,7 @@ public class LineDrawer {
 		}
 		//Initialization
 		g.setColor(lineColor);
-		//if(waveBank.length != lineIteratorPixels) initializeTrigonometryBank(lineIteratorPixels, waveAmplitude, waveFrequency);
-		//Get stuff we might need
+		//Get the rate of change
 		int a = x2 - x1, b = y2 - y1; 
 		//Calculate slope
 		double m = Double.POSITIVE_INFINITY;
@@ -89,14 +84,6 @@ public class LineDrawer {
 		}
 		return false;
 	}
-	/*//We use this to hold all the points in a sine wave so we don't have to re-compute them later
-	private void initializeTrigonometryBank(int to, int amp, int freq){
-		waveBank = new int[to];
-		for(int i = 0; i < to; i++) waveBank[i] = (int) (amp * Math.sin(gradientToRadiant(0, to, i)));
-	}
-	private double gradientToRadiant(double min, double max, double val){
-		return ((val - min) / (max - min)) * 2 * Math.PI;
-	}*/
 	
 	public LineStyle getStyle() {return style;}
 	public void setStyle(LineStyle style) {this.style = style;}
