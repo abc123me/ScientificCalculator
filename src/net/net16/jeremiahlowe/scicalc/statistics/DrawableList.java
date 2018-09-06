@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.net16.jeremiahlowe.scicalc.utility.IToString;
-import net.net16.jeremiahlowe.shared.ArrayUtility;
 import net.net16.jeremiahlowe.shared.TextUtility;
 
 public class DrawableList<T>{

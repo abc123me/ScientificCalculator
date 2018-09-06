@@ -57,7 +57,6 @@ public class FunctionManager {
 		else d = md;
 		//System.out.println(d);
 		double inc = onX ? pixelSize.y : pixelSize.x;
-		if(f.hasCustomIncrementer()) inc = f.getCustomIncrementerValid();
 		//Build and cast the point list
 		List<DoubleVector> pointsL = makePointList(c, f, onX, d, size, surroundingOffset, inc);
 		finalDraw(g, pointsL, f, c.getWidth(), c.getHeight(), surroundingOffset);

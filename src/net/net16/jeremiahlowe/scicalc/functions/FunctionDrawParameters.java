@@ -10,8 +10,6 @@ import net.net16.jeremiahlowe.scicalc.utility.Utility;
 
 public class FunctionDrawParameters{
 	private boolean connectPoints = true;
-	private boolean hasCustomIncrementer = false;
-	private double customIncrementer = 0.01d;
 	private boolean ignoreBorders = false;
 	private PointStyle styleP = PointStyle.Pixel;
 	private FunctionLabel fLabel;
@@ -37,17 +35,8 @@ public class FunctionDrawParameters{
 		lineDrawer.setLineColor(color);
 	}
 	public LineDrawer getLineDrawer(){return lineDrawer;}
-	public boolean hasCustomIncrementer(){return hasCustomIncrementer;}
-	public void setCustomIncrementer(boolean enabled, double val){
-		hasCustomIncrementer = enabled;
-		customIncrementer = val;
-	}
-	public final double getCustomIncrementerValid(){return Utility.clamp(0.01d, Double.MAX_VALUE, getCustomPixelIncrementer());}
-	@Deprecated
-	public double getCustomPixelIncrementer(){return customIncrementer;}
 	public boolean connectPoints() {return connectPoints;}
 	public void setConnectPoints(boolean connectPoints) {this.connectPoints = connectPoints;}
-	public void setHasCustomIncrementer(boolean hasCustomIncrementer) {this.hasCustomIncrementer = hasCustomIncrementer;}
 	public boolean ignoreBorders() {return ignoreBorders;}
 	public void setIgnoreBorders(boolean ignoreBorders) {this.ignoreBorders = ignoreBorders;}
 	public LineStyle getLineStyle() {return lineDrawer.getStyle();}
@@ -60,7 +49,6 @@ public class FunctionDrawParameters{
 	public void setLineIteratorPixels(int lineIteratorPixels) {lineDrawer.setLineIteratorPixels(lineIteratorPixels);}
 	public FunctionLabel getFunctionLabel() {return fLabel;}
 	public void setFunctionLabel(FunctionLabel fLabel) {this.fLabel = fLabel;}
-	public void setCustomIncrementer(double customIncrementer) {this.customIncrementer = customIncrementer;}
 	public void setPointSize(int pointSize){this.pointSize = pointSize;}
 	public int getPointSize(){return pointSize;}
 	//[end]

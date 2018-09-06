@@ -40,7 +40,6 @@ public abstract class UnaryFunction extends FunctionDrawParameters{
 		out.setColor(f.getColor());
 		out.setFunctionLabel(f.getFunctionLabel());
 		out.setConnectPoints(f.connectPoints());
-		out.setCustomIncrementer(f.hasCustomIncrementer(), f.getCustomPixelIncrementer());
 		out.setIgnoreBorders(f.ignoreBorders());
 		out.setLineIteratorPixels(f.getLineIteratorPixels());
 		out.setLineWidth(f.getLineWidth());
