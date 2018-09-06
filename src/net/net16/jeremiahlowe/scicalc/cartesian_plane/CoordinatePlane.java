@@ -187,7 +187,6 @@ public class CoordinatePlane extends JComponent{
 		out.x += origin.x; //Casting and then off-setting for the origin
 		out.y = -newPoint.y * dotSize.y;
 		out.y += origin.y;
-		//Returning non rounded values out, left unrounded for more precision
 		return out;
 	}
 	public void recalculate(){recalculate(true);}

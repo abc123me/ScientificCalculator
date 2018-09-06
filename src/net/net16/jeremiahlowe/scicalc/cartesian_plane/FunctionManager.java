@@ -35,6 +35,8 @@ public class FunctionManager {
 		double incrementer = f.getIncrementer();
 		//Build and cast the point list
 		for(double i = range.x; i < range.y; i += incrementer){
+			if(!f.isFunctionDefined(i))
+				continue;
 			pointsL.add(c.castFromOrigin(new DoubleVector(f.Xt(i), f.Yt(i)), size, surroundingOffset));
 		}
 		//Finish up
@@ -63,7 +65,12 @@ public class FunctionManager {
 	public List<DoubleVector> makePointList(CoordinatePlane c, UnaryFunction f, boolean onX, DoubleVector d, DoubleVector size, int surroundingOffset, double inc){
 		List<DoubleVector> pointsL = new ArrayList<DoubleVector>();
 		for(double i = d.x; i < d.y; i += inc){
-			double x = onX ? f.f(i) : i, y = !onX ? f.f(i) : i; //Get x and y values
+			double ffi = f.f(i);
+			double x = onX ? ffi : i, y = !onX ? ffi  : i; 
+			if(!f.isFunctionDefined(x))
+				continue;
+			if(Double.isNaN(ffi))
+				continue;
 			pointsL.add(c.castFromOrigin(new DoubleVector(x, y), size, surroundingOffset));
 		}
 		return pointsL;

@@ -18,6 +18,9 @@ public abstract class BinaryFunction extends FunctionDrawParameters{
 	public double getPointAmount() {
 		return 1000d;
 	}
+	public boolean isFunctionDefined(double t) {
+		return true;
+	}
 	
 	public abstract double Xt(double t);
 	public abstract double Yt(double t);

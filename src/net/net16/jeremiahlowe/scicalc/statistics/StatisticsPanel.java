@@ -4,8 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
+import java.util.List;
 
 import javax.swing.JComponent;
+
+import net.net16.jeremiahlowe.scicalc.functions.FunctionFactory;
+import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
+import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
+import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class StatisticsPanel extends JComponent {
 	private static final long serialVersionUID = 1L;
@@ -56,5 +63,38 @@ public class StatisticsPanel extends JComponent {
 		list.setSelectedBackgroundColor(selectedColor);
 		list.setTextSpacing(textSpacing);
 		list.draw(g, x, y);
+	}
+	public UnaryFunction asYEqualsAXPlusB(int xList, int yList){
+		Vector2Precise[] points = getListsAsPointsArray(xList, yList);
+		float avgSlope = 0, avgIntercept = 0;
+		Vector2Precise lastPoint = null, currentPoint = null;
+		for(int i = 1; i < points.length; i++){
+			lastPoint = points[i - 1];
+			currentPoint = points[i];
+			avgSlope += MathUtility.slope(lastPoint, currentPoint);
+			avgIntercept += MathUtility.yIntercept(lastPoint, currentPoint);
+		}
+		avgSlope /= points.length;
+		avgIntercept /= points.length;
+		return FunctionFactory.line(avgSlope, avgIntercept);
+	}
+	public Vector2Precise[] getListsAsPointsArray(int xList, int yList){
+		double[] xValues = new double[lists[xList].base.size()];
+		double[] yValues = new double[lists[yList].base.size()];
+		int xLen = xValues.length, yLen = yValues.length;
+		for(int i = 0; i < xLen; i++)
+			xValues[i] = lists[xList].base.get(i).doubleValue();
+		for(int i = 0; i < yLen; i++)
+			yValues[i] = lists[yList].base.get(i).doubleValue();
+		if(xLen != yLen){
+			int minLen = xLen < yLen ? xLen : yLen;
+			int maxLen = xLen > yLen ? xLen : yLen;
+			double[] resized = new double[maxLen];
+			for(int i = 0; i < minLen; i++)
+				resized[i] = (xLen < yLen ? xValues : yValues)[i];
+			for(int i = minLen - 1; i < maxLen; i++)
+				resized[i] = 0;
+		}
+		return Utility.combineXYArrays(xValues, yValues);
 	}
 }

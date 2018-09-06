@@ -9,7 +9,7 @@ import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
 import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 public class DefaultController implements KeyListener, MouseWheelListener{
-	public int toogleLabelsKey = KeyEvent.VK_O;
+	public int toogleLabelsKey = KeyEvent.VK_E;
 	public int zoomIn = KeyEvent.VK_W;
 	public int zoomOut = KeyEvent.VK_S;
 	public int zoomInH = KeyEvent.VK_LEFT;

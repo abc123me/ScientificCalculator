@@ -23,9 +23,7 @@ public class FunctionDrawParameters{
 	public FunctionDrawParameters(){
 		fLabel = new FunctionLabel(color);
 		lineDrawer = new LineDrawer(color);
-		init();
 	}
-	public void init(){}
 	//[end]
 	//[start] Graphics
 	public void drawPoint(Graphics g, int xi, int yi) {styleP.draw(g, xi, yi, pointSize);}
