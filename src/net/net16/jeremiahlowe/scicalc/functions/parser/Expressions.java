@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.net16.jeremiahlowe.scicalc.Enums.CPEReason;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.shared.TextUtility;
 
 public interface Expressions{
 	public class Variable{
@@ -19,7 +19,7 @@ public interface Expressions{
 		public String substitute(){return "(" + value + ")";}
 		public String toString(){return name + "=" + value;}
 		public void setName(String to) throws CannotParseException{
-			if(to.length() <= 0 || !Utility.isAlphabetical(to.charAt(0)))
+			if(to.length() <= 0 || !TextUtility.isAlphabetical(to.charAt(0)))
 				throw new CannotParseException("Variable name must start with a letter (a-z or A-Z)", CPEReason.InvalidVariableName); 
 		}
 		public String getName(){return name;}

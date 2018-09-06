@@ -3,14 +3,14 @@ package net.net16.jeremiahlowe.scicalc.functions.tracer;
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 public class UnaryFunctionTracer extends AbstractFunctionTracer{
 	private UnaryFunction function;
 	private boolean autoLabelPoint = true;
 	private int labelDigits = 2;
 	private double currentDelta, currentTheta;
-	private Vector2Precise pointPos;
+	private DoubleVector pointPos;
 	
 	public UnaryFunctionTracer(UnaryFunction function){this(function, PointStyle.Square);}
 	public UnaryFunctionTracer(UnaryFunction function, PointStyle pointStyle){this(function, pointStyle, 8);}
@@ -24,13 +24,13 @@ public class UnaryFunctionTracer extends AbstractFunctionTracer{
 		boolean onX = function.drawOnX;
 		double np = function.f(pos);
 		currentDelta = pos; currentTheta = np;
-		pointPos = new Vector2Precise(onX ? np : pos, onX ? pos : np);
+		pointPos = new DoubleVector(onX ? np : pos, onX ? pos : np);
 		point.position = pointPos; 
 		if(autoLabelPoint) point.fLabel.label = MathUtility.numberToString(pointPos.x, labelDigits) + ", " + MathUtility.numberToString(pointPos.y, labelDigits);
 		delegateChangeEvent();
 	}
 	public void pan(double amount){setPosition(currentDelta + amount);}
-	public Vector2Precise getPointPos(){return pointPos.clone();}
+	public DoubleVector getPointPos(){return pointPos.clone();}
 	public UnaryFunction getFunction(){return function;}
 	public double getCurrentDelta(){return currentDelta;}
 	public double getCurrentTheta(){return currentTheta;}

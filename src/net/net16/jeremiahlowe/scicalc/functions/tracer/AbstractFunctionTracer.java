@@ -6,14 +6,14 @@ import java.util.List;
 
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.cartesian_plane.Point;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 public abstract class AbstractFunctionTracer {
 	protected Point point;
 	protected List<Runnable> changeListeners;
 	
 	public AbstractFunctionTracer(Color pointColor, PointStyle pointStyle, int pointSize){
-		point = new Point(new Vector2Precise(0, 0), pointColor, pointStyle, pointSize);
+		point = new Point(new DoubleVector(0, 0), pointColor, pointStyle, pointSize);
 		changeListeners = new ArrayList<Runnable>();
 	}
 	

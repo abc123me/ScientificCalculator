@@ -1,12 +1,11 @@
 package net.net16.jeremiahlowe.scicalc.utility;
 
 import net.net16.jeremiahlowe.bettercollections.Rotation;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class MathUtility {
 
-	public static final Vector2Precise getBoundingBox(Vector2Precise... verticies){
-		Vector2Precise out = new Vector2Precise(Float.MIN_VALUE, Float.MIN_VALUE);
+	public static final DoubleVector getBoundingBox(DoubleVector... verticies){
+		DoubleVector out = new DoubleVector(Float.MIN_VALUE, Float.MIN_VALUE);
 		for(int i = 0; i < verticies.length; i++){
 			if(verticies[i].x > out.x) out.x = verticies[i].x;
 			if(verticies[i].y > out.y) out.y = verticies[i].y;
@@ -14,27 +13,27 @@ public class MathUtility {
 		return out;
 	}
 
-	public static final Vector2Precise getCenter(int x, int y, int w, int h){
-		return new Vector2Precise((x + w) / 2, (y + h) / 2);
+	public static final DoubleVector getCenter(int x, int y, int w, int h){
+		return new DoubleVector((x + w) / 2, (y + h) / 2);
 	}
 	
-	public static final Vector2Precise getMidpoint(Vector2Precise... verticies){
-		Vector2Precise origin = new Vector2Precise();
+	public static final DoubleVector getMidpoint(DoubleVector... verticies){
+		DoubleVector origin = new DoubleVector();
 		for(int i = 0; i < verticies.length; i++) origin.translate(verticies[i]);
 		origin.x /= verticies.length; origin.y /= verticies.length;
 		return origin;
 	}
 
-	public static final Vector2Precise[] rotateVerticiesAround(Rotation rot, Vector2Precise origin, Vector2Precise... verticies){
+	public static final DoubleVector[] rotateVerticiesAround(Rotation rot, DoubleVector origin, DoubleVector... verticies){
 		if(rot.getAngleDegrees() == 360 || rot.getAngleDegrees() == 0) return verticies;
 		else{
-			Vector2Precise[] out = new Vector2Precise[verticies.length];
+			DoubleVector[] out = new DoubleVector[verticies.length];
 			float angle = rot.getAngleRadians();
 			for(int i = 0; i < out.length; i++){
 				double x1 = verticies[i].x - origin.x, y1 = verticies[i].y - origin.y;
 				double x2 = x1 * Math.cos(angle) - y1 * Math.sin(angle);
 				double y2 = x1 * Math.sin(angle) + y1 * Math.cos(angle);
-				out[i] = new Vector2Precise();
+				out[i] = new DoubleVector();
 				out[i].x = (float) x2 + origin.x;
 				out[i].y = (float) y2 + origin.y;
 			}
@@ -98,7 +97,7 @@ public class MathUtility {
 		return parts[0] + '.' + parts[1];
 	}
 
-	public static final Vector2Precise[] rotateVerticiesAroundMidpoint(Rotation rot, Vector2Precise... verticies){
+	public static final DoubleVector[] rotateVerticiesAroundMidpoint(Rotation rot, DoubleVector... verticies){
 		return rotateVerticiesAround(rot, getMidpoint(verticies), verticies);
 	}
 

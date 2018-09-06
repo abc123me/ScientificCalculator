@@ -6,32 +6,32 @@ import java.awt.Graphics;
 import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
 import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 public class CoordinatePlaneGraphics {
-	public Vector2Precise getPlaneDomain(Vector2Precise viewportSize, Vector2Precise offset) {
+	public DoubleVector getPlaneDomain(DoubleVector viewportSize, DoubleVector offset) {
 		double h = viewportSize.x / 2, nh = -h;
 		h -= offset.x;
 		nh -= offset.x;
-		return new Vector2Precise(nh, h);
+		return new DoubleVector(nh, h);
 	}
-	public Vector2Precise getPlaneRange(Vector2Precise viewportSize, Vector2Precise offset) {
+	public DoubleVector getPlaneRange(DoubleVector viewportSize, DoubleVector offset) {
 		double h = viewportSize.y / 2, nh = -h;
 		h -= offset.y;
 		nh -= offset.y;
-		return new Vector2Precise(nh, h);
+		return new DoubleVector(nh, h);
 	}
-	public Vector2Precise getPixelOrigin(Vector2Precise size , int surroundingOffset){
+	public DoubleVector getPixelOrigin(DoubleVector size , int surroundingOffset){
 		double hx = size.x / 2, hy = size.y / 2;
-		return new Vector2Precise(hx, hy);
+		return new DoubleVector(hx, hy);
 	}
-	public int getLineX(CoordinatePlane c, Vector2Precise size, int surroundingOffset){
-		return c.castFromOrigin(new Vector2Precise(0, 0), size, surroundingOffset).getXI();
+	public int getLineX(CoordinatePlane c, DoubleVector size, int surroundingOffset){
+		return c.castFromOrigin(new DoubleVector(0, 0), size, surroundingOffset).getXI();
 	}
-	public int getLineY(CoordinatePlane c, Vector2Precise size, int surroundingOffset){
-		return c.castFromOrigin(new Vector2Precise(0, 0), size, surroundingOffset).getYI();
+	public int getLineY(CoordinatePlane c, DoubleVector size, int surroundingOffset){
+		return c.castFromOrigin(new DoubleVector(0, 0), size, surroundingOffset).getYI();
 	}
-	public void drawTick(Graphics g, Vector2Precise size, int x, int y, int surroundingOffset, int tickWidth, int lineWidth, boolean horizontal){
+	public void drawTick(Graphics g, DoubleVector size, int x, int y, int surroundingOffset, int tickWidth, int lineWidth, boolean horizontal){
 		double xm = size.x - surroundingOffset, ym = size.y - surroundingOffset;
 		if(MathUtility.betweenOrEqual(xm, surroundingOffset, x) && MathUtility.betweenOrEqual(ym, surroundingOffset, y)){
 			if(horizontal){
@@ -44,7 +44,7 @@ public class CoordinatePlaneGraphics {
 			}
 		}
 	}
-	public void drawAxes(CoordinatePlane c, Graphics g, Vector2Precise size, Color axesColor, int surroundingOffset, int lineWidth){
+	public void drawAxes(CoordinatePlane c, Graphics g, DoubleVector size, Color axesColor, int surroundingOffset, int lineWidth){
 		g.setColor(axesColor);
 		//Calculate axis positions
 		int lineX = getLineX(c, size, surroundingOffset); //X-Axis position

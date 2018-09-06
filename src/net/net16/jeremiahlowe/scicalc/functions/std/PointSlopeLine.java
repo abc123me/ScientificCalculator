@@ -1,12 +1,12 @@
 package net.net16.jeremiahlowe.scicalc.functions.std;
 
 import net.net16.jeremiahlowe.scicalc.cartesian_plane.Point;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 public class PointSlopeLine extends UnaryFunction{
 	public final double slope, intercept, min, max;	
 	//[start] Constructors
-	public PointSlopeLine(Vector2Precise a, Vector2Precise b, boolean hasLimits){
+	public PointSlopeLine(DoubleVector a, DoubleVector b, boolean hasLimits){
 		super(false, hasLimits);
 		double y = b.y - a.y, x = b.x - a.x;
 		if(x == 0){
@@ -24,7 +24,7 @@ public class PointSlopeLine extends UnaryFunction{
 	}
 	public PointSlopeLine(Point a, Point b, boolean hasLimits){this(a.position, b.position, hasLimits);}
 	public PointSlopeLine(Point a, Point b){this(a.position, b.position);}
-	public PointSlopeLine(Vector2Precise a, Vector2Precise b){this(a, b, false);}
+	public PointSlopeLine(DoubleVector a, DoubleVector b){this(a, b, false);}
 	//[end]
 	@Override
 	public double f(double x){return (x * slope) + intercept;}

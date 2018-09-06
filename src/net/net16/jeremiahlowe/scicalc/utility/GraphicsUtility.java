@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
 import net.net16.jeremiahlowe.bettercollections.Rotation;
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
 
 public class GraphicsUtility {
 	public static final void drawLineWithWidth(Graphics g, int x1, int y1, int x2, int y2, int lw){
@@ -17,28 +16,28 @@ public class GraphicsUtility {
 		g2.drawLine(x1, y1, x2, y2);
 	}
 	public static final void drawArrowWithWidth(Rotation r, int x, int y, Graphics g, int lw){
-		Vector2Precise[] v = MathUtility.rotateVerticiesAround(r, new Vector2Precise(x, y), GraphicsUtility.getArrowLines(x, y));
+		DoubleVector[] v = MathUtility.rotateVerticiesAround(r, new DoubleVector(x, y), GraphicsUtility.getArrowLines(x, y));
 		drawLineWithWidth(g, v[0].getXI(), v[0].getYI(), v[1].getXI(), v[1].getYI(), lw); //Shaft [0, 1]
 		drawLineWithWidth(g, v[2].getXI() - lw / 2, v[2].getYI(), v[3].getXI() - lw / 2, v[3].getYI(), lw); //Left [2, 3]
 		drawLineWithWidth(g, v[4].getXI(), v[4].getYI(), v[5].getXI(), v[5].getYI(), lw); //Right [4, 5]
 	}
 	public static final void drawArrow(Rotation r, int x, int y, Graphics g){
-		Vector2Precise[] v = MathUtility.rotateVerticiesAround(r, new Vector2Precise(x, y), GraphicsUtility.getArrowLines(x, y));
+		DoubleVector[] v = MathUtility.rotateVerticiesAround(r, new DoubleVector(x, y), GraphicsUtility.getArrowLines(x, y));
 		g.drawLine(v[0].getXI(), v[0].getYI(), v[1].getXI(), v[1].getYI()); //Shaft [0, 1]
 		g.drawLine(v[2].getXI(), v[2].getYI(), v[3].getXI(), v[3].getYI()); //Left [2, 3]
 		g.drawLine(v[4].getXI(), v[4].getYI(), v[5].getXI(), v[5].getYI()); //Right [4, 5]
 	}
-	public static final Vector2Precise[] getArrowLines(int x, int y){
-		Vector2Precise[] verticies = new Vector2Precise[6];
+	public static final DoubleVector[] getArrowLines(int x, int y){
+		DoubleVector[] verticies = new DoubleVector[6];
 		//Shaft
-		verticies[0] = new Vector2Precise(x, y - 3);
-		verticies[1] = new Vector2Precise(x, y + 3);
+		verticies[0] = new DoubleVector(x, y - 3);
+		verticies[1] = new DoubleVector(x, y + 3);
 		//Left side
-		verticies[2] = new Vector2Precise(x, y - 3);
-		verticies[3] = new Vector2Precise(x - 3, y);
+		verticies[2] = new DoubleVector(x, y - 3);
+		verticies[3] = new DoubleVector(x - 3, y);
 		//Right side
-		verticies[4] = new Vector2Precise(x, y - 3);
-		verticies[5] = new Vector2Precise(x + 3, y);
+		verticies[4] = new DoubleVector(x, y - 3);
+		verticies[5] = new DoubleVector(x + 3, y);
 		return verticies;
 	}
 	public static void drawCenteredString(Graphics g, String str, int x, int y) {

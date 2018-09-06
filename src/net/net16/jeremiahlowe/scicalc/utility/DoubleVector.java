@@ -1,14 +1,14 @@
-package net.net16.jeremiahlowe.scicalc.utility.collections;
+package net.net16.jeremiahlowe.scicalc.utility;
 
-public class Vector2Precise implements Cloneable{
+public class DoubleVector implements Cloneable{
 	public double x, y;
-	public Vector2Precise(double x, double y){
+	public DoubleVector(double x, double y){
 		this.x = x; this.y = y;
 	}
-	public Vector2Precise(double d){
+	public DoubleVector(double d){
 		this(d, d);
 	}
-	public Vector2Precise(){
+	public DoubleVector(){
 		this(0);
 	}
 	public double getX(){
@@ -29,46 +29,46 @@ public class Vector2Precise implements Cloneable{
 	public void setY(float y){
 		this.y = y;
 	}
-	public Vector2Precise negate(){
+	public DoubleVector negate(){
 		this.x *= -1;
 		this.y *= -1;
 		return this;
 	}
-	public Vector2Precise inverseSlope(){
+	public DoubleVector inverseSlope(){
 		this.x *= -1;
 		return this;
 	}
-	public static double distance(Vector2Precise a, Vector2Precise b){
+	public static double distance(DoubleVector a, DoubleVector b){
 		return Math.sqrt(distance2(a, b));
 	}
-	public static double distance2(Vector2Precise a, Vector2Precise b){
+	public static double distance2(DoubleVector a, DoubleVector b){
 		double x = Math.pow((b.x - a.x), 2);
 		double y = Math.pow((b.y - a.y), 2);
 		return x + y;
 	}
-	public static Vector2Precise midpoint(Vector2Precise a, Vector2Precise b){
-		Vector2Precise out = new Vector2Precise();
+	public static DoubleVector midpoint(DoubleVector a, DoubleVector b){
+		DoubleVector out = new DoubleVector();
 		out.x = (a.x + b.x) / 2;
 		out.y = (a.y + b.y) / 2;
 		return out;
 	}
 	@Override
-	public Vector2Precise clone(){
-		return new Vector2Precise(x, y);
+	public DoubleVector clone(){
+		return new DoubleVector(x, y);
 	}
-	public Vector2Precise add(Vector2Precise b){
-		return new Vector2Precise(x + b.x, y + b.y);
+	public DoubleVector add(DoubleVector b){
+		return new DoubleVector(x + b.x, y + b.y);
 	}
-	public Vector2Precise subtract(Vector2Precise b){
-		return new Vector2Precise(x - b.x, y - b.y);
+	public DoubleVector subtract(DoubleVector b){
+		return new DoubleVector(x - b.x, y - b.y);
 	}
-	public static Vector2Precise add(Vector2Precise a, Vector2Precise b){
-		return new Vector2Precise(a.x + b.x, a.y + b.y);
+	public static DoubleVector add(DoubleVector a, DoubleVector b){
+		return new DoubleVector(a.x + b.x, a.y + b.y);
 	}
-	public static Vector2Precise subtract(Vector2Precise a, Vector2Precise b){
-		return new Vector2Precise(a.x - b.x, a.y - b.y);
+	public static DoubleVector subtract(DoubleVector a, DoubleVector b){
+		return new DoubleVector(a.x - b.x, a.y - b.y);
 	}
-	public void translate(Vector2Precise by){
+	public void translate(DoubleVector by){
 		x += by.x; y += by.y;
 	}
 	public void translate(double x, double y){

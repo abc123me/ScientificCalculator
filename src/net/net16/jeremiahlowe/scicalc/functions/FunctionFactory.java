@@ -3,7 +3,7 @@ package net.net16.jeremiahlowe.scicalc.functions;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.PointSlopeLine;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 //TODO: Add more factories
 public class FunctionFactory {
@@ -42,7 +42,7 @@ public class FunctionFactory {
 		};
 	}
 	//ax^2 + bx + c
-	public static UnaryFunction quadratic(Vector2Precise vertex, double a){
+	public static UnaryFunction quadratic(DoubleVector vertex, double a){
 		return new UnaryFunction() {
 			@Override
 			public double f(double x) {
@@ -50,7 +50,7 @@ public class FunctionFactory {
 			}
 		};
 	}
-	public static BinaryFunction circle(Vector2Precise vertex, double r){
+	public static BinaryFunction circle(DoubleVector vertex, double r){
 		return new BinaryFunction() {
 			@Override
 			public double Yt(double t) {
@@ -70,7 +70,7 @@ public class FunctionFactory {
 			}
 		};
 	}
-	public static BinaryFunction ellipse(Vector2Precise vertex, double w, double h){
+	public static BinaryFunction ellipse(DoubleVector vertex, double w, double h){
 		return new BinaryFunction() {
 			@Override
 			public double Yt(double t) {
@@ -90,10 +90,10 @@ public class FunctionFactory {
 			}
 		};
 	}
-	public static PointSlopeLine line(Vector2Precise start, Vector2Precise end){
+	public static PointSlopeLine line(DoubleVector start, DoubleVector end){
 		return line(start, end, false);
 	}
-	public static PointSlopeLine line(Vector2Precise start, Vector2Precise end, boolean limited){
+	public static PointSlopeLine line(DoubleVector start, DoubleVector end, boolean limited){
 		return new PointSlopeLine(start, end, limited);
 	}
 }

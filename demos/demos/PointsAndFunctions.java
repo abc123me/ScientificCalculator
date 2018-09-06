@@ -8,12 +8,12 @@ import net.net16.jeremiahlowe.scicalc.cartesian_plane.Point;
 import net.net16.jeremiahlowe.scicalc.functions.FunctionFactory;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 public class PointsAndFunctions {
 	public static void main(String[] args) throws Exception{
 		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D(); //Make the plane
-		Point p = new Point(new Vector2Precise(1, 1)); //Create the point
+		Point p = new Point(new DoubleVector(1, 1)); //Create the point
 		p.setColor(Color.BLUE);
 		p.style = PointStyle.Square;
 		p.fLabel.label = "Our point!";

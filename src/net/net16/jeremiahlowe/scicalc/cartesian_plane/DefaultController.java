@@ -6,7 +6,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 public class DefaultController implements KeyListener, MouseWheelListener{
 	public int toogleLabelsKey = KeyEvent.VK_O;
@@ -56,13 +56,13 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 	public void zoom(int xp, int yp, boolean forced){
 		if(forced || !animating){
 			//Resize viewport
-			Vector2Precise vs = cp.getViewportSize();
+			DoubleVector vs = cp.getViewportSize();
 			if(vs.x + xp > 0) vs.x += xp;
 			if(vs.y + yp > 0) vs.y += yp;
 			cp.setViewportSize(vs);
 			//Resize ticks
 			if(!lockAxisSize) return;
-			Vector2Precise ntc = new Vector2Precise(0, 0);
+			DoubleVector ntc = new DoubleVector(0, 0);
 			ntc.x = vs.x / ticksOnScreen.x;
 			ntc.y = vs.y / ticksOnScreen.y;
 			cp.setTickCounts(ntc);

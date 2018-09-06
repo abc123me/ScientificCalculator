@@ -8,7 +8,7 @@ import net.net16.jeremiahlowe.scicalc.functions.FunctionDrawParameters;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 //TODO: Implement multi-threading in FunctionManager
 //TODO: Fix panning and overshooting bugs
@@ -16,7 +16,7 @@ public class FunctionManager {
 	public List<UnaryFunction> unaryFunctions = new ArrayList<UnaryFunction>();
 	public List<BinaryFunction> binaryFunctions = new ArrayList<BinaryFunction>();
 	
-	public void drawFunctions(CoordinatePlane c, Graphics g, Vector2Precise size){
+	public void drawFunctions(CoordinatePlane c, Graphics g, DoubleVector size){
 		for(UnaryFunction d : unaryFunctions){ //Boring functions
 			drawUnaryFunction(c, g, d, size, c.getUnitsPerPixel(), c.getViewportSize(), c.getSurroundingOffset());
 			if(d.getLineWidth() > 1) GraphicsUtility.resetWidth(g);
@@ -26,29 +26,29 @@ public class FunctionManager {
 			if(d.getLineWidth() > 1) GraphicsUtility.resetWidth(g);
 		}
 	}
-	public void drawBinaryFunction(CoordinatePlane c, Graphics g, BinaryFunction f, Vector2Precise size, Vector2Precise pixelSize, Vector2Precise viewportSize, int surroundingOffset){
+	public void drawBinaryFunction(CoordinatePlane c, Graphics g, BinaryFunction f, DoubleVector size, DoubleVector pixelSize, DoubleVector viewportSize, int surroundingOffset){
 		g.setColor(f.getColor());
 		//Build the point list
-		List<Vector2Precise> pointsL = new ArrayList<Vector2Precise>();
+		List<DoubleVector> pointsL = new ArrayList<DoubleVector>();
 		//Get the range of the equation
-		Vector2Precise range = new Vector2Precise(f.getThetaMin(), f.getThetaMax());
+		DoubleVector range = new DoubleVector(f.getThetaMin(), f.getThetaMax());
 		double incrementer = f.getIncrementer();
 		//Build and cast the point list
 		for(double i = range.x; i < range.y; i += incrementer){
-			pointsL.add(c.castFromOrigin(new Vector2Precise(f.Xt(i), f.Yt(i)), size, surroundingOffset));
+			pointsL.add(c.castFromOrigin(new DoubleVector(f.Xt(i), f.Yt(i)), size, surroundingOffset));
 		}
 		//Finish up
 		finalDraw(g, pointsL, f, c.getWidth(), c.getHeight(), surroundingOffset);
 	}
-	public void drawUnaryFunction(CoordinatePlane c, Graphics g, UnaryFunction f, Vector2Precise size, Vector2Precise pixelSize, Vector2Precise viewportSize, int surroundingOffset){
+	public void drawUnaryFunction(CoordinatePlane c, Graphics g, UnaryFunction f, DoubleVector size, DoubleVector pixelSize, DoubleVector viewportSize, int surroundingOffset){
 		g.setColor(f.getColor());
 		//Get equation domain
 		boolean onX = f.drawOnX;
-		Vector2Precise d = new Vector2Precise(0, 0), md = new Vector2Precise(0, 0);
+		DoubleVector d = new DoubleVector(0, 0), md = new DoubleVector(0, 0);
 		if(onX) md = c.getPlaneRange();
 		else md = c.getPlaneDomain();
 		if(f.hasLimits){
-			d = new Vector2Precise(f.getMin(), f.getMax()); 
+			d = new DoubleVector(f.getMin(), f.getMax()); 
 			if(d.x < md.x) d.x = md.x; 
 			if(d.y > md.y) d.y = md.y;
 		}
@@ -57,29 +57,29 @@ public class FunctionManager {
 		double inc = onX ? pixelSize.y : pixelSize.x;
 		if(f.hasCustomIncrementer()) inc = f.getCustomIncrementerValid();
 		//Build and cast the point list
-		List<Vector2Precise> pointsL = makePointList(c, f, onX, d, size, surroundingOffset, inc);
+		List<DoubleVector> pointsL = makePointList(c, f, onX, d, size, surroundingOffset, inc);
 		finalDraw(g, pointsL, f, c.getWidth(), c.getHeight(), surroundingOffset);
 	}
-	public List<Vector2Precise> makePointList(CoordinatePlane c, UnaryFunction f, boolean onX, Vector2Precise d, Vector2Precise size, int surroundingOffset, double inc){
-		List<Vector2Precise> pointsL = new ArrayList<Vector2Precise>();
+	public List<DoubleVector> makePointList(CoordinatePlane c, UnaryFunction f, boolean onX, DoubleVector d, DoubleVector size, int surroundingOffset, double inc){
+		List<DoubleVector> pointsL = new ArrayList<DoubleVector>();
 		for(double i = d.x; i < d.y; i += inc){
 			double x = onX ? f.f(i) : i, y = !onX ? f.f(i) : i; //Get x and y values
-			pointsL.add(c.castFromOrigin(new Vector2Precise(x, y), size, surroundingOffset));
+			pointsL.add(c.castFromOrigin(new DoubleVector(x, y), size, surroundingOffset));
 		}
 		return pointsL;
 	}
-	public void finalDraw(Graphics g, List<Vector2Precise> pointsL, FunctionDrawParameters f, int width, int height, int surroundingOffset){
+	public void finalDraw(Graphics g, List<DoubleVector> pointsL, FunctionDrawParameters f, int width, int height, int surroundingOffset){
 		f.getLineDrawer().resetIterator();
 		//Convert the points list to an array
-		Vector2Precise[] points = new Vector2Precise[0];
+		DoubleVector[] points = new DoubleVector[0];
 		points = pointsL.toArray(points);
 		//Grab the max and min positions, Needed later
 		if(points.length <= 0) return; //Bug fix #900000000000
-		Vector2Precise maxPos = points[0].clone();
-		Vector2Precise minPos = points[0].clone();
+		DoubleVector maxPos = points[0].clone();
+		DoubleVector minPos = points[0].clone();
 		//Draw all points
 		for(int i = 1; i < points.length; i++){
-			Vector2Precise a = points[i], b = points[i - 1];
+			DoubleVector a = points[i], b = points[i - 1];
 			boolean inX = (int) a.x >= surroundingOffset && (int) a.x <= width - surroundingOffset;
 			boolean inY = (int) a.y >= surroundingOffset && (int) a.y <= height - surroundingOffset;
 			if(f.ignoreBorders() || (inX && inY)){

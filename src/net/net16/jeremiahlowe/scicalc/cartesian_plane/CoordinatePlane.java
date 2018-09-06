@@ -20,18 +20,18 @@ import net.net16.jeremiahlowe.scicalc.functions.std.PolarFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
 import net.net16.jeremiahlowe.scicalc.utility.MathUtility;
-import net.net16.jeremiahlowe.scicalc.utility.collections.Vector2Precise;
+import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
 //TODO: Fix panning and overshooting bugs
 public class CoordinatePlane extends JComponent{
 	private static final long serialVersionUID = 1L;
 	private CoordinatePlaneGraphics cpg;
 	private List<PlanePaintHandler> paintHandlers;
-	private Vector2Precise viewportSize = new Vector2Precise(3, 3); 
-	private Vector2Precise dotSize = new Vector2Precise(0, 0);
-	private Vector2Precise unitsPerPixel = new Vector2Precise(0, 0);
-	private Vector2Precise panningOffset = new Vector2Precise(0, 0);
-	private Vector2Precise tickCounts = new Vector2Precise(1, 1);
+	private DoubleVector viewportSize = new DoubleVector(3, 3); 
+	private DoubleVector dotSize = new DoubleVector(0, 0);
+	private DoubleVector unitsPerPixel = new DoubleVector(0, 0);
+	private DoubleVector panningOffset = new DoubleVector(0, 0);
+	private DoubleVector tickCounts = new DoubleVector(1, 1);
 	private int lineWidth = 2, arrowTipOffest = 3, tickWidth = 2, surroundingOffset, labelDigits = 2;
 	private boolean drawTicks = true, drawGrid = true, labelTicks = true;
 	private Color axesColor = Color.BLACK, tickColor = Color.BLACK;
@@ -58,14 +58,14 @@ public class CoordinatePlane extends JComponent{
 	//[start] Drawing strategy
 	@Override
 	public void paintComponent(Graphics ug){
-		Vector2Precise size = new Vector2Precise(getWidth(), getHeight());
+		DoubleVector size = new DoubleVector(getWidth(), getHeight());
 		drawBuffered(ug, size);
 	}
 	public void drawUnbuffered(Graphics g){
-		Vector2Precise size = new Vector2Precise(getWidth(), getHeight());
+		DoubleVector size = new DoubleVector(getWidth(), getHeight());
 		drawUnbuffered(g, size);
 	}
-	private void drawUnbuffered(Graphics g, Vector2Precise size){
+	private void drawUnbuffered(Graphics g, DoubleVector size){
 		//Start drawing to graphics
 		for(PlanePaintHandler pph : paintHandlers) pph.prePaint(g); //Draw paint handlers
 		if(drawGrid) drawAxisGrid(g, size, surroundingOffset, lineWidth / 2);
@@ -82,10 +82,10 @@ public class CoordinatePlane extends JComponent{
 		for(PlanePaintHandler pph : paintHandlers) pph.postPaint(g); //Draw paint handlers
 	}
 	public void draw(Graphics g){
-		Vector2Precise size = new Vector2Precise(getWidth(), getHeight());
+		DoubleVector size = new DoubleVector(getWidth(), getHeight());
 		drawBuffered(g, size);
 	}
-	private void drawBuffered(Graphics ug, Vector2Precise size){
+	private void drawBuffered(Graphics ug, DoubleVector size){
 		BufferedImage buffer = new BufferedImage(size.getXI(), size.getYI(), ColorModel.TRANSLUCENT); //Create buffer
 		Graphics g = buffer.getGraphics(); //Get buffer graphics
 		g.setColor(getBackground()); //Build background
@@ -96,7 +96,7 @@ public class CoordinatePlane extends JComponent{
 		ug.drawImage(buffer, 0, 0, size.getXI(), size.getYI(), null);
 	}
 	public void takeScreenshot(String fileName, String format) throws Exception{
-		Vector2Precise size = new Vector2Precise(getWidth(), getHeight());
+		DoubleVector size = new DoubleVector(getWidth(), getHeight());
 		File imageFile = new File(fileName);
 		imageFile.createNewFile();
 		BufferedImage buffer = new BufferedImage(size.getXI(), size.getYI(), ColorModel.TRANSLUCENT);
@@ -107,19 +107,19 @@ public class CoordinatePlane extends JComponent{
 		ImageIO.write(buffer, format, imageFile);
 	}
 	//[end]
-	private void drawAxisGrid(Graphics g, Vector2Precise size, int surroundingOffset, int lineWidth){
+	private void drawAxisGrid(Graphics g, DoubleVector size, int surroundingOffset, int lineWidth){
 		g.setColor(gridColor);
 		//Iterate through negative and positive axises
 		for(int i = 0; i < 2; i++){
 			//Get a multiplier for later
 			int m = i == 0 ? -1 : 1;
-			Vector2Precise start = tickCounts.clone(), stop = viewportSize.clone(), inc = tickCounts.clone();
+			DoubleVector start = tickCounts.clone(), stop = viewportSize.clone(), inc = tickCounts.clone();
 			if(m > 0) stop.translate(panningOffset.clone().negate());
 			else stop.translate(panningOffset);
 			for(double x = start.x; x < stop.x; x += inc.x){
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
-				Vector2Precise ca = castFromOrigin(new Vector2Precise(m * x, 0), size, surroundingOffset);
+				DoubleVector ca = castFromOrigin(new DoubleVector(m * x, 0), size, surroundingOffset);
 				int x0 = ca.getXI(); // Rounded x position
 				//Draw the tick
 				if(lineWidth > 1) GraphicsUtility.drawLineWithWidth(g, x0, surroundingOffset, x0, size.getYI() - surroundingOffset, lineWidth);
@@ -128,7 +128,7 @@ public class CoordinatePlane extends JComponent{
 			for(double y = start.y; y < stop.y; y += inc.y){
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
-				Vector2Precise ca = castFromOrigin(new Vector2Precise(0, m * y), size, surroundingOffset);
+				DoubleVector ca = castFromOrigin(new DoubleVector(0, m * y), size, surroundingOffset);
 				int y0 = ca.getYI(); // Rounded y position
 				//Draw the tick
 				if(lineWidth > 1) GraphicsUtility.drawLineWithWidth(g, surroundingOffset, y0, size.getXI() - surroundingOffset, y0, lineWidth);
@@ -137,20 +137,20 @@ public class CoordinatePlane extends JComponent{
 		}
 		if(lineWidth > 1) GraphicsUtility.resetWidth(g);
 	}
-	private void drawAxisTicks(Graphics g, Vector2Precise size, int surroundingOffset){
+	private void drawAxisTicks(Graphics g, DoubleVector size, int surroundingOffset){
 		g.setColor(axesColor);
 		//Iterate through negative and positive axes
 		int fh = g.getFontMetrics().getHeight();
 		for(int i = 0; i < 2; i++){
 			//Get a multiplier for later
 			int m = i == 0 ? -1 : 1;
-			Vector2Precise start = tickCounts.clone(), stop = viewportSize.clone(), inc = tickCounts.clone();
+			DoubleVector start = tickCounts.clone(), stop = viewportSize.clone(), inc = tickCounts.clone();
 			if(m > 0) stop.translate(panningOffset.clone().negate());
 			else stop.translate(panningOffset);
 			for(double x = start.x; x < stop.x; x += inc.x){
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
-				Vector2Precise ca = castFromOrigin(new Vector2Precise(m * x, 0), size, surroundingOffset);
+				DoubleVector ca = castFromOrigin(new DoubleVector(m * x, 0), size, surroundingOffset);
 				cpg.drawTick(g, size, ca.getXI(), ca.getYI(), surroundingOffset, tickWidth, lineWidth, false);
 				int m2 = 1;
 				//if(quadrant == Quadrant.I || quadrant == Quadrant.II || quadrant == Quadrant.I_II) m2 = -1;
@@ -159,7 +159,7 @@ public class CoordinatePlane extends JComponent{
 			for(double y = start.y; y < stop.y; y += inc.y){
 				//Cast pos. from origin on negator * axis position thus
 				//grabbing the pixel location for drawing the tick
-				Vector2Precise ca = castFromOrigin(new Vector2Precise(0, m * y), size, surroundingOffset);
+				DoubleVector ca = castFromOrigin(new DoubleVector(0, m * y), size, surroundingOffset);
 				cpg.drawTick(g, size, ca.getXI(), ca.getYI(), surroundingOffset, tickWidth, lineWidth, true);
 				if(labelTicks){
 					String num = MathUtility.numberToString(y * m, labelDigits);
@@ -171,17 +171,17 @@ public class CoordinatePlane extends JComponent{
 		}
 		if(lineWidth > 1) GraphicsUtility.resetWidth(g);
 	}
-	private void drawPoint(Point p, Graphics g, Vector2Precise size, int surroundingOffset){
+	private void drawPoint(Point p, Graphics g, DoubleVector size, int surroundingOffset){
 		g.setColor(p.getColor());
-		Vector2Precise v = castFromOrigin(p.position, size, surroundingOffset);
+		DoubleVector v = castFromOrigin(p.position, size, surroundingOffset);
 		p.draw(g, v.getXI(), v.getYI(), p.size);
 	}
-	public Vector2Precise castFromOrigin(Vector2Precise point, Vector2Precise size, int surroundingOffset){
-		Vector2Precise out = new Vector2Precise();
-		Vector2Precise origin = cpg.getPixelOrigin(size, surroundingOffset);
+	public DoubleVector castFromOrigin(DoubleVector point, DoubleVector size, int surroundingOffset){
+		DoubleVector out = new DoubleVector();
+		DoubleVector origin = cpg.getPixelOrigin(size, surroundingOffset);
 		if(dotSize.x == 0 || dotSize.y == 0) recalculate();
 		//Account for panning (modifying it here kills 1000000 birds with one stone)
-		Vector2Precise newPoint = Vector2Precise.add(point, panningOffset);
+		DoubleVector newPoint = DoubleVector.add(point, panningOffset);
 		//This is 2D, don't over-complicate it! Just simple proportions!
 		out.x = newPoint.x * dotSize.x;
 		out.x += origin.x; //Casting and then off-setting for the origin
@@ -192,7 +192,7 @@ public class CoordinatePlane extends JComponent{
 	}
 	public void recalculate(){recalculate(true);}
 	public void recalculate(boolean repaint){
-		Vector2Precise size = new Vector2Precise(getWidth(), getHeight());
+		DoubleVector size = new DoubleVector(getWidth(), getHeight());
 		dotSize.x = size.x / viewportSize.x;
 		dotSize.y = size.y / viewportSize.y;
 		unitsPerPixel.x = viewportSize.x / size.x;
@@ -223,14 +223,14 @@ public class CoordinatePlane extends JComponent{
 	public void clearBinaryFunctions(){functionManager.binaryFunctions.clear();}
 	public void clearAllFunctions(){clearBinaryFunctions(); clearUnaryFunctions();}
 	public void setViewportSize(double x, double y){
-		viewportSize = new Vector2Precise(x, y);
+		viewportSize = new DoubleVector(x, y);
 		recalculate();
 	}
-	public Vector2Precise getDotSize(){
+	public DoubleVector getDotSize(){
 		recalculate(false);
 		return dotSize.clone();
 	}
-	public Vector2Precise getUnitsPerPixel(){
+	public DoubleVector getUnitsPerPixel(){
 		recalculate(false);
 		return unitsPerPixel.clone();
 	}
@@ -240,8 +240,8 @@ public class CoordinatePlane extends JComponent{
 	}
 	public void setIgnoreFunctions(boolean enabled){ignoreFunctions = enabled;}
 	public boolean ignoreFunctions(){return ignoreFunctions;}
-	public void setViewportSize(Vector2Precise size){setViewportSize(size.x, size.y);}
-	public Vector2Precise getViewportSize(){return viewportSize.clone();}
+	public void setViewportSize(DoubleVector size){setViewportSize(size.x, size.y);}
+	public DoubleVector getViewportSize(){return viewportSize.clone();}
 	public int getLineWidth() {return lineWidth;}
 	public void setLineWidth(int lineWidth) {this.lineWidth = lineWidth;}
 	public int getArrowTipOffest() {return arrowTipOffest;}
@@ -259,8 +259,8 @@ public class CoordinatePlane extends JComponent{
 	public Color getGridColor() {return gridColor;}
 	public void setGridColor(Color gridColor) {this.gridColor = gridColor;}
 	public int calcSurroundingOffset() {return arrowTipOffest + ((lineWidth > 1) ? 6 : 0);}
-	public Vector2Precise getTickCounts(){return tickCounts.clone();}
-	public void setTickCounts(Vector2Precise to){
+	public DoubleVector getTickCounts(){return tickCounts.clone();}
+	public void setTickCounts(DoubleVector to){
 		tickCounts = to.clone();
 		recalculate();
 	}
@@ -276,16 +276,16 @@ public class CoordinatePlane extends JComponent{
 	}
 	public CoordinatePlaneGraphics getCPG(){return cpg;}
 	public FunctionManager getFM(){return functionManager;}
-	public Vector2Precise getOriginPanningOffset(){return panningOffset.clone();}
-	public void setOriginPanningOffset(Vector2Precise to){
+	public DoubleVector getOriginPanningOffset(){return panningOffset.clone();}
+	public void setOriginPanningOffset(DoubleVector to){
 		panningOffset = to.clone();
 		recalculate();
 	}
-	public void setOriginPanningOffset(double x, double y){setOriginPanningOffset(new Vector2Precise(x, y));}
-	public void pan(Vector2Precise by){pan(by.x, by.y);}
+	public void setOriginPanningOffset(double x, double y){setOriginPanningOffset(new DoubleVector(x, y));}
+	public void pan(DoubleVector by){pan(by.x, by.y);}
 	public void pan(double x, double y){setOriginPanningOffset(panningOffset.x + x, panningOffset.y + y);}
-	public Vector2Precise getPlaneDomain() {return cpg.getPlaneDomain(getViewportSize(), getOriginPanningOffset());}
-	public Vector2Precise getPlaneRange() {return cpg.getPlaneRange(getViewportSize(), getOriginPanningOffset());}
+	public DoubleVector getPlaneDomain() {return cpg.getPlaneDomain(getViewportSize(), getOriginPanningOffset());}
+	public DoubleVector getPlaneRange() {return cpg.getPlaneRange(getViewportSize(), getOriginPanningOffset());}
 	public void addPaintHandler(PlanePaintHandler pph){paintHandlers.add(pph);}
 	public void removePaintHandler(PlanePaintHandler pph){paintHandlers.remove(pph);}
 	public List<PlanePaintHandler> getPaintHandlerList(){return paintHandlers;}

@@ -4,7 +4,8 @@ import org.nfunk.jep.JEP;
 
 import net.net16.jeremiahlowe.scicalc.Enums.CPEReason;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.shared.ArrayUtility;
+import net.net16.jeremiahlowe.shared.TextUtility;
 
 public class FunctionParser {
 	public JEP jep;
@@ -20,7 +21,7 @@ public class FunctionParser {
 		if(sides.length != 2) throw new CannotParseException("Multiple \"=\" signs", CPEReason.NotAFunction);
 		//Parse left side name
 		String leftSide = sides[0];
-		int openP = Utility.count(leftSide, '('), closeP = Utility.count(leftSide, ')');
+		int openP = TextUtility.count(leftSide, '('), closeP = TextUtility.count(leftSide, ')');
 		if(openP != 1 || closeP != 1) throw new CannotParseException("Function name isn't properly formatted", CPEReason.InvalidName);
 		int startInnerLeft = leftSide.indexOf('(') + 1, stopInnerLeft = leftSide.indexOf(')');
 		String innerLeft = leftSide.substring(startInnerLeft, stopInnerLeft);
@@ -29,7 +30,7 @@ public class FunctionParser {
 		for(int i = 0; i < vars.length; i++){
 			vars[i] = vars[i].trim();
 			char front = vars[i].charAt(0);
-			if(!Utility.isAlphabetical(front)) throw new CannotParseException("Variable name must start with a letter (a-z or A-Z)", CPEReason.InvalidVariableName);
+			if(!TextUtility.isAlphabetical(front)) throw new CannotParseException("Variable name must start with a letter (a-z or A-Z)", CPEReason.InvalidVariableName);
 		}
 		if(vars.length != 1) throw new CannotParseException("Can only have one variable", CPEReason.Syntax);
 		String var = vars[0];

@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.net16.jeremiahlowe.scicalc.utility.IToString;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.shared.ArrayUtility;
+import net.net16.jeremiahlowe.shared.TextUtility;
 
 public class DrawableList<T>{
 	public List<T> base = null;
@@ -41,7 +42,7 @@ public class DrawableList<T>{
 		String[] conv = new String[base.size()];
 		for(int i = 0; i < base.size(); i++){
 			String elem = toString.getString(base.get(i));
-			if(elementStringLength > 0) elem = Utility.clampLength(elem, elementStringLength);
+			if(elementStringLength > 0) elem = TextUtility.clampLength(elem, elementStringLength);
 			conv[i] = elem;
 			int w = (int) fm.getStringBounds(elem, g).getWidth();
 			if(w > mw) mw = w;
