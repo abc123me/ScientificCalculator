@@ -2,13 +2,15 @@ package net.net16.jeremiahlowe.scicalc.cartesian_plane;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
 import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
 
-public class DefaultController implements KeyListener, MouseWheelListener{
+public class DefaultController implements KeyListener, MouseWheelListener, MouseMotionListener{
 	public int toogleLabelsKey = KeyEvent.VK_E;
 	public int zoomIn = KeyEvent.VK_W;
 	public int zoomOut = KeyEvent.VK_S;
@@ -22,10 +24,12 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 	public int panRight = KeyEvent.VK_L;
 	public int redraw = KeyEvent.VK_SPACE;
 	public int animateToggle = KeyEvent.VK_P;
+	public int escapeKey = KeyEvent.VK_ESCAPE;
 	
 	public Vector2 ticksOnScreen = new Vector2(10, 10);
 	public boolean lockAxisSize = false;
-	public long animationSpeedMS = 50;
+	public long animationSpeedMS = 150;
+	public int animationSteps = 30;
 	public boolean slowAnimation = true;
 	
 	private boolean animating = false;
@@ -37,13 +41,9 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 		this.cp = cp;
 		if(al) addListeners();
 	}
-	
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent arg0) {
-		int rot = arg0.getWheelRotation();
-		zoom(rot, rot);
-	}
+
 	public void addListeners(){
+		cp.addMouseMotionListener(this);
 		cp.addMouseWheelListener(this);
 		cp.addKeyListener(this);
 		if(!cp.isFocusable()) cp.setFocusable(true);
@@ -53,6 +53,7 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 		cp.removeMouseWheelListener(this);
 		cp.removeKeyListener(this);
 	}
+	
 	public void zoom(int xp, int yp, boolean forced){
 		if(forced || !animating){
 			//Resize viewport
@@ -60,12 +61,6 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 			if(vs.x + xp > 0) vs.x += xp;
 			if(vs.y + yp > 0) vs.y += yp;
 			cp.setViewportSize(vs);
-			//Resize ticks
-			if(!lockAxisSize) return;
-			DoubleVector ntc = new DoubleVector(0, 0);
-			ntc.x = vs.x / ticksOnScreen.x;
-			ntc.y = vs.y / ticksOnScreen.y;
-			cp.setTickCounts(ntc);
 		}
 	}
 	public void zoom(int xp, int yp){zoom(xp, yp, false);}
@@ -81,7 +76,7 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 				boolean mult = false;
 				while(true){
 					int j = mult ? -1 : 1;
-					for(int i = 0; i < 100; i++){
+					for(int i = 0; i < animationSteps; i++){
 						if(Thread.interrupted()) return;
 						if(slowAnimation){
 							try{
@@ -104,6 +99,12 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 	public Vector2 getTickAmount(){
 		return ticksOnScreen.clone();
 	}
+	
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		int rot = arg0.getWheelRotation();
+		zoom(rot, rot);
+	}
 	@Override 
 	public void keyPressed(KeyEvent k) {
 		int kc = k.getKeyCode();
@@ -120,7 +121,22 @@ public class DefaultController implements KeyListener, MouseWheelListener{
 		if(kc == panLeft) cp.pan(-1, 0);
 		if(kc == panRight) cp.pan(1, 0);
 		if(kc == redraw) cp.recalculate();
+		if(kc == escapeKey) System.exit(0);
 	}
-	@Override public void keyReleased(KeyEvent arg0) {}
-	@Override public void keyTyped(KeyEvent arg0) {}
+	@Override 
+	public void keyReleased(KeyEvent arg0) {}
+	@Override 
+	public void keyTyped(KeyEvent arg0) {}
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		DoubleVector wpos = new DoubleVector();
+		wpos.x = (((double)e.getX()) / cp.getWidth()) * cp.getViewportSize().x;
+		wpos.y = (((double)(cp.getHeight() - e.getY())) / cp.getHeight()) * cp.getViewportSize().y;
+		wpos.x -= cp.getViewportSize().x / 2;
+		wpos.y -= cp.getViewportSize().y / 2;
+		cp.setOriginPanningOffset(wpos);
+		System.out.println(wpos);
+	}
+	@Override
+	public void mouseMoved(MouseEvent arg0) {}
 }
