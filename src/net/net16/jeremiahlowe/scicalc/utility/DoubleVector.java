@@ -78,4 +78,10 @@ public class DoubleVector implements Cloneable{
 	public String toString(){
 		return "Vector2 (" + x + ", " + y + ")";
 	}
+	public static DoubleVector div(DoubleVector a, DoubleVector b) {
+		DoubleVector out = new DoubleVector();
+		out.x = a.x / b.x;
+		out.y = a.y / b.y;
+		return out;
+	}
 }

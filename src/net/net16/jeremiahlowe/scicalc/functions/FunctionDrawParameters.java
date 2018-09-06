@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import net.net16.jeremiahlowe.scicalc.Enums.LineStyle;
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.utility.LineDrawer;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
 
 public class FunctionDrawParameters{
 	private boolean connectPoints = true;
