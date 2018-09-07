@@ -19,18 +19,18 @@ import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.PolarFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.shared.TextUtility;
 import net.net16.jeremiahlowe.shared.math.Vector;
+import net.net16.jeremiahlowe.shared.math.Viewport;
 
 //TODO: Fix panning and overshooting bugs
 public class CoordinatePlane extends JComponent{
 	private static final long serialVersionUID = 1L;
 	private CoordinatePlaneGraphics cpg;
 	private List<PlanePaintHandler> paintHandlers;
-	private Vector viewportSize = new Vector(3, 3); 
+	private Viewport viewport = new Viewport(10, 10);
 	private Vector dotSize = new Vector(0, 0);
 	private Vector unitsPerPixel = new Vector(0, 0);
-	private Vector panningOffset = new Vector(0, 0);
 	private Vector tickCount = new Vector(10, 10);
 	private int lineWidth = 2, arrowTipOffest = 3, tickWidth = 2, surroundingOffset, labelDigits = 2;
 	private boolean drawTicks = true, drawGrid = true, labelTicks = true;
@@ -67,7 +67,7 @@ public class CoordinatePlane extends JComponent{
 	}
 	private void drawUnbuffered(Graphics g, Vector pixelSize){
 		//Start drawing to graphics
-		Vector inc = Vector.div(viewportSize, tickCount);
+		Vector inc = Vector.div(viewport.getSize(), tickCount);
 		for(PlanePaintHandler pph : paintHandlers) pph.prePaint(g); //Draw paint handlers
 		if(drawGrid) drawAxisGrid(g, inc, pixelSize, surroundingOffset, lineWidth / 2);
 		//Heres where the bulk of time will be spent, this is where ALL points
@@ -112,9 +112,9 @@ public class CoordinatePlane extends JComponent{
 		g.setColor(gridColor);
 		//Iterate through negative and positive axises
 		for(int m = -1; m < 2; m += 2){
-			Vector start = new Vector(0), stop = viewportSize.copy();
-			if(m > 0) stop.translate(panningOffset.copy().negate());
-			else stop.translate(panningOffset);
+			Vector start = new Vector(0), stop = viewport.getSize();
+			if(m > 0) stop.translate(viewport.getOffset().negate());
+			else stop.translate(viewport.getOffset());
 			for(float x = start.x; x < stop.x; x += inc.x){
 				if(x == 0) continue;
 				//Cast pos. from origin on negator * axis position thus
@@ -143,9 +143,9 @@ public class CoordinatePlane extends JComponent{
 		//Iterate through negative and positive axes
 		int fh = g.getFontMetrics().getHeight();
 		for(int m = -1; m < 2; m += 2){
-			Vector start = new Vector(0), stop = viewportSize.copy();
-			if(m > 0) stop.translate(panningOffset.copy().negate());
-			else stop.translate(panningOffset);
+			Vector start = new Vector(0), stop = viewport.getSize();
+			if(m > 0) stop.translate(viewport.getOffset().copy().negate());
+			else stop.translate(viewport.getOffset());
 			for(float x = start.x; x < stop.x; x += inc.x){
 				if(x == 0) continue;
 				//Cast pos. from origin on negator * axis position thus
@@ -154,7 +154,7 @@ public class CoordinatePlane extends JComponent{
 				cpg.drawTick(g, size, ca.getXInt(), ca.getYInt(), surroundingOffset, tickWidth, lineWidth, false);
 				int m2 = 1;
 				//if(quadrant == Quadrant.I || quadrant == Quadrant.II || quadrant == Quadrant.I_II) m2 = -1;
-				if(labelTicks) GraphicsUtility.drawCenteredString(g, Utility.numberToString(x * m, labelDigits), ca.getXInt(), ca.getYInt() + m2 * fh);
+				if(labelTicks) GraphicsUtility.drawCenteredString(g, TextUtility.numberToString(x * m, labelDigits), ca.getXInt(), ca.getYInt() + m2 * fh);
 			}
 			for(float y = start.y; y < stop.y; y += inc.y){
 				if(y == 0) continue;
@@ -163,7 +163,7 @@ public class CoordinatePlane extends JComponent{
 				Vector ca = castFromOrigin(new Vector(0, m * y), size, surroundingOffset);
 				cpg.drawTick(g, size, ca.getXInt(), ca.getYInt(), surroundingOffset, tickWidth, lineWidth, true);
 				if(labelTicks){
-					String num = Utility.numberToString(y * m, labelDigits);
+					String num = TextUtility.numberToString(y * m, labelDigits);
 					HorizontalAllignment h = HorizontalAllignment.Left;
 					VerticalAllignment v = VerticalAllignment.HalfDown;
 					GraphicsUtility.drawAllignedString(g, num, ca.getXInt() + surroundingOffset, ca.getYInt(), h, v);
@@ -182,7 +182,7 @@ public class CoordinatePlane extends JComponent{
 		Vector origin = cpg.getPixelOrigin(size, surroundingOffset);
 		if(dotSize.x == 0 || dotSize.y == 0) recalculate();
 		//Account for panning (modifying it here kills 1000000 birds with one stone)
-		Vector newPoint = Vector.add(point, panningOffset);
+		Vector newPoint = Vector.add(point, viewport.getOffset());
 		//This is 2D, don't over-complicate it! Just simple proportions!
 		out.x = newPoint.x * dotSize.x;
 		out.x += origin.x; //Casting and then off-setting for the origin
@@ -193,10 +193,10 @@ public class CoordinatePlane extends JComponent{
 	public void recalculate(){recalculate(true);}
 	public void recalculate(boolean repaint){
 		Vector size = new Vector(getWidth(), getHeight());
-		dotSize.x = size.x / viewportSize.x;
-		dotSize.y = size.y / viewportSize.y;
-		unitsPerPixel.x = viewportSize.x / size.x;
-		unitsPerPixel.y = viewportSize.y / size.y;
+		dotSize.x = size.x / viewport.w;
+		dotSize.y = size.y / viewport.h;
+		unitsPerPixel.x = viewport.w / size.x;
+		unitsPerPixel.y = viewport.h / size.y;
 		surroundingOffset = getSurroundingOffset();
 		if(repaint) repaint();
 	}
@@ -222,10 +222,6 @@ public class CoordinatePlane extends JComponent{
 	public void clearUnaryFunctions(){functionManager.unaryFunctions.clear();}
 	public void clearBinaryFunctions(){functionManager.binaryFunctions.clear();}
 	public void clearAllFunctions(){clearBinaryFunctions(); clearUnaryFunctions();}
-	public void setViewportSize(float x, float y){
-		viewportSize = new Vector(x, y);
-		recalculate();
-	}
 	public Vector getDotSize(){
 		recalculate(false);
 		return dotSize.copy();
@@ -241,7 +237,6 @@ public class CoordinatePlane extends JComponent{
 	public void setIgnoreFunctions(boolean enabled){ignoreFunctions = enabled;}
 	public boolean ignoreFunctions(){return ignoreFunctions;}
 	public void setViewportSize(Vector size){setViewportSize(size.x, size.y);}
-	public Vector getViewportSize(){return viewportSize.copy();}
 	public int getLineWidth() {return lineWidth;}
 	public void setLineWidth(int lineWidth) {this.lineWidth = lineWidth;}
 	public int getArrowTipOffest() {return arrowTipOffest;}
@@ -278,19 +273,40 @@ public class CoordinatePlane extends JComponent{
 	}
 	public CoordinatePlaneGraphics getCPG(){return cpg;}
 	public FunctionManager getFM(){return functionManager;}
-	public Vector getOriginPanningOffset(){return panningOffset.copy();}
-	public void setOriginPanningOffset(Vector to){
-		panningOffset = to.copy();
-		recalculate();
-	}
-	public void setOriginPanningOffset(float x, float y){setOriginPanningOffset(new Vector(x, y));}
-	public void pan(Vector by){pan(by.x, by.y);}
-	public void pan(float x, float y){setOriginPanningOffset(panningOffset.x + x, panningOffset.y + y);}
-	public Vector getPlaneDomain() {return cpg.getPlaneDomain(getViewportSize(), getOriginPanningOffset());}
-	public Vector getPlaneRange() {return cpg.getPlaneRange(getViewportSize(), getOriginPanningOffset());}
 	public void addPaintHandler(PlanePaintHandler pph){paintHandlers.add(pph);}
 	public void removePaintHandler(PlanePaintHandler pph){paintHandlers.remove(pph);}
 	public List<PlanePaintHandler> getPaintHandlerList(){return paintHandlers;}
 	public void setSurroundingOffset(int surroundingOffset) {this.surroundingOffset = surroundingOffset;}
 	public int getSurroundingOffset() {return surroundingOffset;}
+	
+	public Vector getViewportSize(){return viewport.getSize();}
+	public void setViewportSize(float x, float y){
+		viewport.w = x;
+		viewport.h = y;
+		recalculate();
+	}
+	public void pan(Vector by){
+		viewport.translate(by);
+	}
+	public void pan(float x, float y){pan(new Vector(x, y));}
+	public Vector getPlaneDomain() {
+		return cpg.getPlaneDomain(viewport.getSize(), viewport.getOffset());
+	}
+	public Vector getPlaneRange() {
+		return cpg.getPlaneRange(viewport.getSize(), viewport.getOffset());
+	}
+	public Vector getViewportOffset() {
+		return viewport.getOffset();
+	}
+	public Viewport getViewport() {
+		return viewport;
+	}
+	public void setViewportOffset(Vector pos) {
+		viewport.x = pos.x;
+		viewport.y = pos.y;
+	}
+	public void setViewportOffset(float x, float y) {
+		viewport.x = x;
+		viewport.y = y;
+	}
 }

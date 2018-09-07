@@ -134,7 +134,7 @@ public class DefaultController implements KeyListener, MouseWheelListener, Mouse
 		wpos.x -= cp.getViewportSize().x / 2;
 		wpos.y -= cp.getViewportSize().y / 2;
 		//wpos.x += cp.getOriginPanningOffset().x;
-		cp.setOriginPanningOffset(wpos);
+		cp.setViewportOffset(wpos);
 	}
 	@Override
 	public void mouseMoved(MouseEvent arg0) {}

@@ -3,7 +3,7 @@ package net.net16.jeremiahlowe.scicalc;
 import java.awt.Graphics;
 
 import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
+import net.net16.jeremiahlowe.shared.math.GeneralMath;
 
 public interface Enums {
 	public enum DrawTime{
@@ -85,7 +85,7 @@ public interface Enums {
 					g.drawLine(x, y - size / 2, x, y + size / 2);
 					return;
 				case ThickCross:
-					int lw = Utility.clamp(2, 4, size / 4);
+					int lw = GeneralMath.clamp(2, 4, size / 4);
 					GraphicsUtility.drawLineWithWidth(g, x - size / 2, y, x + size / 2, y, lw);
 					GraphicsUtility.drawLineWithWidth(g, x, y - size / 2, x, y + size / 2, lw);
 					GraphicsUtility.resetWidth(g);

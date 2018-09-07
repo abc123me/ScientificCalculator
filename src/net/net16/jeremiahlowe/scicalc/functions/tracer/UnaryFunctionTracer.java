@@ -2,7 +2,6 @@ package net.net16.jeremiahlowe.scicalc.functions.tracer;
 
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.utility.Utility;
 import net.net16.jeremiahlowe.shared.math.Vector;
 
 public class UnaryFunctionTracer extends AbstractFunctionTracer{
@@ -26,7 +25,8 @@ public class UnaryFunctionTracer extends AbstractFunctionTracer{
 		currentDelta = pos; currentTheta = np;
 		pointPos = new Vector(onX ? np : pos, onX ? pos : np);
 		point.position = pointPos; 
-		if(autoLabelPoint) point.fLabel.label = Utility.numberToString(pointPos.x, labelDigits) + ", " + Utility.numberToString(pointPos.y, labelDigits);
+		if(autoLabelPoint) point.fLabel.label = String.format("%." + labelDigits + "f, " + "%." + labelDigits + "f");
+		//TextUtility.numberToString(pointPos.x, labelDigits) + ", " + TextUtility.numberToString(pointPos.y, labelDigits);
 		delegateChangeEvent();
 	}
 	public void pan(float amount){setPosition(currentDelta + amount);}

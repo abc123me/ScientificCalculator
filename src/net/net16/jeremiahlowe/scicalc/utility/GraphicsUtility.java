@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import net.net16.jeremiahlowe.shared.math.Rotation;
+import net.net16.jeremiahlowe.shared.math.Vector;
+import net.net16.jeremiahlowe.shared.math.VectorMath;
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 
@@ -16,28 +18,28 @@ public class GraphicsUtility {
 		g2.drawLine(x1, y1, x2, y2);
 	}
 	public static final void drawArrowWithWidth(Rotation r, int x, int y, Graphics g, int lw){
-		DoubleVector[] v = Utility.rotateVerticiesAround(r, new DoubleVector(x, y), GraphicsUtility.getArrowLines(x, y));
-		drawLineWithWidth(g, v[0].getXI(), v[0].getYI(), v[1].getXI(), v[1].getYI(), lw); //Shaft [0, 1]
-		drawLineWithWidth(g, v[2].getXI() - lw / 2, v[2].getYI(), v[3].getXI() - lw / 2, v[3].getYI(), lw); //Left [2, 3]
-		drawLineWithWidth(g, v[4].getXI(), v[4].getYI(), v[5].getXI(), v[5].getYI(), lw); //Right [4, 5]
+		Vector[] v = VectorMath.rotateVerticiesAround(r, new Vector(x, y), GraphicsUtility.getArrowLines(x, y));
+		drawLineWithWidth(g, v[0].getXInt(), v[0].getYInt(), v[1].getXInt(), v[1].getYInt(), lw); //Shaft [0, 1]
+		drawLineWithWidth(g, v[2].getXInt() - lw / 2, v[2].getYInt(), v[3].getXInt() - lw / 2, v[3].getYInt(), lw); //Left [2, 3]
+		drawLineWithWidth(g, v[4].getXInt(), v[4].getYInt(), v[5].getXInt(), v[5].getYInt(), lw); //Right [4, 5]
 	}
 	public static final void drawArrow(Rotation r, int x, int y, Graphics g){
-		DoubleVector[] v = Utility.rotateVerticiesAround(r, new DoubleVector(x, y), GraphicsUtility.getArrowLines(x, y));
-		g.drawLine(v[0].getXI(), v[0].getYI(), v[1].getXI(), v[1].getYI()); //Shaft [0, 1]
-		g.drawLine(v[2].getXI(), v[2].getYI(), v[3].getXI(), v[3].getYI()); //Left [2, 3]
-		g.drawLine(v[4].getXI(), v[4].getYI(), v[5].getXI(), v[5].getYI()); //Right [4, 5]
+		Vector[] v = VectorMath.rotateVerticiesAround(r, new Vector(x, y), GraphicsUtility.getArrowLines(x, y));
+		g.drawLine(v[0].getXInt(), v[0].getYInt(), v[1].getXInt(), v[1].getYInt()); //Shaft [0, 1]
+		g.drawLine(v[2].getXInt(), v[2].getYInt(), v[3].getXInt(), v[3].getYInt()); //Left [2, 3]
+		g.drawLine(v[4].getXInt(), v[4].getYInt(), v[5].getXInt(), v[5].getYInt()); //Right [4, 5]
 	}
-	public static final DoubleVector[] getArrowLines(int x, int y){
-		DoubleVector[] verticies = new DoubleVector[6];
+	public static final Vector[] getArrowLines(int x, int y){
+		Vector[] verticies = new Vector[6];
 		//Shaft
-		verticies[0] = new DoubleVector(x, y - 3);
-		verticies[1] = new DoubleVector(x, y + 3);
+		verticies[0] = new Vector(x, y - 3);
+		verticies[1] = new Vector(x, y + 3);
 		//Left side
-		verticies[2] = new DoubleVector(x, y - 3);
-		verticies[3] = new DoubleVector(x - 3, y);
+		verticies[2] = new Vector(x, y - 3);
+		verticies[3] = new Vector(x - 3, y);
 		//Right side
-		verticies[4] = new DoubleVector(x, y - 3);
-		verticies[5] = new DoubleVector(x + 3, y);
+		verticies[4] = new Vector(x, y - 3);
+		verticies[5] = new Vector(x + 3, y);
 		return verticies;
 	}
 	public static void drawCenteredString(Graphics g, String str, int x, int y) {
