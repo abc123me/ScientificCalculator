@@ -10,8 +10,6 @@ import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
 import net.net16.jeremiahlowe.shared.math.Vector;
 
-//TODO: Implement multi-threading in FunctionManager
-//TODO: Fix panning and overshooting bugs
 public class FunctionManager {
 	public List<UnaryFunction> unaryFunctions = new ArrayList<UnaryFunction>();
 	public List<BinaryFunction> binaryFunctions = new ArrayList<BinaryFunction>();
