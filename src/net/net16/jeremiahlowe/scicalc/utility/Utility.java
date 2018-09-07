@@ -1,6 +1,6 @@
 package net.net16.jeremiahlowe.scicalc.utility;
 
-import net.net16.jeremiahlowe.bettercollections.Rotation;
+import net.net16.jeremiahlowe.shared.math.Rotation;
 
 public class Utility {
 

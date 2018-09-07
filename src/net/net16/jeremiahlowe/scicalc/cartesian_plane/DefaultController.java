@@ -7,8 +7,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import net.net16.jeremiahlowe.bettercollections.vector.Vector2;
-import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
+import net.net16.jeremiahlowe.shared.math.Vector;
 
 public class DefaultController implements KeyListener, MouseWheelListener, MouseMotionListener{
 	public int toogleLabelsKey = KeyEvent.VK_E;
@@ -26,7 +25,7 @@ public class DefaultController implements KeyListener, MouseWheelListener, Mouse
 	public int animateToggle = KeyEvent.VK_P;
 	public int escapeKey = KeyEvent.VK_ESCAPE;
 	
-	public Vector2 ticksOnScreen = new Vector2(10, 10);
+	public Vector ticksOnScreen = new Vector(10, 10);
 	public boolean lockAxisSize = false;
 	public long animationSpeedMS = 150;
 	public int animationSteps = 30;
@@ -57,7 +56,7 @@ public class DefaultController implements KeyListener, MouseWheelListener, Mouse
 	public void zoom(int xp, int yp, boolean forced){
 		if(forced || !animating){
 			//Resize viewport
-			DoubleVector vs = cp.getViewportSize();
+			Vector vs = cp.getViewportSize();
 			if(vs.x + xp > 0) vs.x += xp;
 			if(vs.y + yp > 0) vs.y += yp;
 			cp.setViewportSize(vs);
@@ -93,11 +92,11 @@ public class DefaultController implements KeyListener, MouseWheelListener, Mouse
 	}
 
 	public void setTickAmount(int x, int y){
-		if(x > 0 && y > 0) ticksOnScreen = new Vector2(x, y);
+		if(x > 0 && y > 0) ticksOnScreen = new Vector(x, y);
 		else throw new RuntimeException("Cannot have negative ticks on screen");
 	}
-	public Vector2 getTickAmount(){
-		return ticksOnScreen.clone();
+	public Vector getTickAmount(){
+		return ticksOnScreen.copy();
 	}
 	
 	@Override
@@ -129,13 +128,13 @@ public class DefaultController implements KeyListener, MouseWheelListener, Mouse
 	public void keyTyped(KeyEvent arg0) {}
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		DoubleVector wpos = new DoubleVector();
-		wpos.x = (((double)e.getX()) / cp.getWidth()) * cp.getViewportSize().x;
-		wpos.y = (((double)(cp.getHeight() - e.getY())) / cp.getHeight()) * cp.getViewportSize().y;
+		Vector wpos = new Vector();
+		wpos.x = ((e.getX()) / cp.getWidth()) * cp.getViewportSize().x;
+		wpos.y = (((cp.getHeight() - e.getY())) / cp.getHeight()) * cp.getViewportSize().y;
 		wpos.x -= cp.getViewportSize().x / 2;
 		wpos.y -= cp.getViewportSize().y / 2;
+		//wpos.x += cp.getOriginPanningOffset().x;
 		cp.setOriginPanningOffset(wpos);
-		System.out.println(wpos);
 	}
 	@Override
 	public void mouseMoved(MouseEvent arg0) {}

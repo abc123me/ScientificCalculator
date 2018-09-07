@@ -1,4 +1,5 @@
 package demos;
+
 import java.awt.Color;
 
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
@@ -8,12 +9,12 @@ import net.net16.jeremiahlowe.scicalc.cartesian_plane.Point;
 import net.net16.jeremiahlowe.scicalc.functions.FunctionFactory;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
-import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
+import net.net16.jeremiahlowe.shared.math.Vector;
 
 public class PointsAndFunctions {
 	public static void main(String[] args) throws Exception{
 		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D(); //Make the plane
-		Point p = new Point(new DoubleVector(1, 1)); //Create the point
+		Point p = new Point(new Vector(1, 1)); //Create the point
 		p.setColor(Color.BLUE);
 		p.style = PointStyle.Square;
 		p.fLabel.label = "Our point!";

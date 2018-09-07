@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class FunctionTracerPanner implements KeyListener{
 	public int keyIncrement = KeyEvent.VK_D;
 	public int keyDecrement = KeyEvent.VK_A;
-	private double panAmount = 1;
+	private float panAmount = 1;
 	private UnaryFunctionTracer uft;
 	
 	public FunctionTracerPanner(UnaryFunctionTracer uft){
@@ -24,6 +24,6 @@ public class FunctionTracerPanner implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	
-	public void setPanAmount(double amount){panAmount = amount;}
+	public void setPanAmount(float amount){panAmount = amount;}
 	public double getPanAmount(){return panAmount;}
 }

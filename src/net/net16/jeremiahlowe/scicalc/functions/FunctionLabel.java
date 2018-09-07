@@ -3,17 +3,17 @@ package net.net16.jeremiahlowe.scicalc.functions;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import net.net16.jeremiahlowe.bettercollections.Rotation;
+import net.net16.jeremiahlowe.shared.math.Rotation;
 import net.net16.jeremiahlowe.scicalc.Enums.HorizontalAllignment;
 import net.net16.jeremiahlowe.scicalc.Enums.VerticalAllignment;
 import net.net16.jeremiahlowe.scicalc.utility.GraphicsUtility;
-import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
+import net.net16.jeremiahlowe.shared.math.Vector;
 
 public class FunctionLabel {
 	public String label = null;
 	public Color color;
 	public Rotation labelRotation;
-	public DoubleVector offset = new DoubleVector(0, 0);
+	public Vector offset = new Vector(0, 0);
 	public HorizontalAllignment hAllign = HorizontalAllignment.Center;
 	public VerticalAllignment vAllign = VerticalAllignment.Center;
 	
@@ -22,7 +22,7 @@ public class FunctionLabel {
 		labelRotation = new Rotation(0);
 	}
 	
-	public void draw(Graphics g, DoubleVector maxPos, DoubleVector minPos) {
+	public void draw(Graphics g, Vector maxPos, Vector minPos) {
 		g.setColor(color);
 		if(label != null){
 			int x = (int) Math.round(hAllign.negate().interpolate(minPos.x, maxPos.x) + offset.x);

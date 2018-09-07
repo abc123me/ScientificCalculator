@@ -3,14 +3,14 @@ package net.net16.jeremiahlowe.scicalc.functions.tracer;
 import net.net16.jeremiahlowe.scicalc.Enums.PointStyle;
 import net.net16.jeremiahlowe.scicalc.functions.std.UnaryFunction;
 import net.net16.jeremiahlowe.scicalc.utility.Utility;
-import net.net16.jeremiahlowe.scicalc.utility.DoubleVector;
+import net.net16.jeremiahlowe.shared.math.Vector;
 
 public class UnaryFunctionTracer extends AbstractFunctionTracer{
 	private UnaryFunction function;
 	private boolean autoLabelPoint = true;
 	private int labelDigits = 2;
-	private double currentDelta, currentTheta;
-	private DoubleVector pointPos;
+	private float currentDelta, currentTheta;
+	private Vector pointPos;
 	
 	public UnaryFunctionTracer(UnaryFunction function){this(function, PointStyle.Square);}
 	public UnaryFunctionTracer(UnaryFunction function, PointStyle pointStyle){this(function, pointStyle, 8);}
@@ -20,20 +20,20 @@ public class UnaryFunctionTracer extends AbstractFunctionTracer{
 		setPosition(0);
 	}
 	
-	public void setPosition(double pos){
+	public void setPosition(float pos){
 		boolean onX = function.drawOnX;
-		double np = function.f(pos);
+		float np = (float) function.f(pos);
 		currentDelta = pos; currentTheta = np;
-		pointPos = new DoubleVector(onX ? np : pos, onX ? pos : np);
+		pointPos = new Vector(onX ? np : pos, onX ? pos : np);
 		point.position = pointPos; 
 		if(autoLabelPoint) point.fLabel.label = Utility.numberToString(pointPos.x, labelDigits) + ", " + Utility.numberToString(pointPos.y, labelDigits);
 		delegateChangeEvent();
 	}
-	public void pan(double amount){setPosition(currentDelta + amount);}
-	public DoubleVector getPointPos(){return pointPos.clone();}
+	public void pan(float amount){setPosition(currentDelta + amount);}
+	public Vector getPointPos(){return pointPos.copy();}
 	public UnaryFunction getFunction(){return function;}
-	public double getCurrentDelta(){return currentDelta;}
-	public double getCurrentTheta(){return currentTheta;}
+	public float getCurrentDelta(){return currentDelta;}
+	public float getCurrentTheta(){return currentTheta;}
 	public void setAutoLabelPoint(boolean enabled){
 		autoLabelPoint = enabled;
 		if(!enabled) point.fLabel.label = null;
