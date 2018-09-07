@@ -1,6 +1,7 @@
 package net.net16.jeremiahlowe.scicalc.functions.std;
 
 import net.net16.jeremiahlowe.scicalc.functions.FunctionDrawParameters;
+import net.net16.jeremiahlowe.shared.math.Vector;
 
 public abstract class BinaryFunction extends FunctionDrawParameters{
 	public BinaryFunction(){
@@ -24,4 +25,7 @@ public abstract class BinaryFunction extends FunctionDrawParameters{
 	
 	public abstract double Xt(double t);
 	public abstract double Yt(double t);
+	public final Vector asVector(double t) {
+		return new Vector((float) Xt(t), (float) Yt(t));
+	}
 }

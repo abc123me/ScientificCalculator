@@ -37,7 +37,7 @@ public class FunctionManager {
 		for(float i = range.x; i < range.y; i += incrementer){
 			if(!f.isFunctionDefined(i))
 				continue;
-			pointsL.add(c.castFromOrigin(new Vector((float) f.Xt(i), (float) f.Yt(i)), size, surroundingOffset));
+			pointsL.add(c.castFromOrigin(f.asVector(i), size, surroundingOffset));
 		}
 		//Finish up
 		finalDraw(g, pointsL, f, c.getWidth(), c.getHeight(), surroundingOffset);
