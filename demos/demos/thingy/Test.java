@@ -14,32 +14,41 @@ public class Test extends BinaryFunction{
 	public static void main(String[] args) {
 		CoordinatePlane cp = PlaneFactory.makePlaneWindow2D(true);
 		new DefaultController(cp);
-		Test t = new Test();
-		t.a = 0.05;
-		t.b = 30;
-		t.c = 50;
-		t.amp = 0.1;
-		t.f = 20;
-		cp.addFunction(t);
+		for(int i = 0; i < 2; i++) {
+			Test t = new Test();
+			t.a = 3;
+			t.b = (Math.PI) / 3;
+			t.c = Math.PI * (i / 100.0);
+			t.amp = 0.1;
+			t.f = 20;
+			cp.addFunction(t);
+		}
 	}
 	@Override
 	public double getPointAmount() {
-		return 100000d;
+		return 1000d;
 	}
 	@Override
-	public double getThetaMin() {
-		return -50;
+	public final double getThetaMin(){
+		return 0;
 	}
 	@Override
-	public double getThetaMax() {
-		return 50;
+	public final double getThetaMax(){
+		return 2 * Math.PI;
 	}
 	@Override
-	public double Xt(double t) {
-		return amp * ((a - b) * Math.cos(t * f) + c * Math.cos((a / b - 1) * t * f));
+	public final double Xt(double t){
+	return Math.cos(t) * Math.cos(t);
 	}
 	@Override
-	public double Yt(double t) {
-		return amp * ((a - b) * Math.sin(t * f) + c * Math.sin((a / b - 1) * t * f));
+	public final double Yt(double t){
+		return Math.sin(t) * Math.sin(t);
+	}
+	public double r(double t) {
+		double p1 = 1 + 0.9 * Math.cos(8 * t);
+		double p2 = 1 + 0.1 * Math.cos(24 * t);
+		double p3 = 0.9 + 0.05 * Math.cos(200 * t);
+		double p4 = 1 + Math.sin(t);
+		return p1 * p2 * p3 * p4 * c * a;
 	}
 }

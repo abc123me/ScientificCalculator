@@ -287,6 +287,7 @@ public class CoordinatePlane extends JComponent{
 	}
 	public void pan(Vector by){
 		viewport.translate(by);
+		recalculate();
 	}
 	public void pan(float x, float y){pan(new Vector(x, y));}
 	public Vector getPlaneDomain() {
@@ -304,9 +305,11 @@ public class CoordinatePlane extends JComponent{
 	public void setViewportOffset(Vector pos) {
 		viewport.x = pos.x;
 		viewport.y = pos.y;
+		recalculate();
 	}
 	public void setViewportOffset(float x, float y) {
 		viewport.x = x;
 		viewport.y = y;
+		recalculate();
 	}
 }
