@@ -1,15 +1,17 @@
 package net.net16.jeremiahlowe.scicalc.functions.std;
 
+import net.net16.jeremiahlowe.shared.math.Vector;
+
 public abstract class PolarFunction extends BinaryFunction{
 	public PolarFunction(){
 		super();
 	}
 	@Override
-	public final double getThetaMin(){
+	public final double getThetaMin(Vector pixelSize, Vector domain, Vector range){
 		return 0;
 	}
 	@Override
-	public final double getThetaMax(){
+	public final double getThetaMax(Vector pixelSize, Vector domain, Vector range){
 		return 2 * Math.PI;
 	}
 	@Override

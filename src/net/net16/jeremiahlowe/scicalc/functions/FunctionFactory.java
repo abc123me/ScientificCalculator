@@ -61,11 +61,11 @@ public class FunctionFactory {
 				return r * Math.cos(t) + vertex.x;
 			}
 			@Override
-			public double getThetaMax(){
+			public double getThetaMax(Vector pixelSize, Vector domain, Vector range){
 				return 2 * Math.PI;
 			}
 			@Override
-			public double getThetaMin(){
+			public double getThetaMin(Vector pixelSize, Vector domain, Vector range){
 				return 0;
 			}
 		};
@@ -81,11 +81,11 @@ public class FunctionFactory {
 				return w * Math.cos(t + vertex.x);
 			}
 			@Override
-			public double getThetaMax(){
+			public double getThetaMax(Vector pixelSize, Vector domain, Vector range){
 				return 2 * Math.PI;
 			}
 			@Override
-			public double getThetaMin(){
+			public double getThetaMin(Vector pixelSize, Vector domain, Vector range){
 				return 0;
 			}
 		};

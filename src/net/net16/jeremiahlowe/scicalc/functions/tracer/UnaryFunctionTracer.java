@@ -20,13 +20,15 @@ public class UnaryFunctionTracer extends AbstractFunctionTracer{
 	}
 	
 	public void setPosition(float pos){
-		boolean onX = function.drawOnX;
+		boolean onX = function.onX;
 		float np = (float) function.f(pos);
 		currentDelta = pos; currentTheta = np;
 		pointPos = new Vector(onX ? np : pos, onX ? pos : np);
 		point.position = pointPos; 
-		if(autoLabelPoint) point.fLabel.label = String.format("%." + labelDigits + "f, " + "%." + labelDigits + "f");
-		//TextUtility.numberToString(pointPos.x, labelDigits) + ", " + TextUtility.numberToString(pointPos.y, labelDigits);
+		if(autoLabelPoint) {
+			String digi = "%." + labelDigits + "f";
+			point.fLabel.label = String.format(digi + ", " + digi, pointPos.x, pointPos.y);
+		}
 		delegateChangeEvent();
 	}
 	public void pan(float amount){setPosition(currentDelta + amount);}

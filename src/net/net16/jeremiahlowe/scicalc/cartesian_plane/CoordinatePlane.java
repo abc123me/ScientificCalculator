@@ -219,14 +219,12 @@ public class CoordinatePlane extends JComponent{
 	public void removeFunction(UnaryFunction f){functionManager.remove(f);}
 	public void removeFunction(BinaryFunction f){functionManager.remove(f);}
 	public void removeFunction(PolarFunction f){functionManager.remove(f);}
-	public void clearUnaryFunctions(){functionManager.unaryFunctions.clear();}
-	public void clearBinaryFunctions(){functionManager.binaryFunctions.clear();}
-	public void clearAllFunctions(){clearBinaryFunctions(); clearUnaryFunctions();}
+	public void clearFunctions(){functionManager.clear();}
 	public Vector getDotSize(){
 		recalculate(false);
 		return dotSize.copy();
 	}
-	public Vector getUnitsPerPixel(){
+	public Vector getPixelSize(){
 		recalculate(false);
 		return unitsPerPixel.copy();
 	}
@@ -311,5 +309,13 @@ public class CoordinatePlane extends JComponent{
 		viewport.x = x;
 		viewport.y = y;
 		recalculate();
+	}
+	public Runnable getRepaintRunnable() {
+		return new Runnable() {
+			@Override
+			public void run() {
+				recalculate(true);
+			}
+		};
 	}
 }

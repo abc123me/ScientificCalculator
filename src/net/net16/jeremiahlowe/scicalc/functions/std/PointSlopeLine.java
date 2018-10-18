@@ -10,13 +10,13 @@ public class PointSlopeLine extends UnaryFunction{
 		super(false, hasLimits);
 		double y = b.y - a.y, x = b.x - a.x;
 		if(x == 0){
-			drawOnX = true; slope = 0;
+			onX = true; slope = 0;
 			intercept = a.x - slope * a.y;
 			min = a.y < b.y ? a.y : b.y;
 			max = a.y > b.y ? a.y : b.y;
 		}
 		else{
-			drawOnX = false; slope = y / x;
+			onX = false; slope = y / x;
 			intercept = a.y - slope * a.x;
 			min = a.x < b.x ? a.x : b.x;
 			max = a.x > b.x ? a.x : b.x;

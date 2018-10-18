@@ -7,14 +7,14 @@ public abstract class BinaryFunction extends FunctionDrawParameters{
 	public BinaryFunction(){
 		super();
 	}
-	public double getThetaMin(){
+	public double getThetaMin(Vector pixelSize, Vector domain, Vector range){
 		return 0;
 	}
-	public double getThetaMax(){
+	public double getThetaMax(Vector pixelSize, Vector domain, Vector range){
 		return 2 * Math.PI;
 	}
-	public double getIncrementer() {
-		return (getThetaMax() - getThetaMin()) / getPointAmount();
+	public double getIncrementer(Vector pixelSize, Vector domain, Vector range) {
+		return (getThetaMax(pixelSize, domain, range) - getThetaMin(pixelSize, domain, range)) / getPointAmount();
 	}
 	public double getPointAmount() {
 		return 1000d;

@@ -4,6 +4,7 @@ import net.net16.jeremiahlowe.scicalc.cartesian_plane.CoordinatePlane;
 import net.net16.jeremiahlowe.scicalc.cartesian_plane.DefaultController;
 import net.net16.jeremiahlowe.scicalc.cartesian_plane.PlaneFactory;
 import net.net16.jeremiahlowe.scicalc.functions.std.BinaryFunction;
+import net.net16.jeremiahlowe.shared.math.Vector;
 
 public class Test extends BinaryFunction{
 	double a = 0;
@@ -29,11 +30,11 @@ public class Test extends BinaryFunction{
 		return 1000d;
 	}
 	@Override
-	public final double getThetaMin(){
+	public final double getThetaMin(Vector pixelSize, Vector domain, Vector range){
 		return 0;
 	}
 	@Override
-	public final double getThetaMax(){
+	public final double getThetaMax(Vector pixelSize, Vector domain, Vector range){
 		return 2 * Math.PI;
 	}
 	@Override
