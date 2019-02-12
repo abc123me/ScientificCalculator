@@ -68,7 +68,7 @@ public class CoordinatePlane extends JComponent{
 	private void drawUnbuffered(Graphics g, Vector pixelSize){
 		//Start drawing to graphics
 		Vector inc = Vector.div(viewport.getSize(), tickCount);
-		for(PlanePaintHandler pph : paintHandlers) pph.prePaint(this, g); //Draw paint handlers
+		for(PlanePaintHandler pph : paintHandlers) pph.prePaint(this, g); //Draw paint handlers		prePaint
 		if(drawGrid) drawAxisGrid(g, inc, pixelSize, surroundingOffset, lineWidth / 2);
 		//Heres where the bulk of time will be spent, this is where ALL points
 		//and functions are casted and drawn to the screen
@@ -78,11 +78,11 @@ public class CoordinatePlane extends JComponent{
 			functionManager.drawFunctions(this, g, pixelSize); //Draw functions
 		else
 			ignoreFunctionsFlag = false;
-		for(PlanePaintHandler pph : paintHandlers) pph.paint(this, g); //Draw paint handlers
+		for(PlanePaintHandler pph : paintHandlers) pph.paint(this, g); //Draw paint handlers		paint
 		//Done! Now we can move on to the less-important stuff
 		cpg.drawAxes(this, g, pixelSize, axesColor, surroundingOffset, lineWidth);
 		if(drawTicks) drawAxisTicks(g, inc, pixelSize, surroundingOffset);
-		for(PlanePaintHandler pph : paintHandlers) pph.postPaint(this, g); //Draw paint handlers
+		for(PlanePaintHandler pph : paintHandlers) pph.postPaint(this, g); //Draw paint handlers	postPaint
 	}
 	public void draw(Graphics g){
 		Vector size = new Vector(getWidth(), getHeight());
