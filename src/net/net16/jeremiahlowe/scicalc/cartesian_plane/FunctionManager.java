@@ -30,31 +30,21 @@ public class FunctionManager {
 	}
 	public void drawBinaryFunction(CoordinatePlane c, Graphics g, BinaryFunction f, Vector size, Vector pixelSize, Vector viewportSize, int surroundingOffset){
 		g.setColor(f.getColor());
-		//Build the point list
-		List<Vector> pointsL = new ArrayList<Vector>();
 		//Get the range of the equation
 		Vector cpd = c.getPlaneDomain().copy(), cpr = c.getPlaneRange().copy(), cpp = pixelSize.copy();
 		Vector range = new Vector((float) f.getThetaMin(cpp, cpd, cpr), (float) f.getThetaMax(cpp, cpd, cpr));
 		float incrementer = (float) f.getIncrementer(cpp, cpd, cpr);
 		//Build and cast the point list
+		List<Vector> pointsL = makePointList(c, f, range, incrementer, size, surroundingOffset);
+		//Finish up
+		finalDraw(g, pointsL, f, c.getWidth(), c.getHeight(), surroundingOffset);
+	}
+	public List<Vector> makePointList(CoordinatePlane c, BinaryFunction f, Vector range, float incrementer, Vector size, int surroundingOffset){
+		List<Vector> pointsL = new ArrayList<Vector>();
 		for(float i = range.x; i < range.y; i += incrementer){
 			if(!f.isFunctionDefined(i))
 				continue;
 			pointsL.add(c.castFromOrigin(f.asVector(i), size, surroundingOffset));
-		}
-		//Finish up
-		finalDraw(g, pointsL, f, c.getWidth(), c.getHeight(), surroundingOffset);
-	}
-	public List<Vector> makePointList(CoordinatePlane c, UnaryFunction f, boolean onX, Vector d, Vector size, int surroundingOffset, float inc){
-		List<Vector> pointsL = new ArrayList<Vector>();
-		for(float i = d.x; i < d.y; i += inc){
-			float ffi = (float) f.f(i);
-			float x = onX ? ffi : i, y = !onX ? ffi  : i; 
-			if(!f.isFunctionDefined(x))
-				continue;
-			if(Double.isNaN(ffi))
-				continue;
-			pointsL.add(c.castFromOrigin(new Vector(x, y), size, surroundingOffset));
 		}
 		return pointsL;
 	}

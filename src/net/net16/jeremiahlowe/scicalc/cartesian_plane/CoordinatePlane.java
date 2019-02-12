@@ -68,19 +68,21 @@ public class CoordinatePlane extends JComponent{
 	private void drawUnbuffered(Graphics g, Vector pixelSize){
 		//Start drawing to graphics
 		Vector inc = Vector.div(viewport.getSize(), tickCount);
-		for(PlanePaintHandler pph : paintHandlers) pph.prePaint(g); //Draw paint handlers
+		for(PlanePaintHandler pph : paintHandlers) pph.prePaint(this, g); //Draw paint handlers
 		if(drawGrid) drawAxisGrid(g, inc, pixelSize, surroundingOffset, lineWidth / 2);
 		//Heres where the bulk of time will be spent, this is where ALL points
 		//and functions are casted and drawn to the screen
 		for(Point p : points) if(p != null) 
 			drawPoint(p, g, pixelSize, surroundingOffset); //Draw points
-		if(!(ignoreFunctions || ignoreFunctionsFlag)) functionManager.drawFunctions(this, g, pixelSize); //Draw functions
-		else ignoreFunctionsFlag = false;
-		for(PlanePaintHandler pph : paintHandlers) pph.paint(g); //Draw paint handlers
+		if(!(ignoreFunctions || ignoreFunctionsFlag))
+			functionManager.drawFunctions(this, g, pixelSize); //Draw functions
+		else
+			ignoreFunctionsFlag = false;
+		for(PlanePaintHandler pph : paintHandlers) pph.paint(this, g); //Draw paint handlers
 		//Done! Now we can move on to the less-important stuff
 		cpg.drawAxes(this, g, pixelSize, axesColor, surroundingOffset, lineWidth);
 		if(drawTicks) drawAxisTicks(g, inc, pixelSize, surroundingOffset);
-		for(PlanePaintHandler pph : paintHandlers) pph.postPaint(g); //Draw paint handlers
+		for(PlanePaintHandler pph : paintHandlers) pph.postPaint(this, g); //Draw paint handlers
 	}
 	public void draw(Graphics g){
 		Vector size = new Vector(getWidth(), getHeight());
@@ -177,7 +179,18 @@ public class CoordinatePlane extends JComponent{
 		Vector v = castFromOrigin(p.position, size, surroundingOffset);
 		p.draw(g, v.getXInt(), v.getYInt(), p.size);
 	}
-	public Vector castFromOrigin(Vector point, Vector size, int surroundingOffset){
+	public Vector castSize(Vector s) {
+		Vector out = new Vector();
+		Vector size = new Vector(getWidth(), getHeight());
+		out.x = (s.x / viewport.w) * size.x;
+		out.y = (s.y / viewport.h) * size.y;
+		return out;
+	}
+	public Vector castPosition(Vector p) {
+		Vector size = new Vector(getWidth(), getHeight());
+		return castFromOrigin(p, size, getSurroundingOffset());
+	}
+	protected Vector castFromOrigin(Vector point, Vector size, int surroundingOffset){
 		Vector out = new Vector();
 		Vector origin = cpg.getPixelOrigin(size, surroundingOffset);
 		if(dotSize.x == 0 || dotSize.y == 0) recalculate();
